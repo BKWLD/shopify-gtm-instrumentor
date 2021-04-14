@@ -1,3 +1,6 @@
+# Deps
+import axios from 'axios'
+
 # Main class, which accepts configuration in it's constructor and exposes
 # helper methods
 export default class ShopifyGtmInstrumentor
@@ -5,16 +8,22 @@ export default class ShopifyGtmInstrumentor
 	# Save settings and hydrate vars
 	constructor: ({
 		@debug = false
+		@storeUrl = process.env.SHOPIFY_URL
+		@storefrontToken = process.env.SHOPIFY_STOREFONT_TOKEN
+		@currencyCode = 'USD'
 	} = {})->
 		@occurances = []
 
-	# Typically used for view of PDP page. If the payload is a string, it is
-	# treated as a Shopify id and the variant will be fetched via Storefront
-	# API. If an object, it's expected to be a Shopify variant is is mapped
-	# to the Product Data schema
-	viewProductDetails: (payload) ->
-		variant = if typeof payload == 'object' then payload
-		else @fetchVariant payload
+
+	# API #######################################################################
+
+	# Typically used for view of PDP page
+	viewProductDetails: (variantPayload) ->
+
+		# Get variant
+		variant = await @getVariantFromPayload variantPayload
+
+		# Fire event
 		@pushEvent 'View Product Details', {
 			...(flatVariant = @makeFlatVariant variant)
 			ecommerce: detail: products: [
@@ -22,12 +31,63 @@ export default class ShopifyGtmInstrumentor
 			]
 		}
 
+	# Used whenver there is a positive change in the quantity of a product in
+	# the cart.
+	addProductToCart: (variantPayload, quantity) ->
+		@updateQuantity variantPayload, quantity, 'Add to Cart', 'add'
+
+	# Used whenever there is a negative change in the quantity of a product in
+	# the cart.
+	removeProductFromCart: (variantPayload, quantity) ->
+		@updateQuantity variantPayload, quantity, 'Remove from Cart', 'remove'
+
+	# Used both fire the `Update Quantity` event but also as a helper for the
+	# add and remove methods.
+	updateQuantity: (variantPayload, quantity,
+		gtmEvent = 'Update Quantity', ecommerceAction) ->
+
+		# Get variant
+		variant = await @getVariantFromPayload variantPayload
+
+		# Fire the event
+		@pushEvent gtmEvent, {
+			...(flatVariant = @makeFlatVariant variant)
+
+			# Conditionally add enhanced ecommerce action
+			...(unless ecommerceAction then {} else {
+				ecommerce:
+					currencyCode: @currencyCode
+					[ecommerceAction]: products: [{
+						...@makeUaProductFieldObject flatVariant
+						quantity
+					}]
+			})
+
+		}
+
+	# DATA HELPERS ##############################################################
+
+	# Take a variantPayload, which may be an id or an object, and return the
+	# Shopify variant object, ideally with nsted product data.
+	getVariantFromPayload: (variantPayload) ->
+		if typeof variantPayload == 'object'
+		then variantPayload
+		else @fetchVariant variantPayload
+
+	# Lookup a product variant by id. Id may be a simple number or a
+	# gid://shopify string
+	fetchVariant: (variantId) ->
+		result = await @queryStorefrontApi
+			variables: id: btoa 'gid://shopify/ProductVariant/' + variantId
+			query: fetchVariantQuery
+		return result.node
+
 	# Make flat object from a variant with nested product data
 	makeFlatVariant: (variant) ->
 
 		# Variant level data
 		sku: variant.sku
-		variantId: variant.id
+		variantId: getShopifyId variant.id
 		variantTitle: variant.title
 		price: variant.price
 
@@ -48,10 +108,25 @@ export default class ShopifyGtmInstrumentor
 		variant: flatVariant.variantTitle
 		price: flatVariant.price
 
-	# Lookup a product variant by id. Id may be a simple number or a
-	# gid://shopify string
-	fetchVariant: (variantId) ->
-		throw 'fetchProductData not currently implemented'
+
+	# STOREFRONT API ############################################################
+
+	# Query Storefront API
+	queryStorefrontApi: (payload) ->
+		response = await axios
+			url: "#{@storeUrl}/api/2021-04/graphql"
+			method: 'post'
+			headers:
+				'Accept': 'application/json'
+				'Content-Type': 'application/json'
+				'X-Shopify-Storefront-Access-Token': @storefrontToken
+			data: payload
+		if response.data.errors
+		then throw new StorefrontError response.data.errors, payload
+		return response.data.data
+
+
+	# DATALAYER WRITING #########################################################
 
 	# Push GTM dataLayer event
 	pushEvent: (name, payload) ->
@@ -70,3 +145,40 @@ export default class ShopifyGtmInstrumentor
 		return false if eventName in @occurances
 		@occurances.push eventName
 		return true
+
+# NON-INSTANCE HELPERS ########################################################
+
+# Error object with custom handling
+class StorefrontError extends Error
+	name: 'StorefrontError'
+	constructor: (errors, payload) ->
+		super errors.map((e) -> e.debugMessage || e.message).join ', '
+		@errors = errors.map (e) -> JSON.stringify e
+		@payload = payload
+
+# Graphql query to fetch a variant by id
+fetchVariantQuery = '''
+	query ($id: ID!) {
+		node(id: $id) {
+			... on ProductVariant {
+				id
+				sku
+				title
+				price
+				product {
+					title
+					productType
+					vendor
+				}
+			}
+		}
+	}
+'''
+
+# Get the id from a Shoify gid:// style id.  This strips everything but the
+# last part of the string.  So gid://shopify/ProductVariant/34641879105581
+# becomes 34641879105581
+export getShopifyId = (id) ->
+	return id if String(id).match /^\d+$/ # Already simple id
+	id = atob id if id.match /^gid:\/\// # De-base64
+	return id.match(/\/(\w+)$/)?[1] # Get the id from the gid
