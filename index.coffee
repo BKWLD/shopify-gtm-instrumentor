@@ -62,7 +62,6 @@ export default class ShopifyGtmInstrumentor
 						quantity
 					}]
 			})
-
 		}
 
 	# DATA HELPERS ##############################################################
@@ -77,6 +76,7 @@ export default class ShopifyGtmInstrumentor
 	# Lookup a product variant by id. Id may be a simple number or a
 	# gid://shopify string
 	fetchVariant: (variantId) ->
+		variantId = getShopifyId variantId
 		result = await @queryStorefrontApi
 			variables: id: btoa 'gid://shopify/ProductVariant/' + variantId
 			query: fetchVariantQuery
@@ -180,5 +180,5 @@ fetchVariantQuery = '''
 # becomes 34641879105581
 export getShopifyId = (id) ->
 	return id if String(id).match /^\d+$/ # Already simple id
-	id = atob id if id.match /^gid:\/\// # De-base64
+	id = atob id unless id.match /^gid:\/\// # De-base64
 	return id.match(/\/(\w+)$/)?[1] # Get the id from the gid

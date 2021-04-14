@@ -199,7 +199,8 @@ var _default = ShopifyGtmInstrumentor = /*#__PURE__*/function () {
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
-                _context3.next = 2;
+                variantId = getShopifyId(variantId);
+                _context3.next = 3;
                 return this.queryStorefrontApi({
                   variables: {
                     id: btoa('gid://shopify/ProductVariant/' + variantId)
@@ -207,11 +208,11 @@ var _default = ShopifyGtmInstrumentor = /*#__PURE__*/function () {
                   query: fetchVariantQuery
                 });
 
-              case 2:
+              case 3:
                 result = _context3.sent;
                 return _context3.abrupt("return", result.node);
 
-              case 4:
+              case 5:
               case "end":
                 return _context3.stop();
             }
@@ -390,7 +391,7 @@ var getShopifyId = function getShopifyId(id) {
     return id;
   }
 
-  if (id.match(/^gid:\/\//)) {
+  if (!id.match(/^gid:\/\//)) {
     // De-base64
     id = atob(id);
   }
