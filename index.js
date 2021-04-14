@@ -99,8 +99,6 @@ var _default = ShopifyGtmInstrumentor = /*#__PURE__*/function () {
   }, {
     key: "pushEvent",
     value: function pushEvent(name, payload) {
-      console.log('pushEvent');
-
       if (this.debug) {
         console.debug("'".concat(name, "'"), payload);
       }

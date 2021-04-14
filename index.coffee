@@ -55,7 +55,6 @@ export default class ShopifyGtmInstrumentor
 
 	# Push GTM dataLayer event
 	pushEvent: (name, payload) ->
-		console.log 'pushEvent'
 		if @debug then console.debug "'#{name}'", payload
 		window.dataLayer = [] unless window.dataLayer
 		window.dataLayer.push {
