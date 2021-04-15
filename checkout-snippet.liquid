@@ -1,0 +1,21 @@
+{% comment %}
+	Export cart contents for shopify-gtm-instrumentor
+{% endcomment %}
+<script>
+	window.CHECKOUT_LINE_ITEMS = [];
+	{% for line_item in checkout.line_items %}
+		CHECKOUT_LINE_ITEMS.push({
+			variant: {
+				id: '{{ line_item.variant.id }}',
+				sku: '{{ line_item.variant.sku }}',
+				title: '{{ line_item.variant.title }}',
+				price: '{{ line_item.variant.price }}',
+			},
+			product: {
+				title: '{{ line_item.product.title }}',
+				type: '{{ line_item.product.type }}',
+				vendor: '{{ line_item.product.vendor }}',
+			},
+		});
+	{% endfor %}
+</script>

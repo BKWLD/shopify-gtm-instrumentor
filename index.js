@@ -175,7 +175,15 @@ var _default = ShopifyGtmInstrumentor = /*#__PURE__*/function () {
       }
 
       return updateQuantity;
-    }() // DATA HELPERS ##############################################################
+    }() // Notify of final checkout, using array of variant data from liquid
+
+  }, {
+    key: "purchase",
+    value: function purchase(lineItems) {
+      return this.pushEvent('Purchase', {
+        lineItems: lineItems
+      });
+    } // DATA HELPERS ##############################################################
     // Take a variantPayload, which may be an id or an object, and return the
     // Shopify variant object, ideally with nsted product data.
 
@@ -239,8 +247,8 @@ var _default = ShopifyGtmInstrumentor = /*#__PURE__*/function () {
         price: variant.price,
         // Product level info
         productTitle: (ref = variant.product) != null ? ref.title : void 0,
-        productVendor: (ref1 = variant.product) != null ? ref1.vendor : void 0,
-        productType: ((ref2 = variant.product) != null ? ref2.productType : void 0) || ((ref3 = variant.product) != null ? ref3.type : void 0)
+        productType: ((ref1 = variant.product) != null ? ref1.productType : void 0) || ((ref2 = variant.product) != null ? ref2.type : void 0),
+        productVendor: (ref3 = variant.product) != null ? ref3.vendor : void 0
       };
     } // Convert a Shopify variant object to a UA productFieldObject. I'm
     // comibing the product and variant name because that's what Shopify does

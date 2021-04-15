@@ -64,6 +64,10 @@ export default class ShopifyGtmInstrumentor
 			})
 		}
 
+	# Notify of final checkout, using array of variant data from liquid
+	purchase: (lineItems) -> @pushEvent 'Purchase', { lineItems }
+
+
 	# DATA HELPERS ##############################################################
 
 	# Take a variantPayload, which may be an id or an object, and return the
@@ -93,8 +97,8 @@ export default class ShopifyGtmInstrumentor
 
 		# Product level info
 		productTitle: variant.product?.title
-		productVendor: variant.product?.vendor
 		productType: variant.product?.productType || variant.product?.type
+		productVendor: variant.product?.vendor
 
 	# Convert a Shopify variant object to a UA productFieldObject. I'm
 	# comibing the product and variant name because that's what Shopify does
