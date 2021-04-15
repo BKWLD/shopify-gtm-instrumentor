@@ -45,17 +45,68 @@ The constructor takes these options:
 
 Implemented methods described below:
 
-#### [Product Detail Impressions](https://developers.google.com/tag-manager/enhanced-ecommerce#details)
+#### [Product Impressions](https://developers.google.com/tag-manager/enhanced-ecommerce#product-impressions)
 
 ```js
+gtmEcomm.productImpression(variantPayload, {
+  el: null, // DOM Element
+  list: null, // String
+  position: null, // String
+})
 ```
 
-The `variantPayload` argument can be either:
+Used any time a product is displayed, like a product card or the detail page.
 
-- A Shopify numeric id, in which case the full variant is looked up via the Storefront API
-- A Shopify `gid://shopify/ProductVariant/###` style id, which will also be looked up via Storefront API
-- A [Shopify ProductVariant object](https://shopify.dev/docs/storefront-api/reference/products/productvariant) with `product` property.
+- `variantPayload` - Either:
+  - A Shopify numeric id, in which case the full variant is looked up via the Storefront API
+  - A Shopify `gid://shopify/ProductVariant/###` style id, which will also be looked up via Storefront API
+  - A [Shopify ProductVariant object](https://shopify.dev/docs/storefront-api/reference/products/productvariant) with `product` property.
+
+- `options` - Has the following keys
+  - `el` - Optional DOM Element. If supplied, an IntersectionObserver will be attached to the element that triggers the event only once (and only once) the element has entered the viewport.
+  - `list` - Optional name of the list or collection to which the product belongs.
+  - `position` - Optional position in a list or collection.  If `el` is provided and `position` is undefined, defaults to the index of the element relative to it's parent.
+
+Pushes an object to the dataLayer that looks like:
+
+```js
+{
+  event: "Product Impression",
+  firstOccurance: true,
+  sku: "sku-abc",
+  variantId: 123,
+  variantTitle: "Black",
+  price: 18.99,
+  productTitle: "Great T-Shirt",
+  productType: "Shirts",
+  productVendor: "Bukwild",
+  ecommerce: {
+    impressions: [
+      {
+        id: "sku-abc",
+        name: "Great T-Shirt - Black",
+        brand: "Bukwild",
+        category: "Shirts",
+        variant: "Black",
+        price: 18.99
+        list: 'Shirts Collection',
+        position: 3
+      }
+    ]
+  }
+}
+```
+
+
+#### [Product Detail Impressions](https://developers.google.com/tag-manager/enhanced-ecommerce#details)
+
+Used on product detail pages whenever the variant changes.
+
+```js
 gtmEcomm.productDetail(variantPayload)
+```
+
+- `variantPayload` - See above
 
 Pushes an object to the dataLayer that looks like:
 

@@ -17,11 +17,31 @@ export default class ShopifyGtmInstrumentor
 
 	# API #######################################################################
 
+	# A view of an element
+	productImpression: (variantPayload, { el, list, position } = {}) ->
+
+		# Get variant
+		return unless variant = await @getVariantFromPayload variantPayload
+
+		# Make defaults
+		position = getElPosition el if el and !position?
+
+		# Fire event
+		eventPusher = => @pushEvent 'Product Impression', {
+			...(flatVariant = @makeFlatVariant variant)
+			ecommerce: impressions: [{
+				...@makeUaProductFieldObject flatVariant
+				list
+				position
+			}]
+		}
+		if el then whenFirstInViewport el, eventPusher else eventPusher()
+
 	# Typically used for view of PDP page
 	productDetail: (variantPayload) ->
 
 		# Get variant
-		variant = await @getVariantFromPayload variantPayload
+		return unless variant = await @getVariantFromPayload variantPayload
 
 		# Fire event
 		@pushEvent 'View Product Details', {
@@ -47,7 +67,7 @@ export default class ShopifyGtmInstrumentor
 		gtmEvent = 'Update Quantity', ecommerceAction) ->
 
 		# Get variant
-		variant = await @getVariantFromPayload variantPayload
+		return unless variant = await @getVariantFromPayload variantPayload
 
 		# Fire the event
 		@pushEvent gtmEvent, {
@@ -73,9 +93,15 @@ export default class ShopifyGtmInstrumentor
 	# Take a variantPayload, which may be an id or an object, and return the
 	# Shopify variant object, ideally with nsted product data.
 	getVariantFromPayload: (variantPayload) ->
-		if typeof variantPayload == 'object'
+
+		# Conditioally fetch from storefront API
+		variant = if typeof variantPayload == 'object'
 		then variantPayload
-		else @fetchVariant variantPayload
+		else await @fetchVariant variantPayload
+
+		# Validate the variant and return
+		unless variant then console.error 'Variant not found', variantPayload
+		return variant
 
 	# Lookup a product variant by id. Id may be a simple number or a
 	# gid://shopify string
@@ -182,7 +208,24 @@ fetchVariantQuery = '''
 # Get the id from a Shoify gid:// style id.  This strips everything but the
 # last part of the string.  So gid://shopify/ProductVariant/34641879105581
 # becomes 34641879105581
-export getShopifyId = (id) ->
+getShopifyId = (id) ->
 	return id if String(id).match /^\d+$/ # Already simple id
 	id = atob id unless id.match /^gid:\/\// # De-base64
 	return id.match(/\/(\w+)$/)?[1] # Get the id from the gid
+
+# Get the position of an element with respect to it's parent
+# https://stackoverflow.com/a/5913984/59160
+getElPosition = (el) ->
+	i = 0
+	while (el = el.previousElementSibling) != null then i++
+	return i
+
+# Fire callback when in viewport. Not exposing a way to manually disconnect or
+# unobserve because it _should_ be garbage collected when el is removed.
+# https://stackoverflow.com/a/51106262/59160
+whenFirstInViewport = (el, callback) ->
+	observer = new IntersectionObserver ([{ isIntersecting }]) ->
+		return unless isIntersecting
+		observer.disconnect()
+		callback()
+	observer.observe el
