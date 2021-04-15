@@ -32,7 +32,7 @@ Instantiate this package like:
 
 ```js
 const gtmEcomm = new ShopifyGtmInstrumentor({
-	currencyCode: 'EUR'
+  currencyCode: 'EUR'
 })
 ```
 
@@ -61,29 +61,29 @@ Pushes an object to the dataLayer that looks like:
 
 ```js
 {
-	event: "View Product Details",
-	firstOccurance: true,
-	sku: "sku-abc",
-	variantId: 123,
-	variantTitle: "Black",
-	price: 18.99,
-	productTitle: "Great T-Shirt",
-	productType: "Shirts",
-	productVendor: "Bukwild",
-	ecommerce: {
-		detail: {
-			products: [
-				{
-					id: "sku-abc",
-					name: "Great T-Shirt - Black",
-					brand: "Bukwild",
-					category: "Shirts",
-					variant: "Black",
-					price: 18.99
-				}
-			]
-		}
-	}
+  event: "View Product Details",
+  firstOccurance: true,
+  sku: "sku-abc",
+  variantId: 123,
+  variantTitle: "Black",
+  price: 18.99,
+  productTitle: "Great T-Shirt",
+  productType: "Shirts",
+  productVendor: "Bukwild",
+  ecommerce: {
+    detail: {
+      products: [
+        {
+          id: "sku-abc",
+          name: "Great T-Shirt - Black",
+          brand: "Bukwild",
+          category: "Shirts",
+          variant: "Black",
+          price: 18.99
+        }
+      ]
+    }
+  }
 }
 ```
 
@@ -102,31 +102,31 @@ Pushes an object to the dataLayer that looks like:
 
 ```js
 {
-	event: "Add to Cart",
-	firstOccurance: true,
-	sku: "sku-abc",
-	variantId: 123,
-	variantTitle: "Black",
-	price: 18.99,
-	productTitle: "Great T-Shirt",
-	productType: "Shirts",
-	productVendor: "Bukwild",
-	ecommerce: {
-		add: {
-			currencyCode: "USD",
-			products: [
-				{
-					id: "sku-abc",
-					name: "Great T-Shirt - Black",
-					brand: "Bukwild",
-					category: "Shirts",
-					variant: "Black",
-					price: 18.99,
-					quantity: 1
-				}
-			]
-		}
-	}
+  event: "Add to Cart",
+  firstOccurance: true,
+  sku: "sku-abc",
+  variantId: 123,
+  variantTitle: "Black",
+  price: 18.99,
+  productTitle: "Great T-Shirt",
+  productType: "Shirts",
+  productVendor: "Bukwild",
+  ecommerce: {
+    add: {
+      currencyCode: "USD",
+      products: [
+        {
+          id: "sku-abc",
+          name: "Great T-Shirt - Black",
+          brand: "Bukwild",
+          category: "Shirts",
+          variant: "Black",
+          price: 18.99,
+          quantity: 1
+        }
+      ]
+    }
+  }
 }
 ```
 
@@ -134,31 +134,31 @@ _or_ like this
 
 ```js
 {
-	event: "Remove from Cart",
-	firstOccurance: true,
-	sku: "sku-abc",
-	variantId: 123,
-	variantTitle: "Black",
-	price: 18.99,
-	productTitle: "Great T-Shirt",
-	productType: "Shirts",
-	productVendor: "Bukwild",
-	ecommerce: {
-		remove: {
-			currencyCode: "USD",
-			products: [
-				{
-					id: "sku-abc",
-					name: "Great T-Shirt - Black",
-					brand: "Bukwild",
-					category: "Shirts",
-					variant: "Black",
-					price: 18.99,
-					quantity: 1
-				}
-			]
-		}
-	}
+  event: "Remove from Cart",
+  firstOccurance: true,
+  sku: "sku-abc",
+  variantId: 123,
+  variantTitle: "Black",
+  price: 18.99,
+  productTitle: "Great T-Shirt",
+  productType: "Shirts",
+  productVendor: "Bukwild",
+  ecommerce: {
+    remove: {
+      currencyCode: "USD",
+      products: [
+        {
+          id: "sku-abc",
+          name: "Great T-Shirt - Black",
+          brand: "Bukwild",
+          category: "Shirts",
+          variant: "Black",
+          price: 18.99,
+          quantity: 1
+        }
+      ]
+    }
+  }
 }
 ```
 
@@ -178,22 +178,22 @@ It creates a payload like:
 
 ```js
 {
-	event: 'Purchase'
-	lineItems: [
-		{
-			quantity: 1,
-			variant: {
-				id: 123,
-				sku: 'sku-abc',
-				title: 'Black',
-				price: '18.99',
-			},
-			product: {
-				title: 'Great T-Shirt',
-				type: 'Shirt',
-				vendor: 'Bukwild',
-			},
-		}
-	]
+  event: 'Purchase'
+  lineItems: [
+    {
+      quantity: 1,
+      variant: {
+        id: 123,
+        sku: 'sku-abc',
+        title: 'Black',
+        price: '18.99',
+      },
+      product: {
+        title: 'Great T-Shirt',
+        type: 'Shirt',
+        vendor: 'Bukwild',
+      },
+    }
+  ]
 }
 ```
