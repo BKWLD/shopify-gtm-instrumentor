@@ -98,6 +98,55 @@ Pushes an object to the dataLayer that looks like:
 ```
 
 
+#### [Product Clicks](https://developers.google.com/tag-manager/enhanced-ecommerce#product-clicks)
+
+```js
+gtmEcomm.productClick(variantPayload, options)
+```
+
+Used when a user clicks on a product, like to go to it's detail view.
+
+- `variantPayload` - Described above
+
+- `options` - Supports the following keys:
+  - `el` - Optional DOM Element. If supplied, will be used to calulate the `position` by comparing the element's index relative it's parent.
+  - `list` - Optional name of the list or collection to which the product belongs.
+  - `position` - Optional position in a list or collection, 1-based.
+  - `clickEvent` - Optionally pass the click event object here to wait to change page until the event has been pushed.
+
+Pushes an object to the dataLayer that looks like:
+
+```js
+{
+  event: "Product Click",
+  firstOccurance: true,
+  sku: "sku-abc",
+  variantId: 123,
+  variantTitle: "Black",
+  price: 18.99,
+  productTitle: "Great T-Shirt",
+  productType: "Shirts",
+  productVendor: "Bukwild",
+  ecommerce: {
+    click: {
+      actionField: { list: 'Shirts Collection'},
+      products: [
+        {
+          id: "sku-abc",
+          name: "Great T-Shirt - Black",
+          brand: "Bukwild",
+          category: "Shirts",
+          variant: "Black",
+          price: 18.99
+          position: 3
+        }
+      ]
+    }
+  }
+}
+```
+
+
 #### [Product Detail Impressions](https://developers.google.com/tag-manager/enhanced-ecommerce#details)
 
 Used on product detail pages whenever the variant changes.

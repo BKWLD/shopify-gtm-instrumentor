@@ -71,7 +71,7 @@ var _default = ShopifyGtmInstrumentor = /*#__PURE__*/function () {
     this.currencyCode = currencyCode;
     this.occurances = [];
   } // API #######################################################################
-  // A view of an element
+  // A view of a product element
 
 
   (0, _createClass2["default"])(ShopifyGtmInstrumentor, [{
@@ -146,30 +146,113 @@ var _default = ShopifyGtmInstrumentor = /*#__PURE__*/function () {
       }
 
       return productImpression;
-    }() // Typically used for view of PDP page
+    }() // A click on a product
 
   }, {
-    key: "productDetail",
+    key: "productClick",
     value: function () {
-      var _productDetail = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee2(variantPayload) {
-        var flatVariant, variant;
+      var _productClick = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee2(variantPayload) {
+        var _ref3,
+            el,
+            list,
+            position,
+            clickEvent,
+            clickUrl,
+            flatVariant,
+            ref,
+            variant,
+            _args2 = arguments;
+
         return _regenerator["default"].wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                _context2.next = 2;
+                _ref3 = _args2.length > 1 && _args2[1] !== undefined ? _args2[1] : {}, el = _ref3.el, list = _ref3.list, position = _ref3.position, clickEvent = _ref3.clickEvent;
+
+                // Prevent navigation
+                if (clickUrl = clickEvent != null ? (ref = clickEvent.currentTarget) != null ? ref.href : void 0 : void 0) {
+                  if (clickEvent != null) {
+                    clickEvent.preventDefault();
+                  }
+                } // Get variant
+
+
+                _context2.next = 4;
                 return this.getVariantFromPayload(variantPayload);
 
-              case 2:
+              case 4:
                 if (variant = _context2.sent) {
-                  _context2.next = 4;
+                  _context2.next = 6;
                   break;
                 }
 
                 return _context2.abrupt("return");
 
+              case 6:
+                if (el && position == null) {
+                  // Make defaults
+                  position = getElPosition(el);
+                } // Fire event
+
+
+                this.pushEvent('Product Click', _objectSpread(_objectSpread({}, flatVariant = this.makeFlatVariant(variant)), {}, {
+                  ecommerce: {
+                    click: _objectSpread(_objectSpread({}, !list ? {} : {
+                      actionField: {
+                        list: list
+                      }
+                    }), {}, {
+                      products: [_objectSpread(_objectSpread({}, this.makeUaProductFieldObject(flatVariant)), {}, {
+                        position: position
+                      })]
+                    })
+                  }
+                })); // Finish navigation
+
+                if (!clickUrl) {
+                  _context2.next = 10;
+                  break;
+                }
+
+                return _context2.abrupt("return", window.location = clickUrl);
+
+              case 10:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2, this);
+      }));
+
+      function productClick(_x2) {
+        return _productClick.apply(this, arguments);
+      }
+
+      return productClick;
+    }() // Typically used for view of PDP page
+
+  }, {
+    key: "viewProductDetails",
+    value: function () {
+      var _viewProductDetails = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee3(variantPayload) {
+        var flatVariant, variant;
+        return _regenerator["default"].wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                _context3.next = 2;
+                return this.getVariantFromPayload(variantPayload);
+
+              case 2:
+                if (variant = _context3.sent) {
+                  _context3.next = 4;
+                  break;
+                }
+
+                return _context3.abrupt("return");
+
               case 4:
-                return _context2.abrupt("return", this.pushEvent('View Product Details', _objectSpread(_objectSpread({}, flatVariant = this.makeFlatVariant(variant)), {}, {
+                return _context3.abrupt("return", this.pushEvent('View Product Details', _objectSpread(_objectSpread({}, flatVariant = this.makeFlatVariant(variant)), {}, {
                   ecommerce: {
                     detail: {
                       products: [this.makeUaProductFieldObject(flatVariant)]
@@ -179,17 +262,17 @@ var _default = ShopifyGtmInstrumentor = /*#__PURE__*/function () {
 
               case 5:
               case "end":
-                return _context2.stop();
+                return _context3.stop();
             }
           }
-        }, _callee2, this);
+        }, _callee3, this);
       }));
 
-      function productDetail(_x2) {
-        return _productDetail.apply(this, arguments);
+      function viewProductDetails(_x3) {
+        return _viewProductDetails.apply(this, arguments);
       }
 
-      return productDetail;
+      return viewProductDetails;
     }() // Used whenver there is a positive change in the quantity of a product in
     // the cart.
 
@@ -210,31 +293,31 @@ var _default = ShopifyGtmInstrumentor = /*#__PURE__*/function () {
   }, {
     key: "updateQuantity",
     value: function () {
-      var _updateQuantity = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee3(variantPayload, quantity) {
+      var _updateQuantity = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee4(variantPayload, quantity) {
         var gtmEvent,
             ecommerceAction,
             flatVariant,
             variant,
-            _args3 = arguments;
-        return _regenerator["default"].wrap(function _callee3$(_context3) {
+            _args4 = arguments;
+        return _regenerator["default"].wrap(function _callee4$(_context4) {
           while (1) {
-            switch (_context3.prev = _context3.next) {
+            switch (_context4.prev = _context4.next) {
               case 0:
-                gtmEvent = _args3.length > 2 && _args3[2] !== undefined ? _args3[2] : 'Update Quantity';
-                ecommerceAction = _args3.length > 3 ? _args3[3] : undefined;
-                _context3.next = 4;
+                gtmEvent = _args4.length > 2 && _args4[2] !== undefined ? _args4[2] : 'Update Quantity';
+                ecommerceAction = _args4.length > 3 ? _args4[3] : undefined;
+                _context4.next = 4;
                 return this.getVariantFromPayload(variantPayload);
 
               case 4:
-                if (variant = _context3.sent) {
-                  _context3.next = 6;
+                if (variant = _context4.sent) {
+                  _context4.next = 6;
                   break;
                 }
 
-                return _context3.abrupt("return");
+                return _context4.abrupt("return");
 
               case 6:
-                return _context3.abrupt("return", this.pushEvent(gtmEvent, _objectSpread(_objectSpread({}, flatVariant = this.makeFlatVariant(variant)), !ecommerceAction ? {} : {
+                return _context4.abrupt("return", this.pushEvent(gtmEvent, _objectSpread(_objectSpread({}, flatVariant = this.makeFlatVariant(variant)), !ecommerceAction ? {} : {
                   ecommerce: (0, _defineProperty2["default"])({
                     currencyCode: this.currencyCode
                   }, ecommerceAction, {
@@ -246,13 +329,13 @@ var _default = ShopifyGtmInstrumentor = /*#__PURE__*/function () {
 
               case 7:
               case "end":
-                return _context3.stop();
+                return _context4.stop();
             }
           }
-        }, _callee3, this);
+        }, _callee4, this);
       }));
 
-      function updateQuantity(_x3, _x4) {
+      function updateQuantity(_x4, _x5) {
         return _updateQuantity.apply(this, arguments);
       }
 
@@ -272,47 +355,47 @@ var _default = ShopifyGtmInstrumentor = /*#__PURE__*/function () {
   }, {
     key: "getVariantFromPayload",
     value: function () {
-      var _getVariantFromPayload = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee4(variantPayload) {
+      var _getVariantFromPayload = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee5(variantPayload) {
         var variant;
-        return _regenerator["default"].wrap(function _callee4$(_context4) {
+        return _regenerator["default"].wrap(function _callee5$(_context5) {
           while (1) {
-            switch (_context4.prev = _context4.next) {
+            switch (_context5.prev = _context5.next) {
               case 0:
                 if (!((0, _typeof2["default"])(variantPayload) === 'object')) {
-                  _context4.next = 4;
+                  _context5.next = 4;
                   break;
                 }
 
-                _context4.t0 = variantPayload;
-                _context4.next = 7;
+                _context5.t0 = variantPayload;
+                _context5.next = 7;
                 break;
 
               case 4:
-                _context4.next = 6;
+                _context5.next = 6;
                 return this.fetchVariant(variantPayload);
 
               case 6:
-                _context4.t0 = _context4.sent;
+                _context5.t0 = _context5.sent;
 
               case 7:
-                variant = _context4.t0;
+                variant = _context5.t0;
 
                 // Validate the variant and return
                 if (!variant) {
                   console.error('Variant not found', variantPayload);
                 }
 
-                return _context4.abrupt("return", variant);
+                return _context5.abrupt("return", variant);
 
               case 10:
               case "end":
-                return _context4.stop();
+                return _context5.stop();
             }
           }
-        }, _callee4, this);
+        }, _callee5, this);
       }));
 
-      function getVariantFromPayload(_x5) {
+      function getVariantFromPayload(_x6) {
         return _getVariantFromPayload.apply(this, arguments);
       }
 
@@ -323,14 +406,14 @@ var _default = ShopifyGtmInstrumentor = /*#__PURE__*/function () {
   }, {
     key: "fetchVariant",
     value: function () {
-      var _fetchVariant = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee5(variantId) {
+      var _fetchVariant = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee6(variantId) {
         var result;
-        return _regenerator["default"].wrap(function _callee5$(_context5) {
+        return _regenerator["default"].wrap(function _callee6$(_context6) {
           while (1) {
-            switch (_context5.prev = _context5.next) {
+            switch (_context6.prev = _context6.next) {
               case 0:
                 variantId = getShopifyId(variantId);
-                _context5.next = 3;
+                _context6.next = 3;
                 return this.queryStorefrontApi({
                   variables: {
                     id: btoa('gid://shopify/ProductVariant/' + variantId)
@@ -339,18 +422,18 @@ var _default = ShopifyGtmInstrumentor = /*#__PURE__*/function () {
                 });
 
               case 3:
-                result = _context5.sent;
-                return _context5.abrupt("return", result.node);
+                result = _context6.sent;
+                return _context6.abrupt("return", result.node);
 
               case 5:
               case "end":
-                return _context5.stop();
+                return _context6.stop();
             }
           }
-        }, _callee5, this);
+        }, _callee6, this);
       }));
 
-      function fetchVariant(_x6) {
+      function fetchVariant(_x7) {
         return _fetchVariant.apply(this, arguments);
       }
 
@@ -394,13 +477,13 @@ var _default = ShopifyGtmInstrumentor = /*#__PURE__*/function () {
   }, {
     key: "queryStorefrontApi",
     value: function () {
-      var _queryStorefrontApi = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee6(payload) {
+      var _queryStorefrontApi = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee7(payload) {
         var response;
-        return _regenerator["default"].wrap(function _callee6$(_context6) {
+        return _regenerator["default"].wrap(function _callee7$(_context7) {
           while (1) {
-            switch (_context6.prev = _context6.next) {
+            switch (_context7.prev = _context7.next) {
               case 0:
-                _context6.next = 2;
+                _context7.next = 2;
                 return (0, _axios["default"])({
                   url: "".concat(this.storeUrl, "/api/2021-04/graphql"),
                   method: 'post',
@@ -413,27 +496,27 @@ var _default = ShopifyGtmInstrumentor = /*#__PURE__*/function () {
                 });
 
               case 2:
-                response = _context6.sent;
+                response = _context7.sent;
 
                 if (!response.data.errors) {
-                  _context6.next = 5;
+                  _context7.next = 5;
                   break;
                 }
 
                 throw new StorefrontError(response.data.errors, payload);
 
               case 5:
-                return _context6.abrupt("return", response.data.data);
+                return _context7.abrupt("return", response.data.data);
 
               case 6:
               case "end":
-                return _context6.stop();
+                return _context7.stop();
             }
           }
-        }, _callee6, this);
+        }, _callee7, this);
       }));
 
-      function queryStorefrontApi(_x7) {
+      function queryStorefrontApi(_x8) {
         return _queryStorefrontApi.apply(this, arguments);
       }
 
@@ -531,7 +614,7 @@ getShopifyId = function getShopifyId(id) {
 
 getElPosition = function getElPosition(el) {
   var i;
-  i = 0;
+  i = 1; // The first position will be `1`
 
   while ((el = el.previousElementSibling) !== null) {
     i++;
@@ -545,9 +628,9 @@ getElPosition = function getElPosition(el) {
 
 whenFirstInViewport = function whenFirstInViewport(el, callback) {
   var observer;
-  observer = new IntersectionObserver(function (_ref3) {
-    var _ref4 = (0, _slicedToArray2["default"])(_ref3, 1),
-        isIntersecting = _ref4[0].isIntersecting;
+  observer = new IntersectionObserver(function (_ref4) {
+    var _ref5 = (0, _slicedToArray2["default"])(_ref4, 1),
+        isIntersecting = _ref5[0].isIntersecting;
 
     if (!isIntersecting) {
       return;

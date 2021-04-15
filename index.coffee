@@ -17,7 +17,7 @@ export default class ShopifyGtmInstrumentor
 
 	# API #######################################################################
 
-	# A view of an element
+	# A view of a product element
 	productImpression: (variantPayload, { el, list, position } = {}) ->
 
 		# Get variant
@@ -36,6 +36,36 @@ export default class ShopifyGtmInstrumentor
 			}]
 		}
 		if el then whenFirstInViewport el, eventPusher else eventPusher()
+
+	# A click on a product
+	productClick: (variantPayload, { el, list, position, clickEvent } = {}) ->
+
+		# Prevent navigation
+		if clickUrl = clickEvent?.currentTarget?.href
+		then clickEvent?.preventDefault()
+
+		# Get variant
+		return unless variant = await @getVariantFromPayload variantPayload
+
+		# Make defaults
+		position = getElPosition el if el and !position?
+
+		# Fire event
+		@pushEvent 'Product Click', {
+			...(flatVariant = @makeFlatVariant variant)
+			ecommerce: click: {
+				...(unless list then {} else {
+					actionField: { list }
+				})
+				products: [{
+					...@makeUaProductFieldObject flatVariant
+					position
+				}]
+			}
+		}
+
+		# Finish navigation
+		if clickUrl then window.location = clickUrl
 
 	# Typically used for view of PDP page
 	viewProductDetails: (variantPayload) ->
