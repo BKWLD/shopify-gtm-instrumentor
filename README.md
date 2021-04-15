@@ -60,7 +60,7 @@ gtmEcomm.productImpression(variantPayload, {
 - `variantPayload` - Either:
   - A Shopify numeric id, in which case the full variant is looked up via the Storefront API
   - A Shopify `gid://shopify/ProductVariant/###` style id, which will also be looked up via Storefront API
-  - A [Shopify ProductVariant object](https://shopify.dev/docs/storefront-api/reference/products/productvariant) with `product` property.
+  - A [Shopify ProductVariant object](https://shopify.dev/docs/storefront-api/reference/products/productvariant) with `product` property.  _Not recommended since it requires particular fields to be present._
 
 - `options` - Supports the following keys
   - `el` - Optional DOM Element. If supplied, an IntersectionObserver will be attached to the element that triggers the event only once (and only once) the element has entered the viewport.
@@ -76,10 +76,14 @@ Pushes an object to the dataLayer that looks like:
   sku: "sku-abc",
   variantId: 123,
   variantTitle: "Black",
+  variantImage: "https://cdn.shopify.com/s/files/...",
+  variantUrl: "https://www.shop.com/product/great-t-shirt?variant=123",
   price: 18.99,
+  compareAtPrice: 16.99,
   productTitle: "Great T-Shirt",
   productType: "Shirts",
   productVendor: "Bukwild",
+  productUrl: "https://www.shop.com/product/great-t-shirt",
   ecommerce: {
     impressions: [
       {
@@ -123,10 +127,14 @@ Pushes an object to the dataLayer that looks like:
   sku: "sku-abc",
   variantId: 123,
   variantTitle: "Black",
+  variantImage: "https://cdn.shopify.com/s/files/...",
+  variantUrl: "https://www.shop.com/product/great-t-shirt?variant=123",
   price: 18.99,
+  compareAtPrice: 16.99,
   productTitle: "Great T-Shirt",
   productType: "Shirts",
   productVendor: "Bukwild",
+  productUrl: "https://www.shop.com/product/great-t-shirt",
   ecommerce: {
     click: {
       actionField: { list: 'Shirts Collection'},
@@ -166,10 +174,14 @@ Pushes an object to the dataLayer that looks like:
   sku: "sku-abc",
   variantId: 123,
   variantTitle: "Black",
+  variantImage: "https://cdn.shopify.com/s/files/...",
+  variantUrl: "https://www.shop.com/product/great-t-shirt?variant=123",
   price: 18.99,
+  compareAtPrice: 16.99,
   productTitle: "Great T-Shirt",
   productType: "Shirts",
   productVendor: "Bukwild",
+  productUrl: "https://www.shop.com/product/great-t-shirt",
   ecommerce: {
     detail: {
       products: [
@@ -212,10 +224,14 @@ Pushes an object to the dataLayer that looks like:
   sku: "sku-abc",
   variantId: 123,
   variantTitle: "Black",
+  variantImage: "https://cdn.shopify.com/s/files/...",
+  variantUrl: "https://www.shop.com/product/great-t-shirt?variant=123",
   price: 18.99,
+  compareAtPrice: 16.99,
   productTitle: "Great T-Shirt",
   productType: "Shirts",
   productVendor: "Bukwild",
+  productUrl: "https://www.shop.com/product/great-t-shirt",
   ecommerce: {
     add: {
       currencyCode: "USD",
@@ -244,10 +260,14 @@ _or_ like this
   sku: "sku-abc",
   variantId: 123,
   variantTitle: "Black",
+  variantImage: "https://cdn.shopify.com/s/files/...",
+  variantUrl: "https://www.shop.com/product/great-t-shirt?variant=123",
   price: 18.99,
+  compareAtPrice: 16.99,
   productTitle: "Great T-Shirt",
   productType: "Shirts",
   productVendor: "Bukwild",
+  productUrl: "https://www.shop.com/product/great-t-shirt",
   ecommerce: {
     remove: {
       currencyCode: "USD",

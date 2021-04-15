@@ -5,7 +5,7 @@ var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefau
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports["default"] = void 0;
+exports.fetchVariantQuery = exports["default"] = void 0;
 
 var _regenerator = _interopRequireDefault(require("@babel/runtime/regenerator"));
 
@@ -43,7 +43,6 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 // Deps
 var ShopifyGtmInstrumentor,
     StorefrontError,
-    fetchVariantQuery,
     getElPosition,
     getShopifyId,
     whenFirstInViewport,
@@ -443,17 +442,22 @@ var _default = ShopifyGtmInstrumentor = /*#__PURE__*/function () {
   }, {
     key: "makeFlatVariant",
     value: function makeFlatVariant(variant) {
-      var ref, ref1, ref2, ref3;
+      var product, productUrl, ref, variantId;
+      product = variant.product;
       return {
+        // Product level info
+        productTitle: product.title,
+        productType: product.productType || product.type,
+        productVendor: product.vendor,
+        productUrl: productUrl = "".concat(this.storeUrl, "/products/").concat(product.handle),
         // Variant level data
         sku: variant.sku,
-        variantId: getShopifyId(variant.id),
-        variantTitle: variant.title,
         price: variant.price,
-        // Product level info
-        productTitle: (ref = variant.product) != null ? ref.title : void 0,
-        productType: ((ref1 = variant.product) != null ? ref1.productType : void 0) || ((ref2 = variant.product) != null ? ref2.type : void 0),
-        productVendor: (ref3 = variant.product) != null ? ref3.vendor : void 0
+        compareAtPrice: variant.compareAtPrice,
+        variantId: variantId = getShopifyId(variant.id),
+        variantTitle: variant.title,
+        variantImage: (ref = variant.image) != null ? ref.originalSrc : void 0,
+        variantUrl: "".concat(productUrl, "?variant=").concat(variantId)
       };
     } // Convert a Shopify variant object to a UA productFieldObject. I'm
     // comibing the product and variant name because that's what Shopify does
@@ -590,9 +594,11 @@ StorefrontError = function () {
 }.call(void 0); // Graphql query to fetch a variant by id
 
 
-fetchVariantQuery = "query ($id: ID!) {\n\tnode(id: $id) {\n\t\t... on ProductVariant {\n\t\t\tid\n\t\t\tsku\n\t\t\ttitle\n\t\t\tprice\n\t\t\tproduct {\n\t\t\t\ttitle\n\t\t\t\tproductType\n\t\t\t\tvendor\n\t\t\t}\n\t\t}\n\t}\n}"; // Get the id from a Shoify gid:// style id.  This strips everything but the
+var fetchVariantQuery = "query ($id: ID!) {\n\tnode(id: $id) {\n\t\t... on ProductVariant {\n\t\t\tid\n\t\t\tsku\n\t\t\ttitle\n\t\t\tprice\n\t\t\tcompareAtPrice\n\t\t\timage { originalSrc }\n\t\t\tproduct {\n\t\t\t\ttitle\n\t\t\t\thandle\n\t\t\t\tproductType\n\t\t\t\tvendor\n\t\t\t}\n\t\t}\n\t}\n}"; // Get the id from a Shoify gid:// style id.  This strips everything but the
 // last part of the string.  So gid://shopify/ProductVariant/34641879105581
 // becomes 34641879105581
+
+exports.fetchVariantQuery = fetchVariantQuery;
 
 getShopifyId = function getShopifyId(id) {
   var ref;

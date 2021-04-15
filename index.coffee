@@ -144,17 +144,22 @@ export default class ShopifyGtmInstrumentor
 
 	# Make flat object from a variant with nested product data
 	makeFlatVariant: (variant) ->
+		product = variant.product
+
+		# Product level info
+		productTitle: product.title
+		productType: product.productType || product.type
+		productVendor: product.vendor
+		productUrl: (productUrl = "#{@storeUrl}/products/#{product.handle}")
 
 		# Variant level data
 		sku: variant.sku
-		variantId: getShopifyId variant.id
-		variantTitle: variant.title
 		price: variant.price
-
-		# Product level info
-		productTitle: variant.product?.title
-		productType: variant.product?.productType || variant.product?.type
-		productVendor: variant.product?.vendor
+		compareAtPrice: variant.compareAtPrice
+		variantId: (variantId = getShopifyId variant.id)
+		variantTitle: variant.title
+		variantImage: variant.image?.originalSrc
+		variantUrl: "#{productUrl}?variant=#{variantId}"
 
 	# Convert a Shopify variant object to a UA productFieldObject. I'm
 	# comibing the product and variant name because that's what Shopify does
@@ -217,7 +222,7 @@ class StorefrontError extends Error
 		@payload = payload
 
 # Graphql query to fetch a variant by id
-fetchVariantQuery = '''
+export fetchVariantQuery = '''
 	query ($id: ID!) {
 		node(id: $id) {
 			... on ProductVariant {
@@ -225,8 +230,11 @@ fetchVariantQuery = '''
 				sku
 				title
 				price
+				compareAtPrice
+				image { originalSrc }
 				product {
 					title
+					handle
 					productType
 					vendor
 				}
