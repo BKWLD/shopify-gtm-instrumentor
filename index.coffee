@@ -38,7 +38,7 @@ export default class ShopifyGtmInstrumentor
 		if el then whenFirstInViewport el, eventPusher else eventPusher()
 
 	# Typically used for view of PDP page
-	productDetail: (variantPayload) ->
+	viewProductDetails: (variantPayload) ->
 
 		# Get variant
 		return unless variant = await @getVariantFromPayload variantPayload

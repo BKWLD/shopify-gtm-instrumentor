@@ -103,7 +103,7 @@ Pushes an object to the dataLayer that looks like:
 Used on product detail pages whenever the variant changes.
 
 ```js
-gtmEcomm.productDetail(variantPayload)
+gtmEcomm.viewProductDetails(variantPayload)
 ```
 
 - `variantPayload` - See above
