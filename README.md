@@ -47,6 +47,8 @@ Implemented methods described below:
 
 #### [Product Impressions](https://developers.google.com/tag-manager/enhanced-ecommerce#product-impressions)
 
+Used any time a product is displayed, like a product card.
+
 ```js
 gtmEcomm.productImpression(variantPayload, {
   el: null, // DOM Element
@@ -55,17 +57,15 @@ gtmEcomm.productImpression(variantPayload, {
 })
 ```
 
-Used any time a product is displayed, like a product card or the detail page.
-
 - `variantPayload` - Either:
   - A Shopify numeric id, in which case the full variant is looked up via the Storefront API
   - A Shopify `gid://shopify/ProductVariant/###` style id, which will also be looked up via Storefront API
   - A [Shopify ProductVariant object](https://shopify.dev/docs/storefront-api/reference/products/productvariant) with `product` property.
 
-- `options` - Has the following keys
+- `options` - Supports the following keys
   - `el` - Optional DOM Element. If supplied, an IntersectionObserver will be attached to the element that triggers the event only once (and only once) the element has entered the viewport.
   - `list` - Optional name of the list or collection to which the product belongs.
-  - `position` - Optional position in a list or collection.  If `el` is provided and `position` is undefined, defaults to the index of the element relative to it's parent.
+  - `position` - Optional position in a list or collection.  If `el` is provided and `position` is undefined, defaults to the index of the element relative to it's parent. 1-based.
 
 Pushes an object to the dataLayer that looks like:
 

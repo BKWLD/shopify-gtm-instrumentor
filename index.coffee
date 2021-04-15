@@ -216,7 +216,7 @@ getShopifyId = (id) ->
 # Get the position of an element with respect to it's parent
 # https://stackoverflow.com/a/5913984/59160
 getElPosition = (el) ->
-	i = 0
+	i = 1 # The first position will be `1`
 	while (el = el.previousElementSibling) != null then i++
 	return i
 
