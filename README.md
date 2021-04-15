@@ -144,6 +144,8 @@ The `firstOccurance` property will be `true` the first time this method is calle
 
 #### [Add / Remove from Cart](https://developers.google.com/tag-manager/enhanced-ecommerce#cart)
 
+Used when products are added or removd from the cart.
+
 ```js
 gtmEcomm.addToCart(variantPayload, quantity)
 gtmEcomm.removeFromCart(variantPayload, quantity)
@@ -220,11 +222,17 @@ See above for info on `firstOccurance`.
 
 #### [Purchases](https://developers.google.com/tag-manager/enhanced-ecommerce#purchases)
 
+Should be triggered on the thank you page after checkout.
+
 ```js
-gtmEcomm.purchase(lineItems)
+if (window.Shopify &&
+  window.Shopify.Checkout &&
+  window.Shopify.Checkout.page == 'thank_you') {
+  gtmEcomm.purchase(window.CHECKOUT_LINE_ITEMS)
+}
 ```
 
-The `lineItems` should be the `window.CHECKOUT_LINE_ITEMS` object that is created by [checkout-snippet.liquid](./checkout-snippet.liquid) (I couldn't find a way to query this besides outputting from liquid.)
+The `CHECKOUT_LINE_ITEMS` array is created by [checkout-snippet.liquid](./checkout-snippet.liquid) (I couldn't find a way to query this besides outputting from liquid, would love to _not_ couple it with a liquid snippet...)
 
 This isn't designed to trigger the Enhanced Ecommerce `purchase` action; we're expecting Shopify's Enhanced Ecommerce integration to fire this.  Instead, this event is designed to be useful for firing other conversion type tags from GTM.
 
