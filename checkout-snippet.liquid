@@ -5,6 +5,7 @@
 	window.CHECKOUT_LINE_ITEMS = [];
 	{% for line_item in checkout.line_items %}
 		CHECKOUT_LINE_ITEMS.push({
+			quantity: {{ line_item.quantity }},
 			variant: {
 				id: '{{ line_item.variant.id }}',
 				sku: '{{ line_item.variant.sku }}',
