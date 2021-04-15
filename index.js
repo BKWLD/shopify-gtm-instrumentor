@@ -1,51 +1,41 @@
 "use strict";
 
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.getShopifyId = exports["default"] = void 0;
 
+var _regenerator = _interopRequireDefault(require("@babel/runtime/regenerator"));
+
+var _inherits2 = _interopRequireDefault(require("@babel/runtime/helpers/inherits"));
+
+var _possibleConstructorReturn2 = _interopRequireDefault(require("@babel/runtime/helpers/possibleConstructorReturn"));
+
+var _getPrototypeOf2 = _interopRequireDefault(require("@babel/runtime/helpers/getPrototypeOf"));
+
+var _wrapNativeSuper2 = _interopRequireDefault(require("@babel/runtime/helpers/wrapNativeSuper"));
+
+var _typeof2 = _interopRequireDefault(require("@babel/runtime/helpers/typeof"));
+
+var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/helpers/defineProperty"));
+
+var _asyncToGenerator2 = _interopRequireDefault(require("@babel/runtime/helpers/asyncToGenerator"));
+
+var _classCallCheck2 = _interopRequireDefault(require("@babel/runtime/helpers/classCallCheck"));
+
+var _createClass2 = _interopRequireDefault(require("@babel/runtime/helpers/createClass"));
+
 var _axios = _interopRequireDefault(require("axios"));
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
-
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _wrapNativeSuper(Class) { var _cache = typeof Map === "function" ? new Map() : undefined; _wrapNativeSuper = function _wrapNativeSuper(Class) { if (Class === null || !_isNativeFunction(Class)) return Class; if (typeof Class !== "function") { throw new TypeError("Super expression must either be null or a function"); } if (typeof _cache !== "undefined") { if (_cache.has(Class)) return _cache.get(Class); _cache.set(Class, Wrapper); } function Wrapper() { return _construct(Class, arguments, _getPrototypeOf(this).constructor); } Wrapper.prototype = Object.create(Class.prototype, { constructor: { value: Wrapper, enumerable: false, writable: true, configurable: true } }); return _setPrototypeOf(Wrapper, Class); }; return _wrapNativeSuper(Class); }
-
-function _construct(Parent, args, Class) { if (_isNativeReflectConstruct()) { _construct = Reflect.construct; } else { _construct = function _construct(Parent, args, Class) { var a = [null]; a.push.apply(a, args); var Constructor = Function.bind.apply(Parent, a); var instance = new Constructor(); if (Class) _setPrototypeOf(instance, Class.prototype); return instance; }; } return _construct.apply(null, arguments); }
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = (0, _getPrototypeOf2["default"])(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = (0, _getPrototypeOf2["default"])(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return (0, _possibleConstructorReturn2["default"])(this, result); }; }
 
 function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
 
-function _isNativeFunction(fn) { return Function.toString.call(fn).indexOf("[native code]") !== -1; }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
-function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { (0, _defineProperty2["default"])(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 
 // Generated by CoffeeScript 2.5.1
 // Deps
@@ -69,8 +59,7 @@ var _default = ShopifyGtmInstrumentor = /*#__PURE__*/function () {
         _ref$currencyCode = _ref.currencyCode,
         currencyCode = _ref$currencyCode === void 0 ? 'USD' : _ref$currencyCode;
 
-    _classCallCheck(this, ShopifyGtmInstrumentor);
-
+    (0, _classCallCheck2["default"])(this, ShopifyGtmInstrumentor);
     this.debug = debug;
     this.storeUrl = storeUrl;
     this.storefrontToken = storefrontToken;
@@ -80,12 +69,12 @@ var _default = ShopifyGtmInstrumentor = /*#__PURE__*/function () {
   // Typically used for view of PDP page
 
 
-  _createClass(ShopifyGtmInstrumentor, [{
+  (0, _createClass2["default"])(ShopifyGtmInstrumentor, [{
     key: "viewProductDetails",
     value: function () {
-      var _viewProductDetails = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(variantPayload) {
+      var _viewProductDetails = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee(variantPayload) {
         var flatVariant, variant;
-        return regeneratorRuntime.wrap(function _callee$(_context) {
+        return _regenerator["default"].wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
@@ -135,13 +124,13 @@ var _default = ShopifyGtmInstrumentor = /*#__PURE__*/function () {
   }, {
     key: "updateQuantity",
     value: function () {
-      var _updateQuantity = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(variantPayload, quantity) {
+      var _updateQuantity = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee2(variantPayload, quantity) {
         var gtmEvent,
             ecommerceAction,
             flatVariant,
             variant,
             _args2 = arguments;
-        return regeneratorRuntime.wrap(function _callee2$(_context2) {
+        return _regenerator["default"].wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
@@ -153,7 +142,7 @@ var _default = ShopifyGtmInstrumentor = /*#__PURE__*/function () {
               case 4:
                 variant = _context2.sent;
                 return _context2.abrupt("return", this.pushEvent(gtmEvent, _objectSpread(_objectSpread({}, flatVariant = this.makeFlatVariant(variant)), !ecommerceAction ? {} : {
-                  ecommerce: _defineProperty({
+                  ecommerce: (0, _defineProperty2["default"])({
                     currencyCode: this.currencyCode
                   }, ecommerceAction, {
                     products: [_objectSpread(_objectSpread({}, this.makeUaProductFieldObject(flatVariant)), {}, {
@@ -190,7 +179,7 @@ var _default = ShopifyGtmInstrumentor = /*#__PURE__*/function () {
   }, {
     key: "getVariantFromPayload",
     value: function getVariantFromPayload(variantPayload) {
-      if (_typeof(variantPayload) === 'object') {
+      if ((0, _typeof2["default"])(variantPayload) === 'object') {
         return variantPayload;
       } else {
         return this.fetchVariant(variantPayload);
@@ -201,9 +190,9 @@ var _default = ShopifyGtmInstrumentor = /*#__PURE__*/function () {
   }, {
     key: "fetchVariant",
     value: function () {
-      var _fetchVariant = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(variantId) {
+      var _fetchVariant = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee3(variantId) {
         var result;
-        return regeneratorRuntime.wrap(function _callee3$(_context3) {
+        return _regenerator["default"].wrap(function _callee3$(_context3) {
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
@@ -272,9 +261,9 @@ var _default = ShopifyGtmInstrumentor = /*#__PURE__*/function () {
   }, {
     key: "queryStorefrontApi",
     value: function () {
-      var _queryStorefrontApi = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4(payload) {
+      var _queryStorefrontApi = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee4(payload) {
         var response;
-        return regeneratorRuntime.wrap(function _callee4$(_context4) {
+        return _regenerator["default"].wrap(function _callee4$(_context4) {
           while (1) {
             switch (_context4.prev = _context4.next) {
               case 0:
@@ -349,7 +338,6 @@ var _default = ShopifyGtmInstrumentor = /*#__PURE__*/function () {
       return true;
     }
   }]);
-
   return ShopifyGtmInstrumentor;
 }();
 
@@ -359,15 +347,14 @@ StorefrontError = function () {
   // NON-INSTANCE HELPERS ########################################################
   // Error object with custom handling
   var StorefrontError = /*#__PURE__*/function (_Error) {
-    _inherits(StorefrontError, _Error);
+    (0, _inherits2["default"])(StorefrontError, _Error);
 
     var _super = _createSuper(StorefrontError);
 
     function StorefrontError(errors, payload) {
       var _this;
 
-      _classCallCheck(this, StorefrontError);
-
+      (0, _classCallCheck2["default"])(this, StorefrontError);
       _this = _super.call(this, errors.map(function (e) {
         return e.debugMessage || e.message;
       }).join(', '));
@@ -379,7 +366,7 @@ StorefrontError = function () {
     }
 
     return StorefrontError;
-  }( /*#__PURE__*/_wrapNativeSuper(Error));
+  }( /*#__PURE__*/(0, _wrapNativeSuper2["default"])(Error));
 
   ;
   StorefrontError.prototype.name = 'StorefrontError';

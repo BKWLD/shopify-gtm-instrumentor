@@ -24,6 +24,7 @@
 	},
 	"homepage": "https://github.com/BKWLD/shopify-gtm-instrumentor#readme",
 	"devDependencies": {
+		"@babel/plugin-transform-runtime": "^7.13.15",
 		"@babel/preset-env": "^7.13.15",
 		"coffeescript": "^2.5.1"
 	},
