@@ -1,6 +1,6 @@
 # shopify-gtm-instrumentor
 
-This package contains helper methods for sending standardized dataLayer events from Shopify to GTM. The API is modeled after the [Enhanced Ecommerce Data Types and Actions](https://developers.google.com/tag-manager/enhanced-ecommerce#purchases).
+This package contains helper methods for sending standardized dataLayer events from Shopify to GTM. The API is modeled after the [Enhanced Ecommerce Data Types and Actions](https://developers.google.com/tag-manager/enhanced-ecommerce).
 
 It expects that you'll be using [Shopify's own Enhanced Ecommerce support](https://help.shopify.com/en/manual/reports-and-analytics/google-analytics/google-analytics-setup#enhanced) wherever possible (like for Checkout events or the initial Product Detail impression on Shopify hosted product pages).
 
@@ -48,7 +48,6 @@ Implemented methods described below:
 #### [Product Detail Impressions](https://developers.google.com/tag-manager/enhanced-ecommerce#details)
 
 ```js
-gtmEcomm.viewProductDetails(variantPayload)
 ```
 
 The `variantPayload` argument can be either:
@@ -56,6 +55,7 @@ The `variantPayload` argument can be either:
 - A Shopify numeric id, in which case the full variant is looked up via the Storefront API
 - A Shopify `gid://shopify/ProductVariant/###` style id, which will also be looked up via Storefront API
 - A [Shopify ProductVariant object](https://shopify.dev/docs/storefront-api/reference/products/productvariant) with `product` property.
+gtmEcomm.productDetail(variantPayload)
 
 Pushes an object to the dataLayer that looks like:
 
@@ -94,9 +94,12 @@ The `firstOccurance` property will be `true` the first time this method is calle
 #### [Add / Remove from Cart](https://developers.google.com/tag-manager/enhanced-ecommerce#cart)
 
 ```js
-gtmEcomm.addProductToCart(variantPayload, quantity)
-gtmEcomm.removeProductFromCart(variantPayload, quantity)
+gtmEcomm.addToCart(variantPayload, quantity)
+gtmEcomm.removeFromCart(variantPayload, quantity)
 ```
+
+- `variantPayload` - See above
+- `quantity` - The quantity _changed_.  So, if updating the quanity from 2 to 5, the value should be `3`.  If deleting a line item with a quantity of 2, you would use `removeProductFromCart` with a quantity of `2`.
 
 Pushes an object to the dataLayer that looks like:
 
@@ -162,7 +165,7 @@ _or_ like this
 }
 ```
 
-See above for info on `variantPayload` and `firstOccurance`.
+See above for info on `firstOccurance`.
 
 #### [Purchases](https://developers.google.com/tag-manager/enhanced-ecommerce#purchases)
 

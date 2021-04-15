@@ -18,7 +18,7 @@ export default class ShopifyGtmInstrumentor
 	# API #######################################################################
 
 	# Typically used for view of PDP page
-	viewProductDetails: (variantPayload) ->
+	productDetail: (variantPayload) ->
 
 		# Get variant
 		variant = await @getVariantFromPayload variantPayload
@@ -33,12 +33,12 @@ export default class ShopifyGtmInstrumentor
 
 	# Used whenver there is a positive change in the quantity of a product in
 	# the cart.
-	addProductToCart: (variantPayload, quantity) ->
+	addToCart: (variantPayload, quantity) ->
 		@updateQuantity variantPayload, quantity, 'Add to Cart', 'add'
 
 	# Used whenever there is a negative change in the quantity of a product in
 	# the cart.
-	removeProductFromCart: (variantPayload, quantity) ->
+	removeFromCart: (variantPayload, quantity) ->
 		@updateQuantity variantPayload, quantity, 'Remove from Cart', 'remove'
 
 	# Used both fire the `Update Quantity` event but also as a helper for the
