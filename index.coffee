@@ -124,6 +124,18 @@ export default class ShopifyGtmInstrumentor
 		# Fire event
 		@pushEvent 'Cart Updated', simpleCheckout
 
+	# Fire an event with the current step of the checkout process
+	checkout: (checkoutPayload, checkoutStep) ->
+
+		# Get checkout
+		return unless simpleCheckout = await @getSimplifiedCheckout checkoutPayload
+
+		# Fire event
+		@pushEvent 'Checkout', {
+			checkoutStep
+			...simpleCheckout
+		}
+
 	# Notify of final checkout, using array of variant data from liquid
 	purchase: (checkoutPayload) ->
 

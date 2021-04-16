@@ -335,9 +335,63 @@ Pushes an object to the dataLayer that looks like:
       productUrl: 'https://www.shop.com/product/great-t-shirt',
     }
   ]
-
 }
 ```
+
+### [Checkout](https://developers.google.com/tag-manager/enhanced-ecommerce#checkout)
+
+This would be triggered by each step of the checkout, like:
+
+```js
+if (window.Shopify && window.Shopify.Checkout) {
+  gtmEcomm.checkout(window.CHECKOUT_LINE_ITEMS,
+    window.Shopify.Checkout.step)
+}
+```
+
+_Currently_, `window.Shopify.Checkout.step` resolves to:
+
+1. `"contact_information"`
+2. `"shipping_method"`
+3. `"payment_method"`
+4. `"processing"`
+5. `"thank_you"`
+6. `undefined` (becomes undefined on reload / order page)
+
+The `CHECKOUT_LINE_ITEMS` array is created by [checkout-snippet.liquid](./checkout-snippet.liquid) (I couldn't find a way to query this besides outputting from liquid, would love to _not_ couple it with a liquid snippet...)
+
+This isn't designed to trigger the Enhanced Ecommerce `purchase` action; we're expecting Shopify's Enhanced Ecommerce integration to fire this.  Instead, this event is designed to be useful for firing other conversion type tags from GTM.
+
+```js
+{
+  event: 'Purchase'
+  firstOccurance: true,
+  checkoutStep: `contact_information`
+  checkoutId: '789',
+  checkoutUrl: 'https://www.shop.com/.../checkouts/...',
+  subtotalPrice: 18.99
+  totalPrice: 18.99
+  lineItems: [
+    {
+      lineItemId: '456',
+      quantity: 1
+      sku: 'sku-abc',
+      variantId: '123',
+      variantTitle: 'Black',
+      variantImage: 'https://cdn.shopify.com/s/files/...',
+      variantUrl: 'https://www.shop.com/product/great-t-shirt?variant=123',
+      price: 18.99,
+      compareAtPrice: 20.99,
+      productTitle: 'Great T-Shirt',
+      productVariantTitle: 'Great T-Shirt - Black',
+      productType: 'Shirts',
+      productVendor: 'Bukwild',
+      productUrl: 'https://www.shop.com/product/great-t-shirt',
+    }
+  ]
+}
+```
+
 
 
 #### [Purchases](https://developers.google.com/tag-manager/enhanced-ecommerce#purchases)
@@ -347,34 +401,37 @@ Should be triggered on the thank you page after checkout.
 ```js
 if (window.Shopify &&
   window.Shopify.Checkout &&
-  window.Shopify.Checkout.page == 'thank_you') {
+  window.Shopify.Checkout.step == 'thank_you') {
   gtmEcomm.purchase(window.CHECKOUT_LINE_ITEMS)
 }
 ```
 
-The `CHECKOUT_LINE_ITEMS` array is created by [checkout-snippet.liquid](./checkout-snippet.liquid) (I couldn't find a way to query this besides outputting from liquid, would love to _not_ couple it with a liquid snippet...)
-
-This isn't designed to trigger the Enhanced Ecommerce `purchase` action; we're expecting Shopify's Enhanced Ecommerce integration to fire this.  Instead, this event is designed to be useful for firing other conversion type tags from GTM.
-
-It creates a payload like:
+Like Checkout, thisn't intended to replace Shopify's Enhannced Ecommerce support. It creates a payload like:
 
 ```js
 {
   event: 'Purchase'
+  firstOccurance: true,
+  checkoutId: '789',
+  checkoutUrl: 'https://www.shop.com/.../checkouts/...',
+  subtotalPrice: 18.99
+  totalPrice: 18.99
   lineItems: [
     {
-      quantity: 1,
-      variant: {
-        id: 123,
-        sku: 'sku-abc',
-        title: 'Black',
-        price: '18.99',
-      },
-      product: {
-        title: 'Great T-Shirt',
-        type: 'Shirt',
-        vendor: 'Bukwild',
-      },
+      lineItemId: '456',
+      quantity: 1
+      sku: 'sku-abc',
+      variantId: '123',
+      variantTitle: 'Black',
+      variantImage: 'https://cdn.shopify.com/s/files/...',
+      variantUrl: 'https://www.shop.com/product/great-t-shirt?variant=123',
+      price: 18.99,
+      compareAtPrice: 20.99,
+      productTitle: 'Great T-Shirt',
+      productVariantTitle: 'Great T-Shirt - Black',
+      productType: 'Shirts',
+      productVendor: 'Bukwild',
+      productUrl: 'https://www.shop.com/product/great-t-shirt',
     }
   ]
 }
