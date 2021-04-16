@@ -117,6 +117,9 @@ export default class ShopifyGtmInstrumentor
 	# Notify of final checkout, using array of variant data from liquid
 	purchase: (lineItems) -> @pushEvent 'Purchase', { lineItems }
 
+	# Customer information
+	identifyCustomer: (customer) -> @pushEvent 'Identify Customer', { customer }
+
 
 	# DATA HELPERS ##############################################################
 
