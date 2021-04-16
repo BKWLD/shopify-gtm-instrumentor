@@ -454,7 +454,16 @@ var _default = ShopifyGtmInstrumentor = /*#__PURE__*/function () {
       }
 
       return purchase;
-    }() // VARIANT DATA ##############################################################
+    }() // Customer information
+
+  }, {
+    key: "identifyCustomer",
+    value: function identifyCustomer(customer) {
+      return this.pushEvent('Identify Customer', {
+        customerEmail: customer.email,
+        customerId: customer.id
+      });
+    } // VARIANT DATA ##############################################################
     // Take a variantPayload, which may be an id or an object, and return an
     // object that can be easily consumed by GTM.
 

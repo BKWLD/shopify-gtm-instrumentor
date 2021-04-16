@@ -145,6 +145,12 @@ export default class ShopifyGtmInstrumentor
 		# Fire event
 		@pushEvent 'Purchase', simpleCheckout
 
+	# Customer information
+	identifyCustomer: (customer) -> @pushEvent 'Identify Customer', {
+		customerEmail: customer.email
+		customerId: customer.id
+	}
+
 
 	# VARIANT DATA ##############################################################
 
