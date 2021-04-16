@@ -205,7 +205,7 @@ The `firstOccurance` property will be `true` the first time this method is calle
 
 #### [Add / Remove from Cart](https://developers.google.com/tag-manager/enhanced-ecommerce#cart)
 
-Used when products are added or removd from the cart.
+Used when products are added or removed from the cart.
 
 ```js
 gtmEcomm.addToCart(variantPayload, quantity)
@@ -309,7 +309,7 @@ It creates a payload like:
 
 ```js
 {
-  event: 'Purchase'
+  event: 'Purchase',
   lineItems: [
     {
       quantity: 1,
@@ -328,3 +328,27 @@ It creates a payload like:
   ]
 }
 ```
+
+## Customer Info
+Used to send the customer info to GTM. This is not an explicit Enhanced Ecommerce event but many GTM want this data.
+
+```js
+gtmEcomm.identifyCustomer(customer)
+```
+
+- `customer` - An object that contains customer email and id, like:
+```js
+{
+  email: 'abcd@test.com',
+  id: '1234'
+}
+```
+
+Pushes an object to the dataLayer that looks like:
+
+```js
+{
+  event: 'Identify Customer',
+  customerEmail: 'abcd@test.com',
+  customerId: '1234'
+}
