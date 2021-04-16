@@ -222,7 +222,7 @@ export default class ShopifyGtmInstrumentor
 		if checkout.lineItems.edges
 		then checkout.lineItems = checkout.lineItems.edges.map ({ node }) -> node
 
-		# Make the object
+		# Return the simplified object
 		checkoutId: getShopifyId checkout.id
 		checkoutUrl: checkout.webUrl
 		subtotalPrice: checkout.subtotalPrice
@@ -232,9 +232,6 @@ export default class ShopifyGtmInstrumentor
 			quantity: lineItem.quantity
 			...@makeFlatVariant lineItem.variant
 		}
-
-		# Return standardized checkout object
-		return checkout
 
 	# STOREFRONT API ############################################################
 

@@ -648,8 +648,8 @@ var _default = ShopifyGtmInstrumentor = /*#__PURE__*/function () {
         });
       }
 
-      ({
-        // Make the object
+      return {
+        // Return the simplified object
         checkoutId: getShopifyId(checkout.id),
         checkoutUrl: checkout.webUrl,
         subtotalPrice: checkout.subtotalPrice,
@@ -660,9 +660,7 @@ var _default = ShopifyGtmInstrumentor = /*#__PURE__*/function () {
             quantity: lineItem.quantity
           }, _this2.makeFlatVariant(lineItem.variant));
         })
-      }); // Return standardized checkout object
-
-      return checkout;
+      };
     } // STOREFRONT API ############################################################
     // Query Storefront API
 
