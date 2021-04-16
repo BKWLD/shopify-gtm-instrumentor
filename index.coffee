@@ -102,6 +102,7 @@ export default class ShopifyGtmInstrumentor
 		# Fire the event
 		@pushEvent gtmEvent, {
 			...flatVariant
+			quantity
 
 			# Conditionally add enhanced ecommerce action
 			...(unless ecommerceAction then {} else {

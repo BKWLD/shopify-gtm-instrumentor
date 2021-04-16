@@ -313,7 +313,9 @@ var _default = ShopifyGtmInstrumentor = /*#__PURE__*/function () {
                 return _context4.abrupt("return");
 
               case 6:
-                return _context4.abrupt("return", this.pushEvent(gtmEvent, _objectSpread(_objectSpread({}, flatVariant), !ecommerceAction ? {} : {
+                return _context4.abrupt("return", this.pushEvent(gtmEvent, _objectSpread(_objectSpread({}, flatVariant), {}, {
+                  quantity: quantity
+                }, !ecommerceAction ? {} : {
                   ecommerce: (0, _defineProperty2["default"])({
                     currencyCode: this.currencyCode
                   }, ecommerceAction, {

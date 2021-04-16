@@ -224,6 +224,7 @@ Pushes an object to the dataLayer that looks like:
 {
   event: 'Add to Cart',
   firstOccurance: true,
+  quantity: 1,
   sku: 'sku-abc',
   variantId: '123',
   variantTitle: 'Black',
@@ -261,6 +262,7 @@ _or_ like this
 {
   event: 'Remove from Cart',
   firstOccurance: true,
+  quantity: 1,
   sku: 'sku-abc',
   variantId: '123',
   variantTitle: 'Black',
