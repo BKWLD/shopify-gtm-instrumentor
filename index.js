@@ -353,7 +353,8 @@ var _default = ShopifyGtmInstrumentor = /*#__PURE__*/function () {
     key: "identifyCustomer",
     value: function identifyCustomer(customer) {
       return this.pushEvent('Identify Customer', {
-        customer: customer
+        customerEmail: customer.email,
+        customerId: customer.id
       });
     } // DATA HELPERS ##############################################################
     // Take a variantPayload, which may be an id or an object, and return the

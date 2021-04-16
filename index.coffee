@@ -118,7 +118,10 @@ export default class ShopifyGtmInstrumentor
 	purchase: (lineItems) -> @pushEvent 'Purchase', { lineItems }
 
 	# Customer information
-	identifyCustomer: (customer) -> @pushEvent 'Identify Customer', { customer }
+	identifyCustomer: (customer) -> @pushEvent 'Identify Customer', {
+		customerEmail: customer.email
+		customerId: customer.id
+	}
 
 
 	# DATA HELPERS ##############################################################
