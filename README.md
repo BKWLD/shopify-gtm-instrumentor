@@ -39,7 +39,7 @@ const gtmEcomm = new ShopifyGtmInstrumentor({
 The constructor takes these options:
 
 - `debug` - If `true`, emits `console.debug` lines with the pushed events.
-- `storeUrl` - Your "https://mystore.myshopify.com" style Shopify URL. Defaults to `process.env.SHOPIFY_URL`.
+- `storeUrl` - Your 'https://mystore.myshopify.com' style Shopify URL. Defaults to `process.env.SHOPIFY_URL`.
 - `storefrontToken` - A Storefront API token with permission to read products.  Defaults to `process.env.SHOPIFY_STOREFONT_TOKEN`.
 - `currencyCode` - Defaults to `USD`.
 
@@ -71,27 +71,28 @@ Pushes an object to the dataLayer that looks like:
 
 ```js
 {
-  event: "Product Impression",
+  event: 'Product Impression',
   firstOccurance: true,
-  sku: "sku-abc",
-  variantId: 123,
-  variantTitle: "Black",
-  variantImage: "https://cdn.shopify.com/s/files/...",
-  variantUrl: "https://www.shop.com/product/great-t-shirt?variant=123",
+  sku: 'sku-abc',
+  variantId: '123',
+  variantTitle: 'Black',
+  variantImage: 'https://cdn.shopify.com/s/files/...',
+  variantUrl: 'https://www.shop.com/product/great-t-shirt?variant=123',
   price: 18.99,
-  compareAtPrice: 16.99,
-  productTitle: "Great T-Shirt",
-  productType: "Shirts",
-  productVendor: "Bukwild",
-  productUrl: "https://www.shop.com/product/great-t-shirt",
+  compareAtPrice: 20.99,
+  productTitle: 'Great T-Shirt',
+  productVariantTitle: 'Great T-Shirt - Black',
+  productType: 'Shirts',
+  productVendor: 'Bukwild',
+  productUrl: 'https://www.shop.com/product/great-t-shirt',
   ecommerce: {
     impressions: [
       {
-        id: "sku-abc",
-        name: "Great T-Shirt - Black",
-        brand: "Bukwild",
-        category: "Shirts",
-        variant: "Black",
+        id: 'sku-abc',
+        name: 'Great T-Shirt - Black',
+        brand: 'Bukwild',
+        category: 'Shirts',
+        variant: 'Black',
         price: 18.99
         list: 'Shirts Collection',
         position: 3
@@ -122,29 +123,30 @@ Pushes an object to the dataLayer that looks like:
 
 ```js
 {
-  event: "Product Click",
+  event: 'Product Click',
   firstOccurance: true,
-  sku: "sku-abc",
-  variantId: 123,
-  variantTitle: "Black",
-  variantImage: "https://cdn.shopify.com/s/files/...",
-  variantUrl: "https://www.shop.com/product/great-t-shirt?variant=123",
+  sku: 'sku-abc',
+  variantId: '123',
+  variantTitle: 'Black',
+  variantImage: 'https://cdn.shopify.com/s/files/...',
+  variantUrl: 'https://www.shop.com/product/great-t-shirt?variant=123',
   price: 18.99,
-  compareAtPrice: 16.99,
-  productTitle: "Great T-Shirt",
-  productType: "Shirts",
-  productVendor: "Bukwild",
-  productUrl: "https://www.shop.com/product/great-t-shirt",
+  compareAtPrice: 20.99,
+  productTitle: 'Great T-Shirt',
+  productVariantTitle: 'Great T-Shirt - Black',
+  productType: 'Shirts',
+  productVendor: 'Bukwild',
+  productUrl: 'https://www.shop.com/product/great-t-shirt',
   ecommerce: {
     click: {
       actionField: { list: 'Shirts Collection'},
       products: [
         {
-          id: "sku-abc",
-          name: "Great T-Shirt - Black",
-          brand: "Bukwild",
-          category: "Shirts",
-          variant: "Black",
+          id: 'sku-abc',
+          name: 'Great T-Shirt - Black',
+          brand: 'Bukwild',
+          category: 'Shirts',
+          variant: 'Black',
           price: 18.99
           position: 3
         }
@@ -169,28 +171,29 @@ Pushes an object to the dataLayer that looks like:
 
 ```js
 {
-  event: "View Product Details",
+  event: 'View Product Details',
   firstOccurance: true,
-  sku: "sku-abc",
-  variantId: 123,
-  variantTitle: "Black",
-  variantImage: "https://cdn.shopify.com/s/files/...",
-  variantUrl: "https://www.shop.com/product/great-t-shirt?variant=123",
+  sku: 'sku-abc',
+  variantId: '123',
+  variantTitle: 'Black',
+  variantImage: 'https://cdn.shopify.com/s/files/...',
+  variantUrl: 'https://www.shop.com/product/great-t-shirt?variant=123',
   price: 18.99,
-  compareAtPrice: 16.99,
-  productTitle: "Great T-Shirt",
-  productType: "Shirts",
-  productVendor: "Bukwild",
-  productUrl: "https://www.shop.com/product/great-t-shirt",
+  compareAtPrice: 20.99,
+  productTitle: 'Great T-Shirt',
+  productVariantTitle: 'Great T-Shirt - Black',
+  productType: 'Shirts',
+  productVendor: 'Bukwild',
+  productUrl: 'https://www.shop.com/product/great-t-shirt',
   ecommerce: {
     detail: {
       products: [
         {
-          id: "sku-abc",
-          name: "Great T-Shirt - Black",
-          brand: "Bukwild",
-          category: "Shirts",
-          variant: "Black",
+          id: 'sku-abc',
+          name: 'Great T-Shirt - Black',
+          brand: 'Bukwild',
+          category: 'Shirts',
+          variant: 'Black',
           price: 18.99
         }
       ]
@@ -219,29 +222,31 @@ Pushes an object to the dataLayer that looks like:
 
 ```js
 {
-  event: "Add to Cart",
+  event: 'Add to Cart',
   firstOccurance: true,
-  sku: "sku-abc",
-  variantId: 123,
-  variantTitle: "Black",
-  variantImage: "https://cdn.shopify.com/s/files/...",
-  variantUrl: "https://www.shop.com/product/great-t-shirt?variant=123",
+  quantity: 1,
+  sku: 'sku-abc',
+  variantId: '123',
+  variantTitle: 'Black',
+  variantImage: 'https://cdn.shopify.com/s/files/...',
+  variantUrl: 'https://www.shop.com/product/great-t-shirt?variant=123',
   price: 18.99,
-  compareAtPrice: 16.99,
-  productTitle: "Great T-Shirt",
-  productType: "Shirts",
-  productVendor: "Bukwild",
-  productUrl: "https://www.shop.com/product/great-t-shirt",
+  compareAtPrice: 20.99,
+  productTitle: 'Great T-Shirt',
+  productVariantTitle: 'Great T-Shirt - Black',
+  productType: 'Shirts',
+  productVendor: 'Bukwild',
+  productUrl: 'https://www.shop.com/product/great-t-shirt',
   ecommerce: {
     add: {
-      currencyCode: "USD",
+      currencyCode: 'USD',
       products: [
         {
-          id: "sku-abc",
-          name: "Great T-Shirt - Black",
-          brand: "Bukwild",
-          category: "Shirts",
-          variant: "Black",
+          id: 'sku-abc',
+          name: 'Great T-Shirt - Black',
+          brand: 'Bukwild',
+          category: 'Shirts',
+          variant: 'Black',
           price: 18.99,
           quantity: 1
         }
@@ -255,29 +260,31 @@ _or_ like this
 
 ```js
 {
-  event: "Remove from Cart",
+  event: 'Remove from Cart',
   firstOccurance: true,
-  sku: "sku-abc",
-  variantId: 123,
-  variantTitle: "Black",
-  variantImage: "https://cdn.shopify.com/s/files/...",
-  variantUrl: "https://www.shop.com/product/great-t-shirt?variant=123",
+  quantity: 1,
+  sku: 'sku-abc',
+  variantId: '123',
+  variantTitle: 'Black',
+  variantImage: 'https://cdn.shopify.com/s/files/...',
+  variantUrl: 'https://www.shop.com/product/great-t-shirt?variant=123',
   price: 18.99,
-  compareAtPrice: 16.99,
-  productTitle: "Great T-Shirt",
-  productType: "Shirts",
-  productVendor: "Bukwild",
-  productUrl: "https://www.shop.com/product/great-t-shirt",
+  compareAtPrice: 20.99,
+  productTitle: 'Great T-Shirt',
+  productVariantTitle: 'Great T-Shirt - Black',
+  productType: 'Shirts',
+  productVendor: 'Bukwild',
+  productUrl: 'https://www.shop.com/product/great-t-shirt',
   ecommerce: {
     remove: {
-      currencyCode: "USD",
+      currencyCode: 'USD',
       products: [
         {
-          id: "sku-abc",
-          name: "Great T-Shirt - Black",
-          brand: "Bukwild",
-          category: "Shirts",
-          variant: "Black",
+          id: 'sku-abc',
+          name: 'Great T-Shirt - Black',
+          brand: 'Bukwild',
+          category: 'Shirts',
+          variant: 'Black',
           price: 18.99,
           quantity: 1
         }
@@ -288,6 +295,50 @@ _or_ like this
 ```
 
 See above for info on `firstOccurance`.
+
+
+### Cart Updated
+
+Used to send the current checkout / cart state to GTM.  This is not an explicit Enhanced Ecommerce event but many GTM want this data.
+
+```js
+gtmEcomm.cartUpdated(checkoutPayload)
+```
+
+- `checkoutPayload` - Either a Checkout ID that can be resolved by the Storefront API (recommende) or an object that is formed to _look_ like one (like the `window.CHECKOUT_LINE_ITEMS` object, described below).
+
+Pushes an object to the dataLayer that looks like:
+
+```js
+{
+  event: 'Cart Updated',
+  firstOccurance: true,
+  checkoutId: '789',
+  checkoutUrl: 'https://www.shop.com/.../checkouts/...',
+  subtotalPrice: 18.99
+  totalPrice: 18.99
+  lineItems: [
+    {
+      lineItemId: '456',
+      quantity: 1
+      sku: 'sku-abc',
+      variantId: '123',
+      variantTitle: 'Black',
+      variantImage: 'https://cdn.shopify.com/s/files/...',
+      variantUrl: 'https://www.shop.com/product/great-t-shirt?variant=123',
+      price: 18.99,
+      compareAtPrice: 20.99,
+      productTitle: 'Great T-Shirt',
+      productVariantTitle: 'Great T-Shirt - Black',
+      productType: 'Shirts',
+      productVendor: 'Bukwild',
+      productUrl: 'https://www.shop.com/product/great-t-shirt',
+    }
+  ]
+
+}
+```
+
 
 #### [Purchases](https://developers.google.com/tag-manager/enhanced-ecommerce#purchases)
 

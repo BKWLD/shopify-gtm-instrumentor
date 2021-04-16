@@ -21,14 +21,14 @@ export default class ShopifyGtmInstrumentor
 	productImpression: (variantPayload, { el, list, position } = {}) ->
 
 		# Get variant
-		return unless variant = await @getVariantFromPayload variantPayload
+		return unless flatVariant = await @getFlatVariant variantPayload
 
 		# Make defaults
 		position = getElPosition el if el and !position?
 
 		# Fire event
 		eventPusher = => @pushEvent 'Product Impression', {
-			...(flatVariant = @makeFlatVariant variant)
+			...flatVariant
 			ecommerce: impressions: [{
 				...@makeUaProductFieldObject flatVariant
 				list
@@ -45,14 +45,14 @@ export default class ShopifyGtmInstrumentor
 		then clickEvent?.preventDefault()
 
 		# Get variant
-		return unless variant = await @getVariantFromPayload variantPayload
+		return unless flatVariant = await @getFlatVariant variantPayload
 
 		# Make defaults
 		position = getElPosition el if el and !position?
 
 		# Fire event
 		@pushEvent 'Product Click', {
-			...(flatVariant = @makeFlatVariant variant)
+			...flatVariant
 			ecommerce: click: {
 				...(unless list then {} else {
 					actionField: { list }
@@ -71,11 +71,11 @@ export default class ShopifyGtmInstrumentor
 	viewProductDetails: (variantPayload) ->
 
 		# Get variant
-		return unless variant = await @getVariantFromPayload variantPayload
+		return unless flatVariant = await @getFlatVariant variantPayload
 
 		# Fire event
 		@pushEvent 'View Product Details', {
-			...(flatVariant = @makeFlatVariant variant)
+			...flatVariant
 			ecommerce: detail: products: [
 				@makeUaProductFieldObject flatVariant
 			]
@@ -97,11 +97,12 @@ export default class ShopifyGtmInstrumentor
 		gtmEvent = 'Update Quantity', ecommerceAction) ->
 
 		# Get variant
-		return unless variant = await @getVariantFromPayload variantPayload
+		return unless flatVariant = await @getFlatVariant variantPayload
 
 		# Fire the event
 		@pushEvent gtmEvent, {
-			...(flatVariant = @makeFlatVariant variant)
+			...flatVariant
+			quantity
 
 			# Conditionally add enhanced ecommerce action
 			...(unless ecommerceAction then {} else {
@@ -114,8 +115,23 @@ export default class ShopifyGtmInstrumentor
 			})
 		}
 
+	# Fire an event with the current state of the cart
+	cartUpdated: (checkoutPayload) ->
+
+		# Get checkout
+		return unless simpleCheckout = await @getSimplifiedCheckout checkoutPayload
+
+		# Fire event
+		@pushEvent 'Cart Updated', simpleCheckout
+
 	# Notify of final checkout, using array of variant data from liquid
-	purchase: (lineItems) -> @pushEvent 'Purchase', { lineItems }
+	purchase: (checkoutPayload) ->
+
+		# Get checkout
+		return unless simpleCheckout = await @getSimplifiedCheckout checkoutPayload
+
+		# Fire event
+		@pushEvent 'Purchase', simpleCheckout
 
 	# Customer information
 	identifyCustomer: (customer) -> @pushEvent 'Identify Customer', {
@@ -124,11 +140,11 @@ export default class ShopifyGtmInstrumentor
 	}
 
 
-	# DATA HELPERS ##############################################################
+	# VARIANT DATA ##############################################################
 
-	# Take a variantPayload, which may be an id or an object, and return the
-	# Shopify variant object, ideally with nsted product data.
-	getVariantFromPayload: (variantPayload) ->
+	# Take a variantPayload, which may be an id or an object, and return an
+	# object that can be easily consumed by GTM.
+	getFlatVariant: (variantPayload) ->
 
 		# Conditioally fetch from storefront API
 		variant = if typeof variantPayload == 'object'
@@ -137,7 +153,7 @@ export default class ShopifyGtmInstrumentor
 
 		# Validate the variant and return
 		unless variant then console.error 'Variant not found', variantPayload
-		return variant
+		return @makeFlatVariant variant
 
 	# Lookup a product variant by id. Id may be a simple number or a
 	# gid://shopify string
@@ -154,6 +170,7 @@ export default class ShopifyGtmInstrumentor
 
 		# Product level info
 		productTitle: product.title
+		productVariantTitle: "#{product.title} - #{variant.title}"
 		productType: product.productType || product.type
 		productVendor: product.vendor
 		productUrl: (productUrl = "#{@storeUrl}/products/#{product.handle}")
@@ -164,7 +181,7 @@ export default class ShopifyGtmInstrumentor
 		compareAtPrice: variant.compareAtPrice
 		variantId: (variantId = getShopifyId variant.id)
 		variantTitle: variant.title
-		variantImage: variant.image?.originalSrc
+		variantImage: variant.image?.originalSrc || variant.image
 		variantUrl: "#{productUrl}?variant=#{variantId}"
 
 	# Convert a Shopify variant object to a UA productFieldObject. I'm
@@ -173,12 +190,54 @@ export default class ShopifyGtmInstrumentor
 	# https://developers.google.com/analytics/devguides/collection/analyticsjs/enhanced-ecommerce#product-data
 	makeUaProductFieldObject: (flatVariant) ->
 		id: flatVariant.sku
-		name: flatVariant.productTitle + ' - ' + flatVariant.variantTitle
+		name: flatVariant.productVariantTitle
 		brand: flatVariant.productVendor
 		category: flatVariant.productType
 		variant: flatVariant.variantTitle
 		price: flatVariant.price
 
+
+	# CHECKOUT DATA #############################################################
+
+	# Take a checkoutPayload, which may be an id or an object, and return the
+	# Shopify checkout object that has been simplified a bit.
+	getSimplifiedCheckout: (checkoutPayload) ->
+
+		# Conditioally fetch from storefront API
+		checkout = if typeof checkoutPayload == 'object'
+		then checkoutPayload
+		else await @fetchCheckout checkoutPayload
+
+		# Validate the checkout and return
+		unless checkout then console.error 'Checkout not found', checkoutPayload
+		return @makeSimplifiedCheckout checkout
+
+	# Lookup a product variant by id. Id may be a simple number or a
+	# gid://shopify string
+	fetchCheckout: (checkoutId) ->
+		checkoutId = getShopifyId checkoutId
+		result = await @queryStorefrontApi
+			variables: id: btoa 'gid://shopify/Checkout/' + checkoutId
+			query: fetchCheckoutQuery
+		return result.node
+
+	# Reduce
+	makeSimplifiedCheckout: (checkout) ->
+
+		# Flatten nodes that contain line items
+		if checkout.lineItems.edges
+		then checkout.lineItems = checkout.lineItems.edges.map ({ node }) -> node
+
+		# Return the simplified object
+		checkoutId: getShopifyId checkout.id
+		checkoutUrl: checkout.webUrl
+		subtotalPrice: checkout.subtotalPrice
+		totalPrice: checkout.totalPrice
+		lineItems: checkout.lineItems.map (lineItem) => {
+			lineItemId: getShopifyId lineItem.id
+			quantity: lineItem.quantity
+			...@makeFlatVariant lineItem.variant
+		}
 
 	# STOREFRONT API ############################################################
 
@@ -217,6 +276,63 @@ export default class ShopifyGtmInstrumentor
 		@occurances.push eventName
 		return true
 
+# STOREFRONT QUERIES ##########################################################
+
+# Product Variant fragment
+export productVariantFragment = '''
+	fragment variant on ProductVariant {
+		id
+		sku
+		title
+		price
+		compareAtPrice
+		image { originalSrc }
+		product {
+			title
+			handle
+			productType
+			vendor
+		}
+	}
+'''
+
+# Graphql query to fetch a variant by id
+export fetchVariantQuery = """
+	query($id: ID!) {
+		node(id: $id) {
+			...variant
+		}
+	}
+	#{productVariantFragment}
+"""
+
+# Graphql query to fetch a checkout by id
+export fetchCheckoutQuery = """
+	query($id: ID!) {
+		node(id: $id) {
+			... on Checkout {
+				id
+				webUrl
+				subtotalPrice
+				totalPrice
+				lineItems (first: 250) {
+					edges {
+						node {
+							... on CheckoutLineItem {
+								id
+								quantity
+								variant { ...variant }
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+#{productVariantFragment}
+"""
+
+
 # NON-INSTANCE HELPERS ########################################################
 
 # Error object with custom handling
@@ -227,35 +343,14 @@ class StorefrontError extends Error
 		@errors = errors.map (e) -> JSON.stringify e
 		@payload = payload
 
-# Graphql query to fetch a variant by id
-export fetchVariantQuery = '''
-	query ($id: ID!) {
-		node(id: $id) {
-			... on ProductVariant {
-				id
-				sku
-				title
-				price
-				compareAtPrice
-				image { originalSrc }
-				product {
-					title
-					handle
-					productType
-					vendor
-				}
-			}
-		}
-	}
-'''
-
 # Get the id from a Shoify gid:// style id.  This strips everything but the
 # last part of the string.  So gid://shopify/ProductVariant/34641879105581
 # becomes 34641879105581
+# https://regex101.com/r/3FIplL/1
 getShopifyId = (id) ->
 	return id if String(id).match /^\d+$/ # Already simple id
 	id = atob id unless id.match /^gid:\/\// # De-base64
-	return id.match(/\/(\w+)$/)?[1] # Get the id from the gid
+	return id.match(/\/([^\/]+)$/)?[1] # Get the id from the gid
 
 # Get the position of an element with respect to it's parent
 # https://stackoverflow.com/a/5913984/59160

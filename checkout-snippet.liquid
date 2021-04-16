@@ -1,21 +1,31 @@
 {% comment %}
-	Export cart contents for shopify-gtm-instrumentor
+	Export cart contents for shopify-gtm-instrumentor such that they are similar
+	to the schema from the Storefront API.
 {% endcomment %}
 <script>
-	window.CHECKOUT_LINE_ITEMS = [];
+	window.CHECKOUT_FOR_GTM_INSTRUMENTOR = {
+		id: {{ checkout.id }},
+		subtotalPrice: {{ checkout.line_items_subtotal_price }},
+		totalPrice: {{ checkout.total_price }},
+		lineItems: [],
+	};
 	{% for line_item in checkout.line_items %}
-		CHECKOUT_LINE_ITEMS.push({
+		CHECKOUT_FOR_GTM_INSTRUMENTOR.lineItems.push({
+			id: '{{ line_item.id }}',
 			quantity: {{ line_item.quantity }},
 			variant: {
 				id: '{{ line_item.variant.id }}',
 				sku: '{{ line_item.variant.sku }}',
 				title: '{{ line_item.variant.title }}',
 				price: '{{ line_item.variant.price }}',
-			},
-			product: {
-				title: '{{ line_item.product.title }}',
-				type: '{{ line_item.product.type }}',
-				vendor: '{{ line_item.product.vendor }}',
+				compareAtPrice: '{{ line_item.variant.compare_at_price }}',
+				image: '{{ line_item.image.src }}',
+				product: {
+					title: '{{ line_item.product.title }}',
+					handle: '{{ line_item.product.handle }}',
+					productType: '{{ line_item.product.type }}',
+					vendor: '{{ line_item.product.vendor }}',
+				},
 			},
 		});
 	{% endfor %}
