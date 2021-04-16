@@ -21,14 +21,14 @@ export default class ShopifyGtmInstrumentor
 	productImpression: (variantPayload, { el, list, position } = {}) ->
 
 		# Get variant
-		return unless variant = await @getVariantFromPayload variantPayload
+		return unless flatVariant = await @getFlatVariant variantPayload
 
 		# Make defaults
 		position = getElPosition el if el and !position?
 
 		# Fire event
 		eventPusher = => @pushEvent 'Product Impression', {
-			...(flatVariant = @makeFlatVariant variant)
+			...flatVariant
 			ecommerce: impressions: [{
 				...@makeUaProductFieldObject flatVariant
 				list
@@ -45,14 +45,14 @@ export default class ShopifyGtmInstrumentor
 		then clickEvent?.preventDefault()
 
 		# Get variant
-		return unless variant = await @getVariantFromPayload variantPayload
+		return unless flatVariant = await @getFlatVariant variantPayload
 
 		# Make defaults
 		position = getElPosition el if el and !position?
 
 		# Fire event
 		@pushEvent 'Product Click', {
-			...(flatVariant = @makeFlatVariant variant)
+			...flatVariant
 			ecommerce: click: {
 				...(unless list then {} else {
 					actionField: { list }
@@ -71,11 +71,11 @@ export default class ShopifyGtmInstrumentor
 	viewProductDetails: (variantPayload) ->
 
 		# Get variant
-		return unless variant = await @getVariantFromPayload variantPayload
+		return unless flatVariant = await @getFlatVariant variantPayload
 
 		# Fire event
 		@pushEvent 'View Product Details', {
-			...(flatVariant = @makeFlatVariant variant)
+			...flatVariant
 			ecommerce: detail: products: [
 				@makeUaProductFieldObject flatVariant
 			]
@@ -97,11 +97,11 @@ export default class ShopifyGtmInstrumentor
 		gtmEvent = 'Update Quantity', ecommerceAction) ->
 
 		# Get variant
-		return unless variant = await @getVariantFromPayload variantPayload
+		return unless flatVariant = await @getFlatVariant variantPayload
 
 		# Fire the event
 		@pushEvent gtmEvent, {
-			...(flatVariant = @makeFlatVariant variant)
+			...flatVariant
 
 			# Conditionally add enhanced ecommerce action
 			...(unless ecommerceAction then {} else {
@@ -118,11 +118,11 @@ export default class ShopifyGtmInstrumentor
 	purchase: (lineItems) -> @pushEvent 'Purchase', { lineItems }
 
 
-	# DATA HELPERS ##############################################################
+	# VARIANT DATA ##############################################################
 
-	# Take a variantPayload, which may be an id or an object, and return the
-	# Shopify variant object, ideally with nsted product data.
-	getVariantFromPayload: (variantPayload) ->
+	# Take a variantPayload, which may be an id or an object, and return an
+	# object that can be easily consumed by GTM.
+	getFlatVariant: (variantPayload) ->
 
 		# Conditioally fetch from storefront API
 		variant = if typeof variantPayload == 'object'
@@ -131,7 +131,7 @@ export default class ShopifyGtmInstrumentor
 
 		# Validate the variant and return
 		unless variant then console.error 'Variant not found', variantPayload
-		return variant
+		return @makeFlatVariant variant
 
 	# Lookup a product variant by id. Id may be a simple number or a
 	# gid://shopify string
