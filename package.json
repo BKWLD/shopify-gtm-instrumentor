@@ -30,6 +30,6 @@
 		"coffeescript": "^2.5.1"
 	},
 	"dependencies": {
-		"axios": "^0.21.1"
+		"axios": "^0"
 	}
 }
