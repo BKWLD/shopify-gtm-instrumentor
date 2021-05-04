@@ -495,14 +495,17 @@ var _default = ShopifyGtmInstrumentor = /*#__PURE__*/function () {
               case 7:
                 variant = _context8.t0;
 
-                // Validate the variant and return
                 if (!variant) {
-                  console.error('Variant not found', variantPayload);
+                  _context8.next = 12;
+                  break;
                 }
 
                 return _context8.abrupt("return", this.makeFlatVariant(variant));
 
-              case 10:
+              case 12:
+                return _context8.abrupt("return", console.error('Variant not found', variantPayload));
+
+              case 13:
               case "end":
                 return _context8.stop();
             }
@@ -527,8 +530,16 @@ var _default = ShopifyGtmInstrumentor = /*#__PURE__*/function () {
           while (1) {
             switch (_context9.prev = _context9.next) {
               case 0:
+                if (variantId) {
+                  _context9.next = 2;
+                  break;
+                }
+
+                return _context9.abrupt("return");
+
+              case 2:
                 variantId = getShopifyId(variantId);
-                _context9.next = 3;
+                _context9.next = 5;
                 return this.queryStorefrontApi({
                   variables: {
                     id: btoa('gid://shopify/ProductVariant/' + variantId)
@@ -536,11 +547,11 @@ var _default = ShopifyGtmInstrumentor = /*#__PURE__*/function () {
                   query: fetchVariantQuery
                 });
 
-              case 3:
+              case 5:
                 result = _context9.sent;
                 return _context9.abrupt("return", result.node);
 
-              case 5:
+              case 7:
               case "end":
                 return _context9.stop();
             }

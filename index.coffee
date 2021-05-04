@@ -164,12 +164,13 @@ export default class ShopifyGtmInstrumentor
 		else await @fetchVariant variantPayload
 
 		# Validate the variant and return
-		unless variant then console.error 'Variant not found', variantPayload
-		return @makeFlatVariant variant
+		if variant then @makeFlatVariant variant
+		else console.error 'Variant not found', variantPayload
 
 	# Lookup a product variant by id. Id may be a simple number or a
 	# gid://shopify string
 	fetchVariant: (variantId) ->
+		return unless variantId
 		variantId = getShopifyId variantId
 		result = await @queryStorefrontApi
 			variables: id: btoa 'gid://shopify/ProductVariant/' + variantId
