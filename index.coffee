@@ -182,6 +182,7 @@ export default class ShopifyGtmInstrumentor
 		product = variant.product
 
 		# Product level info
+		productId: (productId = getShopifyId product.id)
 		productTitle: product.title
 		productVariantTitle: "#{product.title} - #{variant.title}"
 		productType: product.productType || product.type
@@ -301,6 +302,7 @@ export productVariantFragment = '''
 		compareAtPrice
 		image { originalSrc }
 		product {
+			id
 			title
 			handle
 			productType
@@ -361,8 +363,11 @@ class StorefrontError extends Error
 # becomes 34641879105581
 # https://regex101.com/r/3FIplL/1
 getShopifyId = (id) ->
+	console.log 'id', id
 	return id if String(id).match /^\d+$/ # Already simple id
 	id = atob id unless id.match /^gid:\/\// # De-base64
+
+	console.log 'id', id
 	return id.match(/\/([^\/]+)$/)?[1] # Get the id from the gid
 
 # Get the position of an element with respect to it's parent
