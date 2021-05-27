@@ -856,7 +856,6 @@ StorefrontError = function () {
 
 getShopifyId = function getShopifyId(id) {
   var ref;
-  console.log('id', id);
 
   if (String(id).match(/^\d+$/)) {
     // Already simple id
@@ -868,7 +867,6 @@ getShopifyId = function getShopifyId(id) {
     id = atob(id);
   }
 
-  console.log('id', id);
   return (ref = id.match(/\/([^\/]+)$/)) != null ? ref[1] : void 0;
 }; // Get the position of an element with respect to it's parent
 // https://stackoverflow.com/a/5913984/59160
