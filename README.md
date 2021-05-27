@@ -94,7 +94,7 @@ Pushes an object to the dataLayer that looks like:
         brand: 'Bukwild',
         category: 'Shirts',
         variant: 'Black',
-        price: 18.99
+        price: 18.99,
         list: 'Shirts Collection',
         position: 3
       }
@@ -149,7 +149,7 @@ Pushes an object to the dataLayer that looks like:
           brand: 'Bukwild',
           category: 'Shirts',
           variant: 'Black',
-          price: 18.99
+          price: 18.99,
           position: 3
         }
       ]
@@ -375,12 +375,12 @@ This isn't designed to trigger the Enhanced Ecommerce `purchase` action; we're e
   checkoutStep: `contact_information`
   checkoutId: '789',
   checkoutUrl: 'https://www.shop.com/.../checkouts/...',
-  subtotalPrice: 18.99
-  totalPrice: 18.99
+  subtotalPrice: 18.99,
+  totalPrice: 18.99,
   lineItems: [
     {
       lineItemId: '456',
-      quantity: 1
+      quantity: 1,
       sku: 'sku-abc',
       variantId: '123',
       variantTitle: 'Black',
@@ -421,12 +421,12 @@ Like Checkout, thisn't intended to replace Shopify's Enhannced Ecommerce support
   firstOccurance: true,
   checkoutId: '789',
   checkoutUrl: 'https://www.shop.com/.../checkouts/...',
-  subtotalPrice: 18.99
-  totalPrice: 18.99
+  subtotalPrice: 18.99,
+  totalPrice: 18.99,
   lineItems: [
     {
       lineItemId: '456',
-      quantity: 1
+      quantity: 1,
       sku: 'sku-abc',
       variantId: '123',
       variantTitle: 'Black',
