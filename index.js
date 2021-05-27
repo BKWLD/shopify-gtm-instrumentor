@@ -569,10 +569,11 @@ var _default = ShopifyGtmInstrumentor = /*#__PURE__*/function () {
   }, {
     key: "makeFlatVariant",
     value: function makeFlatVariant(variant) {
-      var product, productUrl, ref, variantId;
+      var product, productId, productUrl, ref, variantId;
       product = variant.product;
       return {
         // Product level info
+        productId: productId = getShopifyId(product.id),
         productTitle: product.title,
         productVariantTitle: "".concat(product.title, " - ").concat(variant.title),
         productType: product.productType || product.type,
@@ -810,7 +811,7 @@ var _default = ShopifyGtmInstrumentor = /*#__PURE__*/function () {
 
 
 exports["default"] = _default;
-var productVariantFragment = "fragment variant on ProductVariant {\n\tid\n\tsku\n\ttitle\n\tprice\n\tcompareAtPrice\n\timage { originalSrc }\n\tproduct {\n\t\ttitle\n\t\thandle\n\t\tproductType\n\t\tvendor\n\t}\n}"; // Graphql query to fetch a variant by id
+var productVariantFragment = "fragment variant on ProductVariant {\n\tid\n\tsku\n\ttitle\n\tprice\n\tcompareAtPrice\n\timage { originalSrc }\n\tproduct {\n\t\tid\n\t\ttitle\n\t\thandle\n\t\tproductType\n\t\tvendor\n\t}\n}"; // Graphql query to fetch a variant by id
 
 exports.productVariantFragment = productVariantFragment;
 var fetchVariantQuery = "query($id: ID!) {\n\tnode(id: $id) {\n\t\t...variant\n\t}\n}\n".concat(productVariantFragment); // Graphql query to fetch a checkout by id

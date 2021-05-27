@@ -182,6 +182,7 @@ export default class ShopifyGtmInstrumentor
 		product = variant.product
 
 		# Product level info
+		productId: (productId = getShopifyId product.id)
 		productTitle: product.title
 		productVariantTitle: "#{product.title} - #{variant.title}"
 		productType: product.productType || product.type
@@ -301,6 +302,7 @@ export productVariantFragment = '''
 		compareAtPrice
 		image { originalSrc }
 		product {
+			id
 			title
 			handle
 			productType
