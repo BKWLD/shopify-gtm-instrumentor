@@ -5,8 +5,9 @@
 <script>
 	window.CHECKOUT_FOR_GTM_INSTRUMENTOR = {
 		id: {{ checkout.id }},
-		subtotalPrice: {{ checkout.line_items_subtotal_price }},
-		totalPrice: {{ checkout.total_price }},
+		subtotalPrice: '{{ checkout.line_items_subtotal_price | money_without_currency }}',
+		totalPrice: '{{ checkout.total_price | money_without_currency }}',
+		orderNumber: '{{ checkout.order_number }}',
 		lineItems: [],
 	};
 	{% for line_item in checkout.line_items %}
@@ -17,8 +18,8 @@
 				id: '{{ line_item.variant.id }}',
 				sku: '{{ line_item.variant.sku }}',
 				title: '{{ line_item.variant.title }}',
-				price: '{{ line_item.variant.price }}',
-				compareAtPrice: '{{ line_item.variant.compare_at_price }}',
+				price: '{{ line_item.variant.price | money_without_currency }}',
+				compareAtPrice: '{{ line_item.variant.compare_at_price | money_without_currency }}',
 				image: '{{ line_item.image.src }}',
 				product: {
 					title: '{{ line_item.product.title }}',
