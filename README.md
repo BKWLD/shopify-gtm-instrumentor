@@ -326,12 +326,12 @@ Pushes an object to the dataLayer that looks like:
   firstOccurance: true,
   checkoutId: '789',
   checkoutUrl: 'https://www.shop.com/.../checkouts/...',
-  subtotalPrice: 18.99
-  totalPrice: 18.99
+  subtotalPrice: 18.99,
+  totalPrice: 18.99,
   lineItems: [
     {
       lineItemId: '456',
-      quantity: 1
+      quantity: 1,
       sku: 'sku-abc',
       variantId: '123',
       variantTitle: 'Black',
