@@ -26,6 +26,12 @@ yarn add shopify-gtm-instrumentor
 
 4. Include the [checkout-snippet.liquid](./checkout-snippet.liquid) in your checkout.liquid.
 
+#### Optional
+
+- Import the [gtm-workspace-variables.json](./gtm-workspace-variables.json) file into your GTM container to easily create all GTM DataLayer variables.
+
+![](https://p-9WF55W9.t1.n0.cdn.getcloudapp.com/items/DOuB6Wmq/ccf85884-1c74-4fa1-9a70-001cbbbb98dd.jpg?v=74e1d13c869f1c1c3c375486cb7d2960)
+
 ## Usage
 
 Instantiate this package like:
