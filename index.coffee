@@ -182,7 +182,7 @@ export default class ShopifyGtmInstrumentor
 		product = variant.product
 
 		# Product level info
-		productId: (productId = getShopifyId product.id)
+		productId: getShopifyId product.id
 		productTitle: product.title
 		productVariantTitle: "#{product.title} - #{variant.title}"
 		productType: product.productType || product.type
