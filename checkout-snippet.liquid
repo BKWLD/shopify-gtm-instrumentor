@@ -22,6 +22,7 @@
 				compareAtPrice: '{{ line_item.variant.compare_at_price | money_without_currency }}',
 				image: '{{ line_item.image.src }}',
 				product: {
+					id: '{{ line_item.product.id }}',
 					title: '{{ line_item.product.title }}',
 					handle: '{{ line_item.product.handle }}',
 					productType: '{{ line_item.product.type }}',
