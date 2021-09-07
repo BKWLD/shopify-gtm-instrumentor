@@ -116,34 +116,25 @@ export default class ShopifyGtmInstrumentor
 		}
 
 	# Fire an event with the current state of the cart
-	cartUpdated: (checkoutPayload) ->
-
-		# Get checkout
-		return unless simpleCheckout = await @getSimplifiedCheckout checkoutPayload
-
-		# Fire event
-		@pushEvent 'Cart Updated', simpleCheckout
+	cartUpdated: (checkoutOrCartPayload) ->
+		if simplifiedCheckout = await @getSimplifiedCheckout(
+			checkoutOrCartPayload)
+		then @pushEvent 'Cart Updated', simplifiedCheckout
 
 	# Fire an event with the current step of the checkout process
-	checkout: (checkoutPayload, checkoutStep) ->
-
-		# Get checkout
-		return unless simpleCheckout = await @getSimplifiedCheckout checkoutPayload
-
-		# Fire event
-		@pushEvent 'Checkout', {
+	checkout: (checkoutOrCartPayload, checkoutStep) ->
+		if simplifiedCheckout = await @getSimplifiedCheckout(
+			checkoutOrCartPayload)
+		then @pushEvent 'Checkout', {
 			checkoutStep
-			...simpleCheckout
+			...simplifiedCheckout
 		}
 
 	# Notify of final checkout, using array of variant data from liquid
-	purchase: (checkoutPayload) ->
-
-		# Get checkout
-		return unless simpleCheckout = await @getSimplifiedCheckout checkoutPayload
-
-		# Fire event
-		@pushEvent 'Purchase', simpleCheckout
+	purchase: (checkoutOrCartPayload) ->
+		if simplifiedCheckout = await @getSimplifiedCheckout(
+			checkoutOrCartPayload)
+		then @pushEvent 'Purchase', simplifiedCheckout
 
 	# Customer information
 	identifyCustomer: (customer) -> @pushEvent 'Identify Customer', {
@@ -215,25 +206,39 @@ export default class ShopifyGtmInstrumentor
 
 	# Take a checkoutPayload, which may be an id or an object, and return the
 	# Shopify checkout object that has been simplified a bit.
-	getSimplifiedCheckout: (checkoutPayload) ->
+	getSimplifiedCheckout: (checkoutOrCartPayload) ->
 
 		# Conditioally fetch from storefront API
-		checkout = if typeof checkoutPayload == 'object'
-		then checkoutPayload
-		else await @fetchCheckout checkoutPayload
+		checkout = if typeof checkoutOrCartPayload == 'object'
+		then checkoutOrCartPayload
+		else await @fetchCheckout checkoutOrCartPayload
 
 		# Validate the checkout and return
-		unless checkout then console.error 'Checkout not found', checkoutPayload
+		unless checkout then return console.error 'Checkout or Cart not found',
+			checkoutOrCartPayload
 		return @makeSimplifiedCheckout checkout
 
-	# Lookup a product variant by id. Id may be a simple number or a
-	# gid://shopify string
-	fetchCheckout: (checkoutId) ->
-		checkoutId = getShopifyId checkoutId
-		result = await @queryStorefrontApi
-			variables: id: btoa 'gid://shopify/Checkout/' + checkoutId
-			query: fetchCheckoutQuery
-		return result.node
+	# Lookup a checkout or cart by id. Id should be a gid://shopify string
+	fetchCheckout: (checkoutOrCartId) ->
+
+		# Determine if cart of checkout request
+		[all, type] = atob(checkoutOrCartId).match /gid:\/\/shopify\/(\w+)/
+
+		# Get the data
+		{ node } = await @queryStorefrontApi
+			query: switch type
+				when 'Cart' then fetchCartQuery
+				when 'Checkout' then fetchCheckoutQuery
+				else throw "Unknown type: #{type}"
+			variables: id: checkoutOrCartId
+
+		# Final massage of Carts into Checkout
+		if node.estimatedCost
+			node.subtotalPrice = node.estimatedCost.subtotalAmount.amount
+			node.totalPrice = node.estimatedCost.totalAmount.amount
+
+		# Return "checkout" (which could be a Cart object)
+		return node
 
 	# Reduce
 	makeSimplifiedCheckout: (checkout) ->
@@ -258,7 +263,7 @@ export default class ShopifyGtmInstrumentor
 	# Query Storefront API
 	queryStorefrontApi: (payload) ->
 		response = await axios
-			url: "#{@storeUrl}/api/2021-04/graphql"
+			url: "#{@storeUrl}/api/2021-10/graphql"
 			method: 'post'
 			headers:
 				'Accept': 'application/json'
@@ -290,6 +295,7 @@ export default class ShopifyGtmInstrumentor
 		@occurances.push eventName
 		return true
 
+
 # STOREFRONT QUERIES ##########################################################
 
 # Product Variant fragment
@@ -319,6 +325,34 @@ export fetchVariantQuery = """
 		}
 	}
 	#{productVariantFragment}
+"""
+
+# Graphql query to fetch a cart by id
+export fetchCartQuery = """
+	query($id: ID!) {
+		node: cart(id: $id) {
+			... on Cart {
+				id
+				webUrl: checkoutUrl
+				estimatedCost {
+					subtotalAmount { amount }
+					totalAmount { amount }
+				}
+				lineItems: lines (first: 250) {
+					edges {
+						node {
+							... on CartLine {
+								id
+								quantity
+								variant: merchandise { ...variant }
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+#{productVariantFragment}
 """
 
 # Graphql query to fetch a checkout by id
@@ -358,7 +392,7 @@ class StorefrontError extends Error
 		@errors = errors.map (e) -> JSON.stringify e
 		@payload = payload
 
-# Get the id from a Shoify gid:// style id.  This strips everything but the
+# Get the id from a Shopify gid:// style id.  This strips everything but the
 # last part of the string.  So gid://shopify/ProductVariant/34641879105581
 # becomes 34641879105581
 # https://regex101.com/r/3FIplL/1

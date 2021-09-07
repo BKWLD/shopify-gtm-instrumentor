@@ -5,11 +5,9 @@ var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefau
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.fetchCheckoutQuery = exports.fetchVariantQuery = exports.productVariantFragment = exports["default"] = void 0;
+exports.fetchCheckoutQuery = exports.fetchCartQuery = exports.fetchVariantQuery = exports.productVariantFragment = exports["default"] = void 0;
 
 var _regenerator = _interopRequireDefault(require("@babel/runtime/regenerator"));
-
-var _slicedToArray2 = _interopRequireDefault(require("@babel/runtime/helpers/slicedToArray"));
 
 var _inherits2 = _interopRequireDefault(require("@babel/runtime/helpers/inherits"));
 
@@ -18,6 +16,8 @@ var _possibleConstructorReturn2 = _interopRequireDefault(require("@babel/runtime
 var _getPrototypeOf2 = _interopRequireDefault(require("@babel/runtime/helpers/getPrototypeOf"));
 
 var _wrapNativeSuper2 = _interopRequireDefault(require("@babel/runtime/helpers/wrapNativeSuper"));
+
+var _slicedToArray2 = _interopRequireDefault(require("@babel/runtime/helpers/slicedToArray"));
 
 var _typeof2 = _interopRequireDefault(require("@babel/runtime/helpers/typeof"));
 
@@ -343,27 +343,24 @@ var _default = ShopifyGtmInstrumentor = /*#__PURE__*/function () {
   }, {
     key: "cartUpdated",
     value: function () {
-      var _cartUpdated = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee5(checkoutPayload) {
-        var simpleCheckout;
+      var _cartUpdated = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee5(checkoutOrCartPayload) {
+        var simplifiedCheckout;
         return _regenerator["default"].wrap(function _callee5$(_context5) {
           while (1) {
             switch (_context5.prev = _context5.next) {
               case 0:
                 _context5.next = 2;
-                return this.getSimplifiedCheckout(checkoutPayload);
+                return this.getSimplifiedCheckout(checkoutOrCartPayload);
 
               case 2:
-                if (simpleCheckout = _context5.sent) {
+                if (!(simplifiedCheckout = _context5.sent)) {
                   _context5.next = 4;
                   break;
                 }
 
-                return _context5.abrupt("return");
+                return _context5.abrupt("return", this.pushEvent('Cart Updated', simplifiedCheckout));
 
               case 4:
-                return _context5.abrupt("return", this.pushEvent('Cart Updated', simpleCheckout));
-
-              case 5:
               case "end":
                 return _context5.stop();
             }
@@ -381,29 +378,26 @@ var _default = ShopifyGtmInstrumentor = /*#__PURE__*/function () {
   }, {
     key: "checkout",
     value: function () {
-      var _checkout = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee6(checkoutPayload, checkoutStep) {
-        var simpleCheckout;
+      var _checkout = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee6(checkoutOrCartPayload, checkoutStep) {
+        var simplifiedCheckout;
         return _regenerator["default"].wrap(function _callee6$(_context6) {
           while (1) {
             switch (_context6.prev = _context6.next) {
               case 0:
                 _context6.next = 2;
-                return this.getSimplifiedCheckout(checkoutPayload);
+                return this.getSimplifiedCheckout(checkoutOrCartPayload);
 
               case 2:
-                if (simpleCheckout = _context6.sent) {
+                if (!(simplifiedCheckout = _context6.sent)) {
                   _context6.next = 4;
                   break;
                 }
 
-                return _context6.abrupt("return");
-
-              case 4:
                 return _context6.abrupt("return", this.pushEvent('Checkout', _objectSpread({
                   checkoutStep: checkoutStep
-                }, simpleCheckout)));
+                }, simplifiedCheckout)));
 
-              case 5:
+              case 4:
               case "end":
                 return _context6.stop();
             }
@@ -421,27 +415,24 @@ var _default = ShopifyGtmInstrumentor = /*#__PURE__*/function () {
   }, {
     key: "purchase",
     value: function () {
-      var _purchase = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee7(checkoutPayload) {
-        var simpleCheckout;
+      var _purchase = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee7(checkoutOrCartPayload) {
+        var simplifiedCheckout;
         return _regenerator["default"].wrap(function _callee7$(_context7) {
           while (1) {
             switch (_context7.prev = _context7.next) {
               case 0:
                 _context7.next = 2;
-                return this.getSimplifiedCheckout(checkoutPayload);
+                return this.getSimplifiedCheckout(checkoutOrCartPayload);
 
               case 2:
-                if (simpleCheckout = _context7.sent) {
+                if (!(simplifiedCheckout = _context7.sent)) {
                   _context7.next = 4;
                   break;
                 }
 
-                return _context7.abrupt("return");
+                return _context7.abrupt("return", this.pushEvent('Purchase', simplifiedCheckout));
 
               case 4:
-                return _context7.abrupt("return", this.pushEvent('Purchase', simpleCheckout));
-
-              case 5:
               case "end":
                 return _context7.stop();
             }
@@ -569,11 +560,11 @@ var _default = ShopifyGtmInstrumentor = /*#__PURE__*/function () {
   }, {
     key: "makeFlatVariant",
     value: function makeFlatVariant(variant) {
-      var product, productId, productUrl, ref, variantId;
+      var product, productUrl, ref, variantId;
       product = variant.product;
       return {
         // Product level info
-        productId: productId = getShopifyId(product.id),
+        productId: getShopifyId(product.id),
         productTitle: product.title,
         productVariantTitle: "".concat(product.title, " - ").concat(variant.title),
         productType: product.productType || product.type,
@@ -611,24 +602,24 @@ var _default = ShopifyGtmInstrumentor = /*#__PURE__*/function () {
   }, {
     key: "getSimplifiedCheckout",
     value: function () {
-      var _getSimplifiedCheckout = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee10(checkoutPayload) {
+      var _getSimplifiedCheckout = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee10(checkoutOrCartPayload) {
         var checkout;
         return _regenerator["default"].wrap(function _callee10$(_context10) {
           while (1) {
             switch (_context10.prev = _context10.next) {
               case 0:
-                if (!((0, _typeof2["default"])(checkoutPayload) === 'object')) {
+                if (!((0, _typeof2["default"])(checkoutOrCartPayload) === 'object')) {
                   _context10.next = 4;
                   break;
                 }
 
-                _context10.t0 = checkoutPayload;
+                _context10.t0 = checkoutOrCartPayload;
                 _context10.next = 7;
                 break;
 
               case 4:
                 _context10.next = 6;
-                return this.fetchCheckout(checkoutPayload);
+                return this.fetchCheckout(checkoutOrCartPayload);
 
               case 6:
                 _context10.t0 = _context10.sent;
@@ -636,14 +627,17 @@ var _default = ShopifyGtmInstrumentor = /*#__PURE__*/function () {
               case 7:
                 checkout = _context10.t0;
 
-                // Validate the checkout and return
-                if (!checkout) {
-                  console.error('Checkout not found', checkoutPayload);
+                if (checkout) {
+                  _context10.next = 10;
+                  break;
                 }
 
-                return _context10.abrupt("return", this.makeSimplifiedCheckout(checkout));
+                return _context10.abrupt("return", console.error('Checkout or Cart not found', checkoutOrCartPayload));
 
               case 10:
+                return _context10.abrupt("return", this.makeSimplifiedCheckout(checkout));
+
+              case 11:
               case "end":
                 return _context10.stop();
             }
@@ -656,32 +650,55 @@ var _default = ShopifyGtmInstrumentor = /*#__PURE__*/function () {
       }
 
       return getSimplifiedCheckout;
-    }() // Lookup a product variant by id. Id may be a simple number or a
-    // gid://shopify string
+    }() // Lookup a checkout or cart by id. Id should be a gid://shopify string
 
   }, {
     key: "fetchCheckout",
     value: function () {
-      var _fetchCheckout = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee11(checkoutId) {
-        var result;
+      var _fetchCheckout = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee11(checkoutOrCartId) {
+        var all, node, type, _atob$match, _atob$match2, _yield$this$queryStor;
+
         return _regenerator["default"].wrap(function _callee11$(_context11) {
           while (1) {
             switch (_context11.prev = _context11.next) {
               case 0:
-                checkoutId = getShopifyId(checkoutId);
-                _context11.next = 3;
+                _atob$match = atob(checkoutOrCartId).match(/gid:\/\/shopify\/(\w+)/);
+                _atob$match2 = (0, _slicedToArray2["default"])(_atob$match, 2);
+                all = _atob$match2[0];
+                type = _atob$match2[1];
+                _context11.next = 6;
                 return this.queryStorefrontApi({
+                  query: function () {
+                    switch (type) {
+                      case 'Cart':
+                        return fetchCartQuery;
+
+                      case 'Checkout':
+                        return fetchCheckoutQuery;
+
+                      default:
+                        throw "Unknown type: ".concat(type);
+                    }
+                  }(),
                   variables: {
-                    id: btoa('gid://shopify/Checkout/' + checkoutId)
-                  },
-                  query: fetchCheckoutQuery
+                    id: checkoutOrCartId
+                  }
                 });
 
-              case 3:
-                result = _context11.sent;
-                return _context11.abrupt("return", result.node);
+              case 6:
+                _yield$this$queryStor = _context11.sent;
+                node = _yield$this$queryStor.node;
 
-              case 5:
+                // Final massage of Carts into Checkout
+                if (node.estimatedCost) {
+                  node.subtotalPrice = node.estimatedCost.subtotalAmount.amount;
+                  node.totalPrice = node.estimatedCost.totalAmount.amount;
+                } // Return "checkout" (which could be a Cart object)
+
+
+                return _context11.abrupt("return", node);
+
+              case 10:
               case "end":
                 return _context11.stop();
             }
@@ -736,7 +753,7 @@ var _default = ShopifyGtmInstrumentor = /*#__PURE__*/function () {
               case 0:
                 _context12.next = 2;
                 return (0, _axios["default"])({
-                  url: "".concat(this.storeUrl, "/api/2021-04/graphql"),
+                  url: "".concat(this.storeUrl, "/api/2021-10/graphql"),
                   method: 'post',
                   headers: {
                     'Accept': 'application/json',
@@ -814,9 +831,12 @@ exports["default"] = _default;
 var productVariantFragment = "fragment variant on ProductVariant {\n\tid\n\tsku\n\ttitle\n\tprice\n\tcompareAtPrice\n\timage { originalSrc }\n\tproduct {\n\t\tid\n\t\ttitle\n\t\thandle\n\t\tproductType\n\t\tvendor\n\t}\n}"; // Graphql query to fetch a variant by id
 
 exports.productVariantFragment = productVariantFragment;
-var fetchVariantQuery = "query($id: ID!) {\n\tnode(id: $id) {\n\t\t...variant\n\t}\n}\n".concat(productVariantFragment); // Graphql query to fetch a checkout by id
+var fetchVariantQuery = "query($id: ID!) {\n\tnode(id: $id) {\n\t\t...variant\n\t}\n}\n".concat(productVariantFragment); // Graphql query to fetch a cart by id
 
 exports.fetchVariantQuery = fetchVariantQuery;
+var fetchCartQuery = "query($id: ID!) {\n\tnode: cart(id: $id) {\n\t\t... on Cart {\n\t\t\tid\n\t\t\twebUrl: checkoutUrl\n\t\t\testimatedCost {\n\t\t\t\tsubtotalAmount { amount }\n\t\t\t\ttotalAmount { amount }\n\t\t\t}\n\t\t\tlineItems: lines (first: 250) {\n\t\t\t\tedges {\n\t\t\t\t\tnode {\n\t\t\t\t\t\t... on CartLine {\n\t\t\t\t\t\t\tid\n\t\t\t\t\t\t\tquantity\n\t\t\t\t\t\t\tvariant: merchandise { ...variant }\n\t\t\t\t\t\t}\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t}\n}\n".concat(productVariantFragment); // Graphql query to fetch a checkout by id
+
+exports.fetchCartQuery = fetchCartQuery;
 var fetchCheckoutQuery = "query($id: ID!) {\n\tnode(id: $id) {\n\t\t... on Checkout {\n\t\t\tid\n\t\t\twebUrl\n\t\t\tsubtotalPrice\n\t\t\ttotalPrice\n\t\t\tlineItems (first: 250) {\n\t\t\t\tedges {\n\t\t\t\t\tnode {\n\t\t\t\t\t\t... on CheckoutLineItem {\n\t\t\t\t\t\t\tid\n\t\t\t\t\t\t\tquantity\n\t\t\t\t\t\t\tvariant { ...variant }\n\t\t\t\t\t\t}\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t}\n}\n".concat(productVariantFragment);
 exports.fetchCheckoutQuery = fetchCheckoutQuery;
 
@@ -848,7 +868,7 @@ StorefrontError = function () {
   ;
   StorefrontError.prototype.name = 'StorefrontError';
   return StorefrontError;
-}.call(void 0); // Get the id from a Shoify gid:// style id.  This strips everything but the
+}.call(void 0); // Get the id from a Shopify gid:// style id.  This strips everything but the
 // last part of the string.  So gid://shopify/ProductVariant/34641879105581
 // becomes 34641879105581
 // https://regex101.com/r/3FIplL/1

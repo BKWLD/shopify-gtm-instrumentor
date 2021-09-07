@@ -313,10 +313,10 @@ See above for info on `firstOccurance`.
 Used to send the current checkout / cart state to GTM.  This is not an explicit Enhanced Ecommerce event but many GTM want this data.
 
 ```js
-gtmEcomm.cartUpdated(checkoutPayload)
+gtmEcomm.cartUpdated(checkoutOrCartPayload)
 ```
 
-- `checkoutPayload` - Either a Checkout ID that can be resolved by the Storefront API (recommende) or an object that is formed to _look_ like one (like the `window.CHECKOUT_LINE_ITEMS` object, described below).
+- `checkoutOrCartPayload` - Either a [Cart](https://shopify.dev/api/storefront/reference/cart/cart) or [Checkout](https://shopify.dev/api/storefront/reference/checkouts/checkout) ID that can be resolved by the Storefront API (recommended) or an object that is formed to _look_ like one (like the `window.CHECKOUT_LINE_ITEMS` object, described below).
 
 Pushes an object to the dataLayer that looks like:
 
