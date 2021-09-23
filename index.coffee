@@ -9,7 +9,7 @@ export default class ShopifyGtmInstrumentor
 	constructor: ({
 		@debug = false
 		@storeUrl = process.env.SHOPIFY_URL
-		@storefrontToken = process.env.SHOPIFY_STOREFONT_TOKEN
+		@storefrontToken = process.env.SHOPIFY_STOREFRONT_TOKEN
 		@currencyCode = 'USD'
 	} = {})->
 		@occurances = []
