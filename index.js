@@ -59,7 +59,7 @@ var _default = ShopifyGtmInstrumentor = /*#__PURE__*/function () {
         _ref$storeUrl = _ref.storeUrl,
         storeUrl = _ref$storeUrl === void 0 ? process.env.SHOPIFY_URL : _ref$storeUrl,
         _ref$storefrontToken = _ref.storefrontToken,
-        storefrontToken = _ref$storefrontToken === void 0 ? process.env.SHOPIFY_STOREFONT_TOKEN : _ref$storefrontToken,
+        storefrontToken = _ref$storefrontToken === void 0 ? process.env.SHOPIFY_STOREFRONT_TOKEN : _ref$storefrontToken,
         _ref$currencyCode = _ref.currencyCode,
         currencyCode = _ref$currencyCode === void 0 ? 'USD' : _ref$currencyCode;
 
