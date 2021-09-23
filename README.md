@@ -10,6 +10,18 @@ This package is designed to supplement that integration for other uses cases lik
 - Firing Add / Remove from Cart events from headless ecommerce implementations
 - Making it easy to create Enhanced Ecommerce dataLayer objects for supported actions.
 
+*Methods*:
+
+- [`productImpression`](#product-impressions)
+- [`productClick`](#product-clicks)
+- [`viewProductDetails`](#product-detail-impressions)
+- [`addToCart`](#add--remove-from-cart)
+- [`removeFromCart`](#add--remove-from-cart)
+- [`cartUpdated`](#cart-updated)
+- [`checkout`](#checkout)
+- [`purchase`](#purchases)
+- [`identifyCustomer`](#customer-info)
+
 ## Setup
 
 1. Install the package
