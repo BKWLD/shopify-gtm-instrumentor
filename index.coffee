@@ -19,6 +19,7 @@ export default class ShopifyGtmInstrumentor
 
 	# A view of a product element
 	productImpression: (variantPayload, { el, list, position } = {}) ->
+		return unless window?
 
 		# Get variant
 		return unless flatVariant = await @getFlatVariant variantPayload
@@ -39,6 +40,7 @@ export default class ShopifyGtmInstrumentor
 
 	# A click on a product
 	productClick: (variantPayload, { el, list, position, clickEvent } = {}) ->
+		return unless window?
 
 		# Prevent navigation
 		if clickUrl = clickEvent?.currentTarget?.href
@@ -69,6 +71,7 @@ export default class ShopifyGtmInstrumentor
 
 	# Typically used for view of PDP page
 	viewProductDetails: (variantPayload) ->
+		return unless window?
 
 		# Get variant
 		return unless flatVariant = await @getFlatVariant variantPayload
@@ -95,6 +98,7 @@ export default class ShopifyGtmInstrumentor
 	# add and remove methods.
 	updateQuantity: (variantPayload, quantity,
 		gtmEvent = 'Update Quantity', ecommerceAction) ->
+		return unless window?
 
 		# Get variant
 		return unless flatVariant = await @getFlatVariant variantPayload
@@ -117,12 +121,14 @@ export default class ShopifyGtmInstrumentor
 
 	# Fire an event with the current state of the cart
 	cartUpdated: (checkoutOrCartPayload) ->
+		return unless window?
 		if simplifiedCheckout = await @getSimplifiedCheckout(
 			checkoutOrCartPayload)
 		then @pushEvent 'Cart Updated', simplifiedCheckout
 
 	# Fire an event with the current step of the checkout process
 	checkout: (checkoutOrCartPayload, checkoutStep) ->
+		return unless window?
 		if simplifiedCheckout = await @getSimplifiedCheckout(
 			checkoutOrCartPayload)
 		then @pushEvent 'Checkout', {
@@ -132,15 +138,17 @@ export default class ShopifyGtmInstrumentor
 
 	# Notify of final checkout, using array of variant data from liquid
 	purchase: (checkoutOrCartPayload) ->
+		return unless window?
 		if simplifiedCheckout = await @getSimplifiedCheckout(
 			checkoutOrCartPayload)
 		then @pushEvent 'Purchase', simplifiedCheckout
 
 	# Customer information
-	identifyCustomer: (customer) -> @pushEvent 'Identify Customer', {
-		customerEmail: customer.email
-		customerId: customer.id
-	}
+	identifyCustomer: (customer) ->
+		return unless window?
+		@pushEvent 'Identify Customer',
+			customerEmail: customer.email
+			customerId: customer.id
 
 
 	# VARIANT DATA ##############################################################
