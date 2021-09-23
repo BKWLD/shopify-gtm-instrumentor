@@ -92,18 +92,27 @@ var _default = ShopifyGtmInstrumentor = /*#__PURE__*/function () {
             switch (_context.prev = _context.next) {
               case 0:
                 _ref2 = _args.length > 1 && _args[1] !== undefined ? _args[1] : {}, el = _ref2.el, list = _ref2.list, position = _ref2.position;
-                _context.next = 3;
-                return this.getFlatVariant(variantPayload);
 
-              case 3:
-                if (flatVariant = _context.sent) {
-                  _context.next = 5;
+                if (!(typeof window === "undefined" || window === null)) {
+                  _context.next = 3;
                   break;
                 }
 
                 return _context.abrupt("return");
 
+              case 3:
+                _context.next = 5;
+                return this.getFlatVariant(variantPayload);
+
               case 5:
+                if (flatVariant = _context.sent) {
+                  _context.next = 7;
+                  break;
+                }
+
+                return _context.abrupt("return");
+
+              case 7:
                 if (el && position == null) {
                   // Make defaults
                   position = getElPosition(el);
@@ -122,16 +131,16 @@ var _default = ShopifyGtmInstrumentor = /*#__PURE__*/function () {
                 };
 
                 if (!el) {
-                  _context.next = 11;
+                  _context.next = 13;
                   break;
                 }
 
                 return _context.abrupt("return", whenFirstInViewport(el, eventPusher));
 
-              case 11:
+              case 13:
                 return _context.abrupt("return", eventPusher());
 
-              case 12:
+              case 14:
               case "end":
                 return _context.stop();
             }
@@ -166,6 +175,14 @@ var _default = ShopifyGtmInstrumentor = /*#__PURE__*/function () {
               case 0:
                 _ref3 = _args2.length > 1 && _args2[1] !== undefined ? _args2[1] : {}, el = _ref3.el, list = _ref3.list, position = _ref3.position, clickEvent = _ref3.clickEvent;
 
+                if (!(typeof window === "undefined" || window === null)) {
+                  _context2.next = 3;
+                  break;
+                }
+
+                return _context2.abrupt("return");
+
+              case 3:
                 // Prevent navigation
                 if (clickUrl = clickEvent != null ? (ref = clickEvent.currentTarget) != null ? ref.href : void 0 : void 0) {
                   if (clickEvent != null) {
@@ -174,18 +191,18 @@ var _default = ShopifyGtmInstrumentor = /*#__PURE__*/function () {
                 } // Get variant
 
 
-                _context2.next = 4;
+                _context2.next = 6;
                 return this.getFlatVariant(variantPayload);
 
-              case 4:
+              case 6:
                 if (flatVariant = _context2.sent) {
-                  _context2.next = 6;
+                  _context2.next = 8;
                   break;
                 }
 
                 return _context2.abrupt("return");
 
-              case 6:
+              case 8:
                 if (el && position == null) {
                   // Make defaults
                   position = getElPosition(el);
@@ -207,13 +224,13 @@ var _default = ShopifyGtmInstrumentor = /*#__PURE__*/function () {
                 })); // Finish navigation
 
                 if (!clickUrl) {
-                  _context2.next = 10;
+                  _context2.next = 12;
                   break;
                 }
 
                 return _context2.abrupt("return", window.location = clickUrl);
 
-              case 10:
+              case 12:
               case "end":
                 return _context2.stop();
             }
@@ -237,18 +254,26 @@ var _default = ShopifyGtmInstrumentor = /*#__PURE__*/function () {
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
-                _context3.next = 2;
-                return this.getFlatVariant(variantPayload);
-
-              case 2:
-                if (flatVariant = _context3.sent) {
-                  _context3.next = 4;
+                if (!(typeof window === "undefined" || window === null)) {
+                  _context3.next = 2;
                   break;
                 }
 
                 return _context3.abrupt("return");
 
+              case 2:
+                _context3.next = 4;
+                return this.getFlatVariant(variantPayload);
+
               case 4:
+                if (flatVariant = _context3.sent) {
+                  _context3.next = 6;
+                  break;
+                }
+
+                return _context3.abrupt("return");
+
+              case 6:
                 return _context3.abrupt("return", this.pushEvent('View Product Details', _objectSpread(_objectSpread({}, flatVariant), {}, {
                   ecommerce: {
                     detail: {
@@ -257,7 +282,7 @@ var _default = ShopifyGtmInstrumentor = /*#__PURE__*/function () {
                   }
                 })));
 
-              case 5:
+              case 7:
               case "end":
                 return _context3.stop();
             }
@@ -301,18 +326,27 @@ var _default = ShopifyGtmInstrumentor = /*#__PURE__*/function () {
               case 0:
                 gtmEvent = _args4.length > 2 && _args4[2] !== undefined ? _args4[2] : 'Update Quantity';
                 ecommerceAction = _args4.length > 3 ? _args4[3] : undefined;
-                _context4.next = 4;
-                return this.getFlatVariant(variantPayload);
 
-              case 4:
-                if (flatVariant = _context4.sent) {
-                  _context4.next = 6;
+                if (!(typeof window === "undefined" || window === null)) {
+                  _context4.next = 4;
                   break;
                 }
 
                 return _context4.abrupt("return");
 
+              case 4:
+                _context4.next = 6;
+                return this.getFlatVariant(variantPayload);
+
               case 6:
+                if (flatVariant = _context4.sent) {
+                  _context4.next = 8;
+                  break;
+                }
+
+                return _context4.abrupt("return");
+
+              case 8:
                 return _context4.abrupt("return", this.pushEvent(gtmEvent, _objectSpread(_objectSpread({}, flatVariant), {}, {
                   quantity: quantity
                 }, !ecommerceAction ? {} : {
@@ -325,7 +359,7 @@ var _default = ShopifyGtmInstrumentor = /*#__PURE__*/function () {
                   })
                 })));
 
-              case 7:
+              case 9:
               case "end":
                 return _context4.stop();
             }
@@ -349,18 +383,26 @@ var _default = ShopifyGtmInstrumentor = /*#__PURE__*/function () {
           while (1) {
             switch (_context5.prev = _context5.next) {
               case 0:
-                _context5.next = 2;
-                return this.getSimplifiedCheckout(checkoutOrCartPayload);
+                if (!(typeof window === "undefined" || window === null)) {
+                  _context5.next = 2;
+                  break;
+                }
+
+                return _context5.abrupt("return");
 
               case 2:
+                _context5.next = 4;
+                return this.getSimplifiedCheckout(checkoutOrCartPayload);
+
+              case 4:
                 if (!(simplifiedCheckout = _context5.sent)) {
-                  _context5.next = 4;
+                  _context5.next = 6;
                   break;
                 }
 
                 return _context5.abrupt("return", this.pushEvent('Cart Updated', simplifiedCheckout));
 
-              case 4:
+              case 6:
               case "end":
                 return _context5.stop();
             }
@@ -384,12 +426,20 @@ var _default = ShopifyGtmInstrumentor = /*#__PURE__*/function () {
           while (1) {
             switch (_context6.prev = _context6.next) {
               case 0:
-                _context6.next = 2;
-                return this.getSimplifiedCheckout(checkoutOrCartPayload);
+                if (!(typeof window === "undefined" || window === null)) {
+                  _context6.next = 2;
+                  break;
+                }
+
+                return _context6.abrupt("return");
 
               case 2:
+                _context6.next = 4;
+                return this.getSimplifiedCheckout(checkoutOrCartPayload);
+
+              case 4:
                 if (!(simplifiedCheckout = _context6.sent)) {
-                  _context6.next = 4;
+                  _context6.next = 6;
                   break;
                 }
 
@@ -397,7 +447,7 @@ var _default = ShopifyGtmInstrumentor = /*#__PURE__*/function () {
                   checkoutStep: checkoutStep
                 }, simplifiedCheckout)));
 
-              case 4:
+              case 6:
               case "end":
                 return _context6.stop();
             }
@@ -421,18 +471,26 @@ var _default = ShopifyGtmInstrumentor = /*#__PURE__*/function () {
           while (1) {
             switch (_context7.prev = _context7.next) {
               case 0:
-                _context7.next = 2;
-                return this.getSimplifiedCheckout(checkoutOrCartPayload);
+                if (!(typeof window === "undefined" || window === null)) {
+                  _context7.next = 2;
+                  break;
+                }
+
+                return _context7.abrupt("return");
 
               case 2:
+                _context7.next = 4;
+                return this.getSimplifiedCheckout(checkoutOrCartPayload);
+
+              case 4:
                 if (!(simplifiedCheckout = _context7.sent)) {
-                  _context7.next = 4;
+                  _context7.next = 6;
                   break;
                 }
 
                 return _context7.abrupt("return", this.pushEvent('Purchase', simplifiedCheckout));
 
-              case 4:
+              case 6:
               case "end":
                 return _context7.stop();
             }
@@ -450,6 +508,10 @@ var _default = ShopifyGtmInstrumentor = /*#__PURE__*/function () {
   }, {
     key: "identifyCustomer",
     value: function identifyCustomer(customer) {
+      if (typeof window === "undefined" || window === null) {
+        return;
+      }
+
       return this.pushEvent('Identify Customer', {
         customerEmail: customer.email,
         customerId: customer.id
