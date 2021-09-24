@@ -40,9 +40,14 @@ yarn add shopify-gtm-instrumentor
 
 #### Optional
 
-- Import the [gtm-workspace-variables.json](./gtm-workspace-variables.json) file into your GTM container to easily create all GTM DataLayer variables.
+- Import the [variables-and-triggers.json](./gtm-workspace-scaffold/variables-and-triggers.json) file into your GTM container to easily create all GTM DataLayer variables.
 
 ![](https://p-9WF55W9.t1.n0.cdn.getcloudapp.com/items/DOuB6Wmq/ccf85884-1c74-4fa1-9a70-001cbbbb98dd.jpg?v=74e1d13c869f1c1c3c375486cb7d2960)
+
+#### Optional (GA4)
+
+- Set the `disableEcommerceProperty` option to true.
+- Import the [ga4-tags.json](gtm-workspace-scaffold/ga4-tags.json) file into your GTM container to create tags for firing GA4 ecommerce events.
 
 ## Usage
 
@@ -60,6 +65,7 @@ The constructor takes these options:
 - `storeUrl` - Your 'https://mystore.myshopify.com' style Shopify URL. Defaults to `process.env.SHOPIFY_URL`.
 - `storefrontToken` - A Storefront API token with permission to read products.  Defaults to `process.env.SHOPIFY_STOREFONT_TOKEN`.
 - `currencyCode` - Defaults to `USD`.
+- `disableEcommerceProperty` - If `true`, removes the `ecommerce` property from the object which is used by [UA Enhanced Commerce](https://developers.google.com/tag-manager/enhanced-ecommerce). You would enable this if you were using GA4 and want to use explicit tags, like those in [ga4-tags.json](./gtm-workspace-scaffold/ga4-tags.json)
 
 Implemented methods described below:
 
