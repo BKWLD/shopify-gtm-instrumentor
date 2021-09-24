@@ -11,6 +11,7 @@ export default class ShopifyGtmInstrumentor
 		@storeUrl = process.env.SHOPIFY_URL
 		@storefrontToken = process.env.SHOPIFY_STOREFRONT_TOKEN
 		@currencyCode = 'USD'
+		@ga4EventNames = false
 	} = {})->
 		@occurances = []
 
@@ -27,8 +28,13 @@ export default class ShopifyGtmInstrumentor
 		# Make defaults
 		position = getElPosition el if el and !position?
 
+		# Make the event name
+		eventName = if @ga4EventNames
+			then 'view_item_list'
+			else 'Product Impression'
+
 		# Fire event
-		eventPusher = => @pushEvent 'Product Impression', {
+		eventPusher = => @pushEvent eventName, {
 			...flatVariant
 			ecommerce: impressions: [{
 				...@makeUaProductFieldObject flatVariant
@@ -52,8 +58,11 @@ export default class ShopifyGtmInstrumentor
 		# Make defaults
 		position = getElPosition el if el and !position?
 
+		# Make the event name
+		eventName = if @ga4EventNames then 'select_item' else 'Product Click'
+
 		# Fire event
-		@pushEvent 'Product Click', {
+		@pushEvent eventName, {
 			...flatVariant
 			ecommerce: click: {
 				...(unless list then {} else {
@@ -76,8 +85,11 @@ export default class ShopifyGtmInstrumentor
 		# Get variant
 		return unless flatVariant = await @getFlatVariant variantPayload
 
+		# Make the event name
+		eventName = if @ga4EventNames then 'view_item' else 'View Product Details'
+
 		# Fire event
-		@pushEvent 'View Product Details', {
+		@pushEvent eventName, {
 			...flatVariant
 			ecommerce: detail: products: [
 				@makeUaProductFieldObject flatVariant
@@ -87,12 +99,16 @@ export default class ShopifyGtmInstrumentor
 	# Used whenver there is a positive change in the quantity of a product in
 	# the cart.
 	addToCart: (variantPayload, quantity) ->
-		@updateQuantity variantPayload, quantity, 'Add to Cart', 'add'
+		eventName = if @ga4EventNames then 'add_to_cart' else 'Add to Cart'
+		@updateQuantity variantPayload, quantity, eventName, 'add'
 
 	# Used whenever there is a negative change in the quantity of a product in
 	# the cart.
 	removeFromCart: (variantPayload, quantity) ->
-		@updateQuantity variantPayload, quantity, 'Remove from Cart', 'remove'
+		eventName = if @ga4EventNames
+			then 'remove_from_cart'
+			else 'Remove from Cart'
+		@updateQuantity variantPayload, quantity, eventName, 'remove'
 
 	# Used both fire the `Update Quantity` event but also as a helper for the
 	# add and remove methods.
@@ -129,9 +145,21 @@ export default class ShopifyGtmInstrumentor
 	# Fire an event with the current step of the checkout process
 	checkout: (checkoutOrCartPayload, checkoutStep) ->
 		return unless window?
+
+		# Make the event name.  There is only a GA4 event name for the initial
+		# step of the checkout
+		eventName = if @ga4EventNames
+			then switch checkoutStep
+				when 'contact_information' then 'begin_checkout'
+				when 'payment_method' then 'add_shipping_info'
+				when 'processing' then 'add_payment_info'
+				else return # Don't fire event for other steps
+			else 'Checkout'
+
+		# Fire event
 		if simplifiedCheckout = await @getSimplifiedCheckout(
 			checkoutOrCartPayload)
-		then @pushEvent 'Checkout', {
+		then @pushEvent eventName, {
 			checkoutStep
 			...simplifiedCheckout
 		}
@@ -139,9 +167,10 @@ export default class ShopifyGtmInstrumentor
 	# Notify of final checkout, using array of variant data from liquid
 	purchase: (checkoutOrCartPayload) ->
 		return unless window?
+		eventName = if @ga4EventNames then 'purchase' else 'Purchase'
 		if simplifiedCheckout = await @getSimplifiedCheckout(
 			checkoutOrCartPayload)
-		then @pushEvent 'Purchase', simplifiedCheckout
+		then @pushEvent eventName, simplifiedCheckout
 
 	# Customer information
 	identifyCustomer: (customer) ->

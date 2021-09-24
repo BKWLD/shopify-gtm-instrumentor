@@ -30,13 +30,20 @@ This package is designed to supplement that integration for other uses cases lik
 yarn add shopify-gtm-instrumentor
 ```
 
-2. Enable [Shopify's Enhanced Ecommerce support](https://help.shopify.com/en/manual/reports-and-analytics/google-analytics/google-analytics-setup#enhanced)
+2. Include the [checkout-snippet.liquid](./checkout-snippet.liquid) in your checkout.liquid.
 
-3. Enable "Enable Enhanced Ecommerce Features" in GTM for your Google Analytics Settings.
+#### GA4
+
+- Make sure you set the `ga4EventNames` option to `true`
+
+#### Non-GA4
+
+1. Enable [Shopify's Enhanced Ecommerce support](https://help.shopify.com/en/manual/reports-and-analytics/google-analytics/google-analytics-setup#enhanced)
+
+2. Enable "Enable Enhanced Ecommerce Features" in GTM for your Google Analytics Settings.
 
 ![](https://p-9WF55W9.t1.n0.cdn.getcloudapp.com/items/bLuAgLLl/2c0a0206-62f3-4c0c-a404-6df9698890ed.jpg?v=6adefdcd1403bc1101b8be17048238e4)
 
-4. Include the [checkout-snippet.liquid](./checkout-snippet.liquid) in your checkout.liquid.
 
 #### Optional
 
@@ -60,6 +67,7 @@ The constructor takes these options:
 - `storeUrl` - Your 'https://mystore.myshopify.com' style Shopify URL. Defaults to `process.env.SHOPIFY_URL`.
 - `storefrontToken` - A Storefront API token with permission to read products.  Defaults to `process.env.SHOPIFY_STOREFONT_TOKEN`.
 - `currencyCode` - Defaults to `USD`.
+- `ga4EventNames` - Uses [GA4 style event names](https://developers.google.com/tag-manager/ecommerce-ga4)
 
 Implemented methods described below:
 
