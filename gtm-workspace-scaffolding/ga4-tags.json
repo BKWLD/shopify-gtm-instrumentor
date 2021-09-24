@@ -1,0 +1,722 @@
+{
+	"exportFormatVersion": 2,
+	"exportTime": "2021-09-24 19:25:45",
+	"containerVersion": {
+		"tag": [
+			{
+				"accountId": "4702951130",
+				"containerId": "50307358",
+				"tagId": "28",
+				"name": "GA4",
+				"type": "gaawc",
+				"notes": "This tag auto triggers page views on client side navigation.  It doesn't need to use the Page View trigger.",
+				"parameter": [
+					{
+						"type": "BOOLEAN",
+						"key": "sendPageView",
+						"value": "true"
+					},
+					{
+						"type": "BOOLEAN",
+						"key": "enableSendToServerContainer",
+						"value": "false"
+					},
+					{
+						"type": "TEMPLATE",
+						"key": "measurementId",
+						"value": ""
+					}
+				],
+				"fingerprint": "1632508010906",
+				"firingTriggerId": [
+					"2147479553"
+				],
+				"parentFolderId": "45",
+				"tagFiringOption": "ONCE_PER_EVENT",
+				"monitoringMetadata": {
+					"type": "MAP"
+				},
+				"consentSettings": {
+					"consentStatus": "NOT_SET"
+				}
+			},
+			{
+				"accountId": "4702951130",
+				"containerId": "50307358",
+				"tagId": "35",
+				"name": "GA4 - view_item_list",
+				"type": "gaawe",
+				"parameter": [
+					{
+						"type": "TEMPLATE",
+						"key": "eventName",
+						"value": "view_item_list"
+					},
+					{
+						"type": "LIST",
+						"key": "eventParameters",
+						"list": [
+							{
+								"type": "MAP",
+								"map": [
+									{
+										"type": "TEMPLATE",
+										"key": "name",
+										"value": "items"
+									},
+									{
+										"type": "TEMPLATE",
+										"key": "value",
+										"value": "{{GA4 - Current Item}}"
+									}
+								]
+							}
+						]
+					},
+					{
+						"type": "TAG_REFERENCE",
+						"key": "measurementId",
+						"value": "GA4"
+					}
+				],
+				"fingerprint": "1632508010900",
+				"parentFolderId": "45",
+				"tagFiringOption": "ONCE_PER_EVENT",
+				"monitoringMetadata": {
+					"type": "MAP"
+				},
+				"consentSettings": {
+					"consentStatus": "NOT_SET"
+				}
+			},
+			{
+				"accountId": "4702951130",
+				"containerId": "50307358",
+				"tagId": "37",
+				"name": "GA4 - view_item",
+				"type": "gaawe",
+				"parameter": [
+					{
+						"type": "TEMPLATE",
+						"key": "eventName",
+						"value": "view_item"
+					},
+					{
+						"type": "LIST",
+						"key": "eventParameters",
+						"list": [
+							{
+								"type": "MAP",
+								"map": [
+									{
+										"type": "TEMPLATE",
+										"key": "name",
+										"value": "items"
+									},
+									{
+										"type": "TEMPLATE",
+										"key": "value",
+										"value": "{{GA4 - Current Item}}"
+									}
+								]
+							},
+							{
+								"type": "MAP",
+								"map": [
+									{
+										"type": "TEMPLATE",
+										"key": "name",
+										"value": "currency"
+									},
+									{
+										"type": "TEMPLATE",
+										"key": "value",
+										"value": "{{GA4 - Currency}}"
+									}
+								]
+							},
+							{
+								"type": "MAP",
+								"map": [
+									{
+										"type": "TEMPLATE",
+										"key": "name",
+										"value": "value"
+									},
+									{
+										"type": "TEMPLATE",
+										"key": "value",
+										"value": "{{DL - price}}"
+									}
+								]
+							}
+						]
+					},
+					{
+						"type": "TAG_REFERENCE",
+						"key": "measurementId",
+						"value": "GA4"
+					}
+				],
+				"fingerprint": "1632510784750",
+				"parentFolderId": "45",
+				"tagFiringOption": "ONCE_PER_EVENT",
+				"monitoringMetadata": {
+					"type": "MAP"
+				},
+				"consentSettings": {
+					"consentStatus": "NOT_SET"
+				}
+			},
+			{
+				"accountId": "4702951130",
+				"containerId": "50307358",
+				"tagId": "38",
+				"name": "GA4 - select_item",
+				"type": "gaawe",
+				"parameter": [
+					{
+						"type": "TEMPLATE",
+						"key": "eventName",
+						"value": "select_item"
+					},
+					{
+						"type": "LIST",
+						"key": "eventParameters",
+						"list": [
+							{
+								"type": "MAP",
+								"map": [
+									{
+										"type": "TEMPLATE",
+										"key": "name",
+										"value": "items"
+									},
+									{
+										"type": "TEMPLATE",
+										"key": "value",
+										"value": "{{GA4 - Current Item}}"
+									}
+								]
+							}
+						]
+					},
+					{
+						"type": "TAG_REFERENCE",
+						"key": "measurementId",
+						"value": "GA4"
+					}
+				],
+				"fingerprint": "1632508010902",
+				"parentFolderId": "45",
+				"tagFiringOption": "ONCE_PER_EVENT",
+				"monitoringMetadata": {
+					"type": "MAP"
+				},
+				"consentSettings": {
+					"consentStatus": "NOT_SET"
+				}
+			},
+			{
+				"accountId": "4702951130",
+				"containerId": "50307358",
+				"tagId": "41",
+				"name": "GA4 - add_to_cart",
+				"type": "gaawe",
+				"parameter": [
+					{
+						"type": "TEMPLATE",
+						"key": "eventName",
+						"value": "add_to_cart"
+					},
+					{
+						"type": "LIST",
+						"key": "eventParameters",
+						"list": [
+							{
+								"type": "MAP",
+								"map": [
+									{
+										"type": "TEMPLATE",
+										"key": "name",
+										"value": "currency"
+									},
+									{
+										"type": "TEMPLATE",
+										"key": "value",
+										"value": "{{GA4 - Currency}}"
+									}
+								]
+							},
+							{
+								"type": "MAP",
+								"map": [
+									{
+										"type": "TEMPLATE",
+										"key": "name",
+										"value": "value"
+									},
+									{
+										"type": "TEMPLATE",
+										"key": "value",
+										"value": "{{DL - price}}"
+									}
+								]
+							},
+							{
+								"type": "MAP",
+								"map": [
+									{
+										"type": "TEMPLATE",
+										"key": "name",
+										"value": "items"
+									},
+									{
+										"type": "TEMPLATE",
+										"key": "value",
+										"value": "{{GA4 - Current Item w/ Quantity}}"
+									}
+								]
+							}
+						]
+					},
+					{
+						"type": "TAG_REFERENCE",
+						"key": "measurementId",
+						"value": "GA4"
+					}
+				],
+				"fingerprint": "1632510792219",
+				"parentFolderId": "45",
+				"tagFiringOption": "ONCE_PER_EVENT",
+				"monitoringMetadata": {
+					"type": "MAP"
+				},
+				"consentSettings": {
+					"consentStatus": "NOT_SET"
+				}
+			},
+			{
+				"accountId": "4702951130",
+				"containerId": "50307358",
+				"tagId": "44",
+				"name": "GA4 - remove_from_cart",
+				"type": "gaawe",
+				"parameter": [
+					{
+						"type": "TEMPLATE",
+						"key": "eventName",
+						"value": "remove_from_cart"
+					},
+					{
+						"type": "LIST",
+						"key": "eventParameters",
+						"list": [
+							{
+								"type": "MAP",
+								"map": [
+									{
+										"type": "TEMPLATE",
+										"key": "name",
+										"value": "currency"
+									},
+									{
+										"type": "TEMPLATE",
+										"key": "value",
+										"value": "{{GA4 - Currency}}"
+									}
+								]
+							},
+							{
+								"type": "MAP",
+								"map": [
+									{
+										"type": "TEMPLATE",
+										"key": "name",
+										"value": "value"
+									},
+									{
+										"type": "TEMPLATE",
+										"key": "value",
+										"value": "{{DL - price}}"
+									}
+								]
+							},
+							{
+								"type": "MAP",
+								"map": [
+									{
+										"type": "TEMPLATE",
+										"key": "name",
+										"value": "items"
+									},
+									{
+										"type": "TEMPLATE",
+										"key": "value",
+										"value": "{{GA4 - Current Item w/ Quantity}}"
+									}
+								]
+							}
+						]
+					},
+					{
+						"type": "TAG_REFERENCE",
+						"key": "measurementId",
+						"value": "GA4"
+					}
+				],
+				"fingerprint": "1632509080007",
+				"parentFolderId": "45",
+				"tagFiringOption": "ONCE_PER_EVENT",
+				"monitoringMetadata": {
+					"type": "MAP"
+				},
+				"consentSettings": {
+					"consentStatus": "NOT_SET"
+				}
+			},
+			{
+				"accountId": "4702951130",
+				"containerId": "50307358",
+				"tagId": "48",
+				"name": "GA4 - begin_checkout",
+				"type": "gaawe",
+				"parameter": [
+					{
+						"type": "TEMPLATE",
+						"key": "eventName",
+						"value": "begin_checkout"
+					},
+					{
+						"type": "LIST",
+						"key": "eventParameters",
+						"list": [
+							{
+								"type": "MAP",
+								"map": [
+									{
+										"type": "TEMPLATE",
+										"key": "name",
+										"value": "currency"
+									},
+									{
+										"type": "TEMPLATE",
+										"key": "value",
+										"value": "{{GA4 - Currency}}"
+									}
+								]
+							},
+							{
+								"type": "MAP",
+								"map": [
+									{
+										"type": "TEMPLATE",
+										"key": "name",
+										"value": "value"
+									},
+									{
+										"type": "TEMPLATE",
+										"key": "value",
+										"value": "{{DL - totalPrice}}"
+									}
+								]
+							},
+							{
+								"type": "MAP",
+								"map": [
+									{
+										"type": "TEMPLATE",
+										"key": "name",
+										"value": "items"
+									},
+									{
+										"type": "TEMPLATE",
+										"key": "value",
+										"value": "{{GA4 - Cart Items}}"
+									}
+								]
+							}
+						]
+					},
+					{
+						"type": "TAG_REFERENCE",
+						"key": "measurementId",
+						"value": "GA4"
+					}
+				],
+				"fingerprint": "1632510045999",
+				"parentFolderId": "45",
+				"tagFiringOption": "ONCE_PER_EVENT",
+				"monitoringMetadata": {
+					"type": "MAP"
+				},
+				"consentSettings": {
+					"consentStatus": "NOT_SET"
+				}
+			},
+			{
+				"accountId": "4702951130",
+				"containerId": "50307358",
+				"tagId": "56",
+				"name": "GA4 - add_payment_info",
+				"type": "gaawe",
+				"parameter": [
+					{
+						"type": "TEMPLATE",
+						"key": "eventName",
+						"value": "add_payment_info"
+					},
+					{
+						"type": "LIST",
+						"key": "eventParameters",
+						"list": [
+							{
+								"type": "MAP",
+								"map": [
+									{
+										"type": "TEMPLATE",
+										"key": "name",
+										"value": "currency"
+									},
+									{
+										"type": "TEMPLATE",
+										"key": "value",
+										"value": "{{GA4 - Currency}}"
+									}
+								]
+							},
+							{
+								"type": "MAP",
+								"map": [
+									{
+										"type": "TEMPLATE",
+										"key": "name",
+										"value": "value"
+									},
+									{
+										"type": "TEMPLATE",
+										"key": "value",
+										"value": "{{DL - totalPrice}}"
+									}
+								]
+							},
+							{
+								"type": "MAP",
+								"map": [
+									{
+										"type": "TEMPLATE",
+										"key": "name",
+										"value": "items"
+									},
+									{
+										"type": "TEMPLATE",
+										"key": "value",
+										"value": "{{GA4 - Cart Items}}"
+									}
+								]
+							}
+						]
+					},
+					{
+						"type": "TAG_REFERENCE",
+						"key": "measurementId",
+						"value": "GA4"
+					}
+				],
+				"fingerprint": "1632510045999",
+				"parentFolderId": "45",
+				"tagFiringOption": "ONCE_PER_EVENT",
+				"monitoringMetadata": {
+					"type": "MAP"
+				},
+				"consentSettings": {
+					"consentStatus": "NOT_SET"
+				}
+			},
+			{
+				"accountId": "4702951130",
+				"containerId": "50307358",
+				"tagId": "57",
+				"name": "GA4 - add_shipping_info",
+				"type": "gaawe",
+				"parameter": [
+					{
+						"type": "TEMPLATE",
+						"key": "eventName",
+						"value": "add_shipping_info"
+					},
+					{
+						"type": "LIST",
+						"key": "eventParameters",
+						"list": [
+							{
+								"type": "MAP",
+								"map": [
+									{
+										"type": "TEMPLATE",
+										"key": "name",
+										"value": "currency"
+									},
+									{
+										"type": "TEMPLATE",
+										"key": "value",
+										"value": "{{GA4 - Currency}}"
+									}
+								]
+							},
+							{
+								"type": "MAP",
+								"map": [
+									{
+										"type": "TEMPLATE",
+										"key": "name",
+										"value": "value"
+									},
+									{
+										"type": "TEMPLATE",
+										"key": "value",
+										"value": "{{DL - totalPrice}}"
+									}
+								]
+							},
+							{
+								"type": "MAP",
+								"map": [
+									{
+										"type": "TEMPLATE",
+										"key": "name",
+										"value": "items"
+									},
+									{
+										"type": "TEMPLATE",
+										"key": "value",
+										"value": "{{GA4 - Cart Items}}"
+									}
+								]
+							}
+						]
+					},
+					{
+						"type": "TAG_REFERENCE",
+						"key": "measurementId",
+						"value": "GA4"
+					}
+				],
+				"fingerprint": "1632510046000",
+				"parentFolderId": "45",
+				"tagFiringOption": "ONCE_PER_EVENT",
+				"monitoringMetadata": {
+					"type": "MAP"
+				},
+				"consentSettings": {
+					"consentStatus": "NOT_SET"
+				}
+			},
+			{
+				"accountId": "4702951130",
+				"containerId": "50307358",
+				"tagId": "58",
+				"name": "GA4 - purchase",
+				"type": "gaawe",
+				"parameter": [
+					{
+						"type": "TEMPLATE",
+						"key": "eventName",
+						"value": "purchase"
+					},
+					{
+						"type": "LIST",
+						"key": "eventParameters",
+						"list": [
+							{
+								"type": "MAP",
+								"map": [
+									{
+										"type": "TEMPLATE",
+										"key": "name",
+										"value": "currency"
+									},
+									{
+										"type": "TEMPLATE",
+										"key": "value",
+										"value": "{{GA4 - Currency}}"
+									}
+								]
+							},
+							{
+								"type": "MAP",
+								"map": [
+									{
+										"type": "TEMPLATE",
+										"key": "name",
+										"value": "transaction_id"
+									},
+									{
+										"type": "TEMPLATE",
+										"key": "value",
+										"value": "{{DL - checkoutId}}"
+									}
+								]
+							},
+							{
+								"type": "MAP",
+								"map": [
+									{
+										"type": "TEMPLATE",
+										"key": "name",
+										"value": "value"
+									},
+									{
+										"type": "TEMPLATE",
+										"key": "value",
+										"value": "{{DL - totalPrice}}"
+									}
+								]
+							},
+							{
+								"type": "MAP",
+								"map": [
+									{
+										"type": "TEMPLATE",
+										"key": "name",
+										"value": "items"
+									},
+									{
+										"type": "TEMPLATE",
+										"key": "value",
+										"value": "{{GA4 - Cart Items}}"
+									}
+								]
+							}
+						]
+					},
+					{
+						"type": "TAG_REFERENCE",
+						"key": "measurementId",
+						"value": "GA4"
+					}
+				],
+				"fingerprint": "1632510073549",
+				"parentFolderId": "45",
+				"tagFiringOption": "ONCE_PER_EVENT",
+				"monitoringMetadata": {
+					"type": "MAP"
+				},
+				"consentSettings": {
+					"consentStatus": "NOT_SET"
+				}
+			}
+		],
+		"folder": [
+			{
+				"accountId": "4702951130",
+				"containerId": "50307358",
+				"folderId": "45",
+				"name": "shopify-gtm-instrumentor - GA4",
+				"fingerprint": "1632507996652"
+			}
+		],
+		"fingerprint": "1632511545876",
+		"tagManagerUrl": "https://tagmanager.google.com/#/versions/accounts/4702951130/containers/50307358/versions/0?apiLink=version"
+	}
+}
