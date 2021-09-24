@@ -61,13 +61,16 @@ var _default = ShopifyGtmInstrumentor = /*#__PURE__*/function () {
         _ref$storefrontToken = _ref.storefrontToken,
         storefrontToken = _ref$storefrontToken === void 0 ? process.env.SHOPIFY_STOREFRONT_TOKEN : _ref$storefrontToken,
         _ref$currencyCode = _ref.currencyCode,
-        currencyCode = _ref$currencyCode === void 0 ? 'USD' : _ref$currencyCode;
+        currencyCode = _ref$currencyCode === void 0 ? 'USD' : _ref$currencyCode,
+        _ref$disableEcommerce = _ref.disableEcommerceProperty,
+        disableEcommerceProperty = _ref$disableEcommerce === void 0 ? false : _ref$disableEcommerce;
 
     (0, _classCallCheck2["default"])(this, ShopifyGtmInstrumentor);
     this.debug = debug;
     this.storeUrl = storeUrl;
     this.storefrontToken = storefrontToken;
     this.currencyCode = currencyCode;
+    this.disableEcommerceProperty = disableEcommerceProperty;
     this.occurances = [];
   } // API #######################################################################
   // A view of a product element
@@ -121,6 +124,8 @@ var _default = ShopifyGtmInstrumentor = /*#__PURE__*/function () {
 
                 eventPusher = function eventPusher() {
                   return _this.pushEvent('Product Impression', _objectSpread(_objectSpread({}, flatVariant), {}, {
+                    listName: list,
+                    listPosition: position,
                     ecommerce: {
                       impressions: [_objectSpread(_objectSpread({}, _this.makeUaProductFieldObject(flatVariant)), {}, {
                         list: list,
@@ -210,6 +215,8 @@ var _default = ShopifyGtmInstrumentor = /*#__PURE__*/function () {
 
 
                 this.pushEvent('Product Click', _objectSpread(_objectSpread({}, flatVariant), {}, {
+                  listName: list,
+                  listPosition: position,
                   ecommerce: {
                     click: _objectSpread(_objectSpread({}, !list ? {} : {
                       actionField: {
@@ -863,7 +870,20 @@ var _default = ShopifyGtmInstrumentor = /*#__PURE__*/function () {
 
       if (!window.dataLayer) {
         window.dataLayer = [];
-      }
+      } // Remove the ecommerce property, like if they are going to be created in
+      // GTM manually.
+
+
+      if (this.disableEcommerceProperty && payload.ecommerce) {
+        payload = _objectSpread({}, payload);
+        delete payload.ecommerce;
+      } else {
+        // Clear previous ecommerce values
+        window.dataLayer.push({
+          ecommerce: null
+        });
+      } // Add new event
+
 
       return window.dataLayer.push(_objectSpread({
         event: name,
