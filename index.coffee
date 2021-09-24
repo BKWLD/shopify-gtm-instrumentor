@@ -11,6 +11,7 @@ export default class ShopifyGtmInstrumentor
 		@storeUrl = process.env.SHOPIFY_URL
 		@storefrontToken = process.env.SHOPIFY_STOREFRONT_TOKEN
 		@currencyCode = 'USD'
+		@disableEcommerceProperty = false
 	} = {})->
 		@occurances = []
 
@@ -294,8 +295,14 @@ export default class ShopifyGtmInstrumentor
 		if @debug then console.debug "'#{name}'", payload
 		window.dataLayer = [] unless window.dataLayer
 
+		# Remove the ecommerce property, like if they are going to be created in
+		# GTM manually.
+		if @disableEcommerceProperty and payload.ecommerce
+			payload = { ...payload }
+			delete payload.ecommerce
+
 		# Clear previous ecommerce values
-		window.dataLayer.push ecommerce: null
+		else window.dataLayer.push ecommerce: null
 
 		# Add new event
 		window.dataLayer.push {
