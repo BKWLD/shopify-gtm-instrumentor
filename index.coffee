@@ -30,6 +30,8 @@ export default class ShopifyGtmInstrumentor
 		# Fire event
 		eventPusher = => @pushEvent 'Product Impression', {
 			...flatVariant
+			listName: list
+			listPosition: position
 			ecommerce: impressions: [{
 				...@makeUaProductFieldObject flatVariant
 				list
@@ -55,6 +57,8 @@ export default class ShopifyGtmInstrumentor
 		# Fire event
 		@pushEvent 'Product Click', {
 			...flatVariant
+			listName: list
+			listPosition: position
 			ecommerce: click: {
 				...(unless list then {} else {
 					actionField: { list }
