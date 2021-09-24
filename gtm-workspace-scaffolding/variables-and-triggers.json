@@ -1,0 +1,1284 @@
+{
+	"exportFormatVersion": 2,
+	"exportTime": "2021-09-24 19:21:59",
+	"containerVersion": {
+		"trigger": [
+			{
+				"accountId": "4702951130",
+				"containerId": "50307358",
+				"triggerId": "29",
+				"name": "Page View",
+				"type": "CUSTOM_EVENT",
+				"customEventFilter": [
+					{
+						"type": "EQUALS",
+						"parameter": [
+							{
+								"type": "TEMPLATE",
+								"key": "arg0",
+								"value": "{{_event}}"
+							},
+							{
+								"type": "TEMPLATE",
+								"key": "arg1",
+								"value": "Page View"
+							}
+						]
+					}
+				],
+				"fingerprint": "1632507953651",
+				"parentFolderId": "3",
+				"notes": "This is fired on both the initial request and on client side navigation in both the www and shop stacks and should be used in place of GTM's built in Page View trigger in many cases."
+			},
+			{
+				"accountId": "4702951130",
+				"containerId": "50307358",
+				"triggerId": "34",
+				"name": "Product Impression",
+				"type": "CUSTOM_EVENT",
+				"customEventFilter": [
+					{
+						"type": "EQUALS",
+						"parameter": [
+							{
+								"type": "TEMPLATE",
+								"key": "arg0",
+								"value": "{{_event}}"
+							},
+							{
+								"type": "TEMPLATE",
+								"key": "arg1",
+								"value": "Product Impression"
+							}
+						]
+					}
+				],
+				"fingerprint": "1632508130095",
+				"parentFolderId": "3",
+				"notes": "Used any time a product is displayed, like a product card."
+			},
+			{
+				"accountId": "4702951130",
+				"containerId": "50307358",
+				"triggerId": "36",
+				"name": "Product Click",
+				"type": "CUSTOM_EVENT",
+				"customEventFilter": [
+					{
+						"type": "EQUALS",
+						"parameter": [
+							{
+								"type": "TEMPLATE",
+								"key": "arg0",
+								"value": "{{_event}}"
+							},
+							{
+								"type": "TEMPLATE",
+								"key": "arg1",
+								"value": "Product Click"
+							}
+						]
+					}
+				],
+				"fingerprint": "1632508145059",
+				"parentFolderId": "3",
+				"notes": "Used when a user clicks on a product, like to go to its detail view."
+			},
+			{
+				"accountId": "4702951130",
+				"containerId": "50307358",
+				"triggerId": "39",
+				"name": "View Product Details",
+				"type": "CUSTOM_EVENT",
+				"customEventFilter": [
+					{
+						"type": "EQUALS",
+						"parameter": [
+							{
+								"type": "TEMPLATE",
+								"key": "arg0",
+								"value": "{{_event}}"
+							},
+							{
+								"type": "TEMPLATE",
+								"key": "arg1",
+								"value": "View Product Details"
+							}
+						]
+					}
+				],
+				"fingerprint": "1632508177407",
+				"parentFolderId": "3",
+				"notes": "Used on product detail pages whenever the variant changes."
+			},
+			{
+				"accountId": "4702951130",
+				"containerId": "50307358",
+				"triggerId": "42",
+				"name": "Add to Cart",
+				"type": "CUSTOM_EVENT",
+				"customEventFilter": [
+					{
+						"type": "EQUALS",
+						"parameter": [
+							{
+								"type": "TEMPLATE",
+								"key": "arg0",
+								"value": "{{_event}}"
+							},
+							{
+								"type": "TEMPLATE",
+								"key": "arg1",
+								"value": "Add to Cart"
+							}
+						]
+					}
+				],
+				"fingerprint": "1632508200053",
+				"parentFolderId": "3",
+				"notes": "Used when products are added to the cart."
+			},
+			{
+				"accountId": "4702951130",
+				"containerId": "50307358",
+				"triggerId": "43",
+				"name": "Remove from Cart",
+				"type": "CUSTOM_EVENT",
+				"customEventFilter": [
+					{
+						"type": "EQUALS",
+						"parameter": [
+							{
+								"type": "TEMPLATE",
+								"key": "arg0",
+								"value": "{{_event}}"
+							},
+							{
+								"type": "TEMPLATE",
+								"key": "arg1",
+								"value": "Remove from Cart"
+							}
+						]
+					}
+				],
+				"fingerprint": "1632508213033",
+				"parentFolderId": "3",
+				"notes": "Used when products are removed from the cart."
+			},
+			{
+				"accountId": "4702951130",
+				"containerId": "50307358",
+				"triggerId": "46",
+				"name": "Cart Updated",
+				"type": "CUSTOM_EVENT",
+				"customEventFilter": [
+					{
+						"type": "EQUALS",
+						"parameter": [
+							{
+								"type": "TEMPLATE",
+								"key": "arg0",
+								"value": "{{_event}}"
+							},
+							{
+								"type": "TEMPLATE",
+								"key": "arg1",
+								"value": "Cart Updated"
+							}
+						]
+					}
+				],
+				"fingerprint": "1632510040623",
+				"parentFolderId": "3",
+				"notes": "Used to send the current checkout / cart state to GTM."
+			},
+			{
+				"accountId": "4702951130",
+				"containerId": "50307358",
+				"triggerId": "47",
+				"name": "Checkout",
+				"type": "CUSTOM_EVENT",
+				"customEventFilter": [
+					{
+						"type": "EQUALS",
+						"parameter": [
+							{
+								"type": "TEMPLATE",
+								"key": "arg0",
+								"value": "{{_event}}"
+							},
+							{
+								"type": "TEMPLATE",
+								"key": "arg1",
+								"value": "Checkout"
+							}
+						]
+					}
+				],
+				"fingerprint": "1632510040624",
+				"parentFolderId": "3",
+				"notes": "This is triggered by each step of the checkout."
+			},
+			{
+				"accountId": "4702951130",
+				"containerId": "50307358",
+				"triggerId": "51",
+				"name": "Checkout Step 1 - contact_information",
+				"type": "CUSTOM_EVENT",
+				"customEventFilter": [
+					{
+						"type": "EQUALS",
+						"parameter": [
+							{
+								"type": "TEMPLATE",
+								"key": "arg0",
+								"value": "{{_event}}"
+							},
+							{
+								"type": "TEMPLATE",
+								"key": "arg1",
+								"value": "Checkout"
+							}
+						]
+					}
+				],
+				"filter": [
+					{
+						"type": "EQUALS",
+						"parameter": [
+							{
+								"type": "TEMPLATE",
+								"key": "arg0",
+								"value": "{{DL - checkoutStep}}"
+							},
+							{
+								"type": "TEMPLATE",
+								"key": "arg1",
+								"value": "contact_information"
+							}
+						]
+					}
+				],
+				"fingerprint": "1632510040624",
+				"parentFolderId": "3"
+			},
+			{
+				"accountId": "4702951130",
+				"containerId": "50307358",
+				"triggerId": "52",
+				"name": "Checkout Step 2 - shipping_method",
+				"type": "CUSTOM_EVENT",
+				"customEventFilter": [
+					{
+						"type": "EQUALS",
+						"parameter": [
+							{
+								"type": "TEMPLATE",
+								"key": "arg0",
+								"value": "{{_event}}"
+							},
+							{
+								"type": "TEMPLATE",
+								"key": "arg1",
+								"value": "Checkout"
+							}
+						]
+					}
+				],
+				"filter": [
+					{
+						"type": "EQUALS",
+						"parameter": [
+							{
+								"type": "TEMPLATE",
+								"key": "arg0",
+								"value": "{{DL - checkoutStep}}"
+							},
+							{
+								"type": "TEMPLATE",
+								"key": "arg1",
+								"value": "shipping_method"
+							}
+						]
+					}
+				],
+				"fingerprint": "1632510040625",
+				"parentFolderId": "3"
+			},
+			{
+				"accountId": "4702951130",
+				"containerId": "50307358",
+				"triggerId": "53",
+				"name": "Checkout Step 3 - payment_method",
+				"type": "CUSTOM_EVENT",
+				"customEventFilter": [
+					{
+						"type": "EQUALS",
+						"parameter": [
+							{
+								"type": "TEMPLATE",
+								"key": "arg0",
+								"value": "{{_event}}"
+							},
+							{
+								"type": "TEMPLATE",
+								"key": "arg1",
+								"value": "Checkout"
+							}
+						]
+					}
+				],
+				"filter": [
+					{
+						"type": "EQUALS",
+						"parameter": [
+							{
+								"type": "TEMPLATE",
+								"key": "arg0",
+								"value": "{{DL - checkoutStep}}"
+							},
+							{
+								"type": "TEMPLATE",
+								"key": "arg1",
+								"value": "payment_method"
+							}
+						]
+					}
+				],
+				"fingerprint": "1632510040666",
+				"parentFolderId": "3"
+			},
+			{
+				"accountId": "4702951130",
+				"containerId": "50307358",
+				"triggerId": "54",
+				"name": "Checkout Step 4 - processing",
+				"type": "CUSTOM_EVENT",
+				"customEventFilter": [
+					{
+						"type": "EQUALS",
+						"parameter": [
+							{
+								"type": "TEMPLATE",
+								"key": "arg0",
+								"value": "{{_event}}"
+							},
+							{
+								"type": "TEMPLATE",
+								"key": "arg1",
+								"value": "Checkout"
+							}
+						]
+					}
+				],
+				"filter": [
+					{
+						"type": "EQUALS",
+						"parameter": [
+							{
+								"type": "TEMPLATE",
+								"key": "arg0",
+								"value": "{{DL - checkoutStep}}"
+							},
+							{
+								"type": "TEMPLATE",
+								"key": "arg1",
+								"value": "processing"
+							}
+						]
+					}
+				],
+				"fingerprint": "1632510040666",
+				"parentFolderId": "3"
+			},
+			{
+				"accountId": "4702951130",
+				"containerId": "50307358",
+				"triggerId": "55",
+				"name": "Checkout Step 5 - thank_you",
+				"type": "CUSTOM_EVENT",
+				"customEventFilter": [
+					{
+						"type": "EQUALS",
+						"parameter": [
+							{
+								"type": "TEMPLATE",
+								"key": "arg0",
+								"value": "{{_event}}"
+							},
+							{
+								"type": "TEMPLATE",
+								"key": "arg1",
+								"value": "Checkout"
+							}
+						]
+					}
+				],
+				"filter": [
+					{
+						"type": "EQUALS",
+						"parameter": [
+							{
+								"type": "TEMPLATE",
+								"key": "arg0",
+								"value": "{{DL - checkoutStep}}"
+							},
+							{
+								"type": "TEMPLATE",
+								"key": "arg1",
+								"value": "thank_you"
+							}
+						]
+					}
+				],
+				"fingerprint": "1632510040665",
+				"parentFolderId": "3"
+			}
+		],
+		"variable": [
+			{
+				"accountId": "4702951130",
+				"containerId": "50307358",
+				"variableId": "4",
+				"name": "DL - lineItems",
+				"type": "v",
+				"notes": "An array of objects representing items in the cart.  Each line item has shopify-gtm-instrumentor style product and variant properties, such as productTitle and variantTitle.",
+				"parameter": [
+					{
+						"type": "INTEGER",
+						"key": "dataLayerVersion",
+						"value": "2"
+					},
+					{
+						"type": "BOOLEAN",
+						"key": "setDefaultValue",
+						"value": "false"
+					},
+					{
+						"type": "TEMPLATE",
+						"key": "name",
+						"value": "lineItems"
+					}
+				],
+				"fingerprint": "1630468922731",
+				"parentFolderId": "3",
+				"formatValue": {}
+			},
+			{
+				"accountId": "4702951130",
+				"containerId": "50307358",
+				"variableId": "5",
+				"name": "DL - compareAtPrice",
+				"type": "v",
+				"notes": "The compareAtPrice from the ProductVariant, formatted like 14.05.\n\nSee: https://shopify.dev/api/storefront/reference/products/productvariant",
+				"parameter": [
+					{
+						"type": "INTEGER",
+						"key": "dataLayerVersion",
+						"value": "2"
+					},
+					{
+						"type": "BOOLEAN",
+						"key": "setDefaultValue",
+						"value": "false"
+					},
+					{
+						"type": "TEMPLATE",
+						"key": "name",
+						"value": "compareAtPrice"
+					}
+				],
+				"fingerprint": "1630468922731",
+				"parentFolderId": "3",
+				"formatValue": {}
+			},
+			{
+				"accountId": "4702951130",
+				"containerId": "50307358",
+				"variableId": "6",
+				"name": "DL - productId",
+				"type": "v",
+				"notes": "The id of a ProductVariant as a number.  Ex: 123456789\n\nSee https://shopify.dev/api/storefront/reference/products/product",
+				"parameter": [
+					{
+						"type": "INTEGER",
+						"key": "dataLayerVersion",
+						"value": "2"
+					},
+					{
+						"type": "BOOLEAN",
+						"key": "setDefaultValue",
+						"value": "false"
+					},
+					{
+						"type": "TEMPLATE",
+						"key": "name",
+						"value": "productId"
+					}
+				],
+				"fingerprint": "1630468922732",
+				"parentFolderId": "3",
+				"formatValue": {}
+			},
+			{
+				"accountId": "4702951130",
+				"containerId": "50307358",
+				"variableId": "7",
+				"name": "DL - checkoutStep",
+				"type": "v",
+				"notes": "The Shopify.Checkout.step value\n\nSee https://shopify.dev/themes/architecture/layouts/checkout-liquid#shopify-checkout-step",
+				"parameter": [
+					{
+						"type": "INTEGER",
+						"key": "dataLayerVersion",
+						"value": "2"
+					},
+					{
+						"type": "BOOLEAN",
+						"key": "setDefaultValue",
+						"value": "false"
+					},
+					{
+						"type": "TEMPLATE",
+						"key": "name",
+						"value": "checkoutStep"
+					}
+				],
+				"fingerprint": "1630468922732",
+				"parentFolderId": "3",
+				"formatValue": {}
+			},
+			{
+				"accountId": "4702951130",
+				"containerId": "50307358",
+				"variableId": "8",
+				"name": "DL - productTitle",
+				"type": "v",
+				"notes": "The title of a Product object.\n\nSee https://shopify.dev/api/storefront/reference/products/product",
+				"parameter": [
+					{
+						"type": "INTEGER",
+						"key": "dataLayerVersion",
+						"value": "2"
+					},
+					{
+						"type": "BOOLEAN",
+						"key": "setDefaultValue",
+						"value": "false"
+					},
+					{
+						"type": "TEMPLATE",
+						"key": "name",
+						"value": "productTitle"
+					}
+				],
+				"fingerprint": "1630468922732",
+				"parentFolderId": "3",
+				"formatValue": {}
+			},
+			{
+				"accountId": "4702951130",
+				"containerId": "50307358",
+				"variableId": "9",
+				"name": "DL - checkoutUrl",
+				"type": "v",
+				"notes": "The webUrl of the Checkout object\n\nSee https://shopify.dev/api/storefront/reference/checkouts/checkout",
+				"parameter": [
+					{
+						"type": "INTEGER",
+						"key": "dataLayerVersion",
+						"value": "2"
+					},
+					{
+						"type": "BOOLEAN",
+						"key": "setDefaultValue",
+						"value": "false"
+					},
+					{
+						"type": "TEMPLATE",
+						"key": "name",
+						"value": "checkoutUrl"
+					}
+				],
+				"fingerprint": "1630468922733",
+				"parentFolderId": "3",
+				"formatValue": {}
+			},
+			{
+				"accountId": "4702951130",
+				"containerId": "50307358",
+				"variableId": "10",
+				"name": "DL - price",
+				"type": "v",
+				"notes": "Variant price, formatted like 14.05.",
+				"parameter": [
+					{
+						"type": "INTEGER",
+						"key": "dataLayerVersion",
+						"value": "2"
+					},
+					{
+						"type": "BOOLEAN",
+						"key": "setDefaultValue",
+						"value": "false"
+					},
+					{
+						"type": "TEMPLATE",
+						"key": "name",
+						"value": "price"
+					}
+				],
+				"fingerprint": "1630468922733",
+				"parentFolderId": "3",
+				"formatValue": {}
+			},
+			{
+				"accountId": "4702951130",
+				"containerId": "50307358",
+				"variableId": "11",
+				"name": "DL - variantUrl",
+				"type": "v",
+				"notes": "The URL of a specific variant on a PDP.  Ex: https://www.shop.com/product/great-t-shirt?variant=123.",
+				"parameter": [
+					{
+						"type": "INTEGER",
+						"key": "dataLayerVersion",
+						"value": "2"
+					},
+					{
+						"type": "BOOLEAN",
+						"key": "setDefaultValue",
+						"value": "false"
+					},
+					{
+						"type": "TEMPLATE",
+						"key": "name",
+						"value": "variantUrl"
+					}
+				],
+				"fingerprint": "1630468922734",
+				"parentFolderId": "3",
+				"formatValue": {}
+			},
+			{
+				"accountId": "4702951130",
+				"containerId": "50307358",
+				"variableId": "12",
+				"name": "DL - productUrl",
+				"type": "v",
+				"notes": "The URL of the product PDP.",
+				"parameter": [
+					{
+						"type": "INTEGER",
+						"key": "dataLayerVersion",
+						"value": "2"
+					},
+					{
+						"type": "BOOLEAN",
+						"key": "setDefaultValue",
+						"value": "false"
+					},
+					{
+						"type": "TEMPLATE",
+						"key": "name",
+						"value": "productUrl"
+					}
+				],
+				"fingerprint": "1630468922734",
+				"parentFolderId": "3",
+				"formatValue": {}
+			},
+			{
+				"accountId": "4702951130",
+				"containerId": "50307358",
+				"variableId": "13",
+				"name": "DL - quantity",
+				"type": "v",
+				"notes": "Used by some events to track the quantity of variant added or removed from the cart.",
+				"parameter": [
+					{
+						"type": "INTEGER",
+						"key": "dataLayerVersion",
+						"value": "2"
+					},
+					{
+						"type": "BOOLEAN",
+						"key": "setDefaultValue",
+						"value": "false"
+					},
+					{
+						"type": "TEMPLATE",
+						"key": "name",
+						"value": "quantity"
+					}
+				],
+				"fingerprint": "1630468922734",
+				"parentFolderId": "3",
+				"formatValue": {}
+			},
+			{
+				"accountId": "4702951130",
+				"containerId": "50307358",
+				"variableId": "14",
+				"name": "DL - variantTitle",
+				"type": "v",
+				"notes": "The title of a ProductVariant.\n\nSee https://shopify.dev/api/storefront/reference/products/productvariant",
+				"parameter": [
+					{
+						"type": "INTEGER",
+						"key": "dataLayerVersion",
+						"value": "2"
+					},
+					{
+						"type": "BOOLEAN",
+						"key": "setDefaultValue",
+						"value": "false"
+					},
+					{
+						"type": "TEMPLATE",
+						"key": "name",
+						"value": "variantTitle"
+					}
+				],
+				"fingerprint": "1630468922735",
+				"parentFolderId": "3",
+				"formatValue": {}
+			},
+			{
+				"accountId": "4702951130",
+				"containerId": "50307358",
+				"variableId": "15",
+				"name": "DL - productType",
+				"type": "v",
+				"notes": "The productType of a Product object.\n\nSee https://shopify.dev/api/storefront/reference/products/product",
+				"parameter": [
+					{
+						"type": "INTEGER",
+						"key": "dataLayerVersion",
+						"value": "2"
+					},
+					{
+						"type": "BOOLEAN",
+						"key": "setDefaultValue",
+						"value": "false"
+					},
+					{
+						"type": "TEMPLATE",
+						"key": "name",
+						"value": "productType"
+					}
+				],
+				"fingerprint": "1630468922735",
+				"parentFolderId": "3",
+				"formatValue": {}
+			},
+			{
+				"accountId": "4702951130",
+				"containerId": "50307358",
+				"variableId": "16",
+				"name": "Empty String",
+				"type": "jsm",
+				"notes": "This returns an empty string.  I couldn't find a better way to do this since most GTM fields don't let you have an empty value for fields.",
+				"parameter": [
+					{
+						"type": "TEMPLATE",
+						"key": "javascript",
+						"value": "function() { return ''; }"
+					}
+				],
+				"fingerprint": "1630468922739",
+				"parentFolderId": "3",
+				"formatValue": {}
+			},
+			{
+				"accountId": "4702951130",
+				"containerId": "50307358",
+				"variableId": "17",
+				"name": "DL - variantImage",
+				"type": "v",
+				"notes": "The image of a ProductVariant.\n\nSee https://shopify.dev/api/storefront/reference/products/productvariant",
+				"parameter": [
+					{
+						"type": "INTEGER",
+						"key": "dataLayerVersion",
+						"value": "2"
+					},
+					{
+						"type": "BOOLEAN",
+						"key": "setDefaultValue",
+						"value": "false"
+					},
+					{
+						"type": "TEMPLATE",
+						"key": "name",
+						"value": "variantImage"
+					}
+				],
+				"fingerprint": "1630468922735",
+				"parentFolderId": "3",
+				"formatValue": {}
+			},
+			{
+				"accountId": "4702951130",
+				"containerId": "50307358",
+				"variableId": "18",
+				"name": "DL - productVendor",
+				"type": "v",
+				"notes": "The vendor of a Product object.\n\nSee https://shopify.dev/api/storefront/reference/products/product",
+				"parameter": [
+					{
+						"type": "INTEGER",
+						"key": "dataLayerVersion",
+						"value": "2"
+					},
+					{
+						"type": "BOOLEAN",
+						"key": "setDefaultValue",
+						"value": "false"
+					},
+					{
+						"type": "TEMPLATE",
+						"key": "name",
+						"value": "productVendor"
+					}
+				],
+				"fingerprint": "1630468922735",
+				"parentFolderId": "3",
+				"formatValue": {}
+			},
+			{
+				"accountId": "4702951130",
+				"containerId": "50307358",
+				"variableId": "19",
+				"name": "DL - customerId",
+				"type": "v",
+				"notes": "A logged in customer's id.",
+				"parameter": [
+					{
+						"type": "INTEGER",
+						"key": "dataLayerVersion",
+						"value": "2"
+					},
+					{
+						"type": "BOOLEAN",
+						"key": "setDefaultValue",
+						"value": "false"
+					},
+					{
+						"type": "TEMPLATE",
+						"key": "name",
+						"value": "customerId"
+					}
+				],
+				"fingerprint": "1630468922736",
+				"parentFolderId": "3",
+				"formatValue": {}
+			},
+			{
+				"accountId": "4702951130",
+				"containerId": "50307358",
+				"variableId": "20",
+				"name": "DL - variantId",
+				"type": "v",
+				"notes": "The id of a ProductVariant as a number.  Ex: 132456789.\n\nSee https://shopify.dev/api/storefront/reference/products/productvariant",
+				"parameter": [
+					{
+						"type": "INTEGER",
+						"key": "dataLayerVersion",
+						"value": "2"
+					},
+					{
+						"type": "BOOLEAN",
+						"key": "setDefaultValue",
+						"value": "false"
+					},
+					{
+						"type": "TEMPLATE",
+						"key": "name",
+						"value": "variantId"
+					}
+				],
+				"fingerprint": "1630468922736",
+				"parentFolderId": "3",
+				"formatValue": {}
+			},
+			{
+				"accountId": "4702951130",
+				"containerId": "50307358",
+				"variableId": "21",
+				"name": "DL - productVariantTitle",
+				"type": "v",
+				"notes": "Concatenation of productTitle and productVariant with a \" - \" in the middle.  For example: \"Great T-Shirt - Black\".",
+				"parameter": [
+					{
+						"type": "INTEGER",
+						"key": "dataLayerVersion",
+						"value": "2"
+					},
+					{
+						"type": "BOOLEAN",
+						"key": "setDefaultValue",
+						"value": "false"
+					},
+					{
+						"type": "TEMPLATE",
+						"key": "name",
+						"value": "productVariantTitle"
+					}
+				],
+				"fingerprint": "1630468922737",
+				"parentFolderId": "3",
+				"formatValue": {}
+			},
+			{
+				"accountId": "4702951130",
+				"containerId": "50307358",
+				"variableId": "22",
+				"name": "DL - sku",
+				"type": "v",
+				"notes": "The sku of a ProductVariant.\n\nSee https://shopify.dev/api/storefront/reference/products/productvariant",
+				"parameter": [
+					{
+						"type": "INTEGER",
+						"key": "dataLayerVersion",
+						"value": "2"
+					},
+					{
+						"type": "BOOLEAN",
+						"key": "setDefaultValue",
+						"value": "false"
+					},
+					{
+						"type": "TEMPLATE",
+						"key": "name",
+						"value": "sku"
+					}
+				],
+				"fingerprint": "1630468922737",
+				"parentFolderId": "3",
+				"formatValue": {}
+			},
+			{
+				"accountId": "4702951130",
+				"containerId": "50307358",
+				"variableId": "23",
+				"name": "DL - customerEmail",
+				"type": "v",
+				"notes": "A customer's email, typically because they have an account and have logged in.",
+				"parameter": [
+					{
+						"type": "INTEGER",
+						"key": "dataLayerVersion",
+						"value": "2"
+					},
+					{
+						"type": "BOOLEAN",
+						"key": "setDefaultValue",
+						"value": "false"
+					},
+					{
+						"type": "TEMPLATE",
+						"key": "name",
+						"value": "customer.customerEmail"
+					}
+				],
+				"fingerprint": "1630468922737",
+				"parentFolderId": "3",
+				"formatValue": {
+					"convertNullToValue": {
+						"type": "TEMPLATE",
+						"value": "{{Empty String}}"
+					}
+				}
+			},
+			{
+				"accountId": "4702951130",
+				"containerId": "50307358",
+				"variableId": "24",
+				"name": "DL - firstOccurance",
+				"type": "v",
+				"notes": "The firstOccurance property will be true the first time an event (like \"View Product Details\") is called in a given request and false for the remainder. You would use this when a product detail page is served by Shopify and the Shopify Enhanced Ecommerce integration will be firing the inital event but you will be firing additional events as a user interacts with a variant selector.",
+				"parameter": [
+					{
+						"type": "INTEGER",
+						"key": "dataLayerVersion",
+						"value": "2"
+					},
+					{
+						"type": "BOOLEAN",
+						"key": "setDefaultValue",
+						"value": "false"
+					},
+					{
+						"type": "TEMPLATE",
+						"key": "name",
+						"value": "firstOccurance"
+					}
+				],
+				"fingerprint": "1630468922738",
+				"parentFolderId": "3",
+				"formatValue": {}
+			},
+			{
+				"accountId": "4702951130",
+				"containerId": "50307358",
+				"variableId": "25",
+				"name": "DL - checkoutId",
+				"type": "v",
+				"notes": "The checkout.id from the Storefront API checkout object.",
+				"parameter": [
+					{
+						"type": "INTEGER",
+						"key": "dataLayerVersion",
+						"value": "2"
+					},
+					{
+						"type": "BOOLEAN",
+						"key": "setDefaultValue",
+						"value": "false"
+					},
+					{
+						"type": "TEMPLATE",
+						"key": "name",
+						"value": "checkoutId"
+					}
+				],
+				"fingerprint": "1630468922738",
+				"parentFolderId": "3",
+				"formatValue": {}
+			},
+			{
+				"accountId": "4702951130",
+				"containerId": "50307358",
+				"variableId": "26",
+				"name": "DL - totalPrice",
+				"type": "v",
+				"notes": "The total price of the cart, like 14.05.",
+				"parameter": [
+					{
+						"type": "INTEGER",
+						"key": "dataLayerVersion",
+						"value": "2"
+					},
+					{
+						"type": "BOOLEAN",
+						"key": "setDefaultValue",
+						"value": "false"
+					},
+					{
+						"type": "TEMPLATE",
+						"key": "name",
+						"value": "totalPrice"
+					}
+				],
+				"fingerprint": "1630468922738",
+				"parentFolderId": "3",
+				"formatValue": {}
+			},
+			{
+				"accountId": "4702951130",
+				"containerId": "50307358",
+				"variableId": "27",
+				"name": "DL - subtotalPrice",
+				"type": "v",
+				"notes": "The subtotal price of the cart, like 14.05.",
+				"parameter": [
+					{
+						"type": "INTEGER",
+						"key": "dataLayerVersion",
+						"value": "2"
+					},
+					{
+						"type": "BOOLEAN",
+						"key": "setDefaultValue",
+						"value": "false"
+					},
+					{
+						"type": "TEMPLATE",
+						"key": "name",
+						"value": "subtotalPrice"
+					}
+				],
+				"fingerprint": "1630468922739",
+				"parentFolderId": "3",
+				"formatValue": {}
+			},
+			{
+				"accountId": "4702951130",
+				"containerId": "50307358",
+				"variableId": "31",
+				"name": "GA4 - Current Item",
+				"type": "jsm",
+				"notes": "Creates an array for the most recent item pushed to the dataLayer in the style of GA4 ecommerce Items",
+				"parameter": [
+					{
+						"type": "TEMPLATE",
+						"key": "javascript",
+						"value": "function() {\n  return [\n    {\n      item_id: {{DL - variantId}},\n      item_name: {{DL - productVariantTitle}},\n      item_brand: {{DL - productVendor}},\n      item_category: {{DL - productType}},\n      item_variant: {{DL - variantTitle}},\n      price: Number({{DL - price}}),\n    }\n  ]\n}"
+					}
+				],
+				"fingerprint": "1632510686842",
+				"parentFolderId": "45",
+				"formatValue": {}
+			},
+			{
+				"accountId": "4702951130",
+				"containerId": "50307358",
+				"variableId": "32",
+				"name": "DL - List Position",
+				"type": "v",
+				"notes": "The index of a product in list, like for impression events.",
+				"parameter": [
+					{
+						"type": "INTEGER",
+						"key": "dataLayerVersion",
+						"value": "2"
+					},
+					{
+						"type": "BOOLEAN",
+						"key": "setDefaultValue",
+						"value": "false"
+					},
+					{
+						"type": "TEMPLATE",
+						"key": "name",
+						"value": "listPosition"
+					}
+				],
+				"fingerprint": "1632502762241",
+				"parentFolderId": "3",
+				"formatValue": {}
+			},
+			{
+				"accountId": "4702951130",
+				"containerId": "50307358",
+				"variableId": "33",
+				"name": "DL - List Name",
+				"type": "v",
+				"notes": "The name of a list, like for impression events.",
+				"parameter": [
+					{
+						"type": "INTEGER",
+						"key": "dataLayerVersion",
+						"value": "2"
+					},
+					{
+						"type": "BOOLEAN",
+						"key": "setDefaultValue",
+						"value": "false"
+					},
+					{
+						"type": "TEMPLATE",
+						"key": "name",
+						"value": "listName"
+					}
+				],
+				"fingerprint": "1632502797936",
+				"parentFolderId": "3",
+				"formatValue": {}
+			},
+			{
+				"accountId": "4702951130",
+				"containerId": "50307358",
+				"variableId": "40",
+				"name": "GA4 - Currency",
+				"type": "c",
+				"parameter": [
+					{
+						"type": "TEMPLATE",
+						"key": "value",
+						"value": "USD"
+					}
+				],
+				"fingerprint": "1632508010906",
+				"parentFolderId": "45",
+				"formatValue": {}
+			},
+			{
+				"accountId": "4702951130",
+				"containerId": "50307358",
+				"variableId": "49",
+				"name": "GA4 - Cart Items",
+				"type": "jsm",
+				"notes": "Creates an array of all the items currently in the cart.",
+				"parameter": [
+					{
+						"type": "TEMPLATE",
+						"key": "javascript",
+						"value": "function() {\n  return ({{DL - lineItems}}).map(function(lineItem) {\n    return {\n      item_id: lineItem.variantId,\n      item_name: lineItem.productVariantTitle,\n      item_brand: lineItem.productVendor,\n      item_category: lineItem.productType,\n      item_variant: lineItem.variantTitle,\n      price: lineItem.price,\n      quantity: lineItem.quantity,\n    }\n  })\n}"
+					}
+				],
+				"fingerprint": "1632508791528",
+				"parentFolderId": "45",
+				"formatValue": {}
+			},
+			{
+				"accountId": "4702951130",
+				"containerId": "50307358",
+				"variableId": "50",
+				"name": "GA4 - Current Item w/ Quantity",
+				"type": "jsm",
+				"parameter": [
+					{
+						"type": "TEMPLATE",
+						"key": "javascript",
+						"value": "function() {\n  return [\n    Object.assign(\n      { quantity: {{DL - quantity}} }, \n      ({{GA4 - Current Item}})[0]       \n    )\n  ]\n}"
+					}
+				],
+				"fingerprint": "1632510150130",
+				"parentFolderId": "45",
+				"formatValue": {}
+			}
+		],
+		"folder": [
+			{
+				"accountId": "4702951130",
+				"containerId": "50307358",
+				"folderId": "3",
+				"name": "shopify-gtm-instrumentor",
+				"fingerprint": "1630468922730"
+			},
+			{
+				"accountId": "4702951130",
+				"containerId": "50307358",
+				"folderId": "45",
+				"name": "shopify-gtm-instrumentor - GA4",
+				"fingerprint": "1632507996652"
+			}
+		],
+		"builtInVariable": [
+			{
+				"accountId": "4702951130",
+				"containerId": "50307358",
+				"type": "PAGE_URL",
+				"name": "Page URL"
+			},
+			{
+				"accountId": "4702951130",
+				"containerId": "50307358",
+				"type": "PAGE_HOSTNAME",
+				"name": "Page Hostname"
+			},
+			{
+				"accountId": "4702951130",
+				"containerId": "50307358",
+				"type": "PAGE_PATH",
+				"name": "Page Path"
+			},
+			{
+				"accountId": "4702951130",
+				"containerId": "50307358",
+				"type": "REFERRER",
+				"name": "Referrer"
+			},
+			{
+				"accountId": "4702951130",
+				"containerId": "50307358",
+				"type": "EVENT",
+				"name": "Event"
+			}
+		],
+		"fingerprint": "1632511319182",
+		"tagManagerUrl": "https://tagmanager.google.com/#/versions/accounts/4702951130/containers/50307358/versions/0?apiLink=version"
+	}
+}
