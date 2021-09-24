@@ -289,6 +289,11 @@ export default class ShopifyGtmInstrumentor
 	pushEvent: (name, payload) ->
 		if @debug then console.debug "'#{name}'", payload
 		window.dataLayer = [] unless window.dataLayer
+
+		# Clear previous ecommerce values
+		window.dataLayer.push ecommerce: null
+
+		# Add new event
 		window.dataLayer.push {
 			event: name
 			firstOccurance: @isFirstOccurance name
