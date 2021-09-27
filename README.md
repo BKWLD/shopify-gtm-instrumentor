@@ -47,7 +47,7 @@ yarn add shopify-gtm-instrumentor
 #### Optional (GA4)
 
 - Set the `disableEcommerceProperty` option to true.
-- Import the [ga4-tags.json](gtm-workspace-scaffold/ga4-tags.json) file into your GTM container to create tags for firing GA4 ecommerce events.
+- Import the [ga4.json](gtm-workspace-scaffold/ga4.json) file into your GTM container to create tags for firing GA4 ecommerce events.
 
 ## Usage
 
