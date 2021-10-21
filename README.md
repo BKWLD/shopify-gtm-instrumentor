@@ -48,6 +48,7 @@ yarn add shopify-gtm-instrumentor
 
 - Set the `disableEcommerceProperty` option to true.
 - Import the [ga4.json](gtm-workspace-scaffold/ga4.json) file into your GTM container to create tags for firing GA4 ecommerce events.
+- Per [this article](https://www.lovesdata.com/blog/google-analytics-4-shopify) set `myshopify.com` as an "Unwanted Referral" in your data stream. 
 
 ## Usage
 
