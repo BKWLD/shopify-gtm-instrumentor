@@ -526,7 +526,7 @@ If `enableCheckoutEcommerceProperties` was set to `true`, the dataLayer will als
 
 
 ## Customer Info
-Used to send the customer info to GTM. This is not an explicit Enhanced Ecommerce event but many GTM want this data.
+Used to send the customer info to GTM. This is not an explicit Enhanced Ecommerce event but many GTM tags want this data.
 
 ```js
 gtmEcomm.identifyCustomer(customer)
@@ -535,8 +535,10 @@ gtmEcomm.identifyCustomer(customer)
 - `customer` - An object that contains customer email and id, like:
 ```js
 {
-  email: 'abcd@test.com',
   id: '1234'
+  zip: '90210',
+  email: 'abcd@test.com',
+
 }
 ```
 
@@ -545,6 +547,7 @@ Pushes an object to the dataLayer that looks like:
 ```js
 {
   event: 'Identify Customer',
-  customerEmail: 'abcd@test.com',
   customerId: '1234'
+  customerZip: '90210',
+  customerEmail: 'abcd@test.com',
 }

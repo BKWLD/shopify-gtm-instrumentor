@@ -170,9 +170,9 @@ export default class ShopifyGtmInstrumentor
 	identifyCustomer: (customer) ->
 		return unless window?
 		@pushEvent 'Identify Customer',
-			customerEmail: customer.email
 			customerId: customer.id
-
+			customerZip: customer.zip
+			customerEmail: customer.email
 
 	# VARIANT DATA ##############################################################
 
