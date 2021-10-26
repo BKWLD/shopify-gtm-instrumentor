@@ -48,7 +48,7 @@ yarn add shopify-gtm-instrumentor
 
 - Set the `disableEcommerceProperty` option to true.
 - Import the [ga4.json](gtm-workspace-scaffold/ga4.json) file into your GTM container to create tags for firing GA4 ecommerce events.
-- Per [this article](https://www.lovesdata.com/blog/google-analytics-4-shopify) set `myshopify.com` as an "Unwanted Referral" in your data stream. 
+- Per [this article](https://www.lovesdata.com/blog/google-analytics-4-shopify) set `myshopify.com` as an "Unwanted Referral" in your data stream.
 
 ## Usage
 
@@ -67,6 +67,7 @@ The constructor takes these options:
 - `storefrontToken` - A Storefront API token with permission to read products.  Defaults to `process.env.SHOPIFY_STOREFONT_TOKEN`.
 - `currencyCode` - Defaults to `USD`.
 - `disableEcommerceProperty` - If `true`, removes the `ecommerce` property from the object which is used by [UA Enhanced Commerce](https://developers.google.com/tag-manager/enhanced-ecommerce). You would enable this if you were using GA4 and want to use explicit tags, like those in [ga4-tags.json](./gtm-workspace-scaffold/ga4-tags.json)
+- `enableCheckoutEcommerceProperty` - If `true`, adds `ecommerce` properties to `Checkout` and `Purchase` events.  This is diabled by default because it's expected that you'd use Shopify's Google Analytics integration for this.  However, if you are _only_ using GA4 you may want to use this to support 3rd party GTM Tags that are expecting this property to exist.
 
 Implemented methods described below:
 
@@ -424,6 +425,30 @@ This isn't designed to trigger the Enhanced Ecommerce `purchase` action; we're e
 }
 ```
 
+If `enableCheckoutEcommerceProperty` was set to `true`, the dataLayer will also include:
+
+```js
+{
+  ecommerce: {
+    checkout: {
+      actionField: {
+        step: 'contact_information'
+      },
+      products: [
+        {
+          id: 'sku-abc',
+          name: 'Great T-Shirt - Black',
+          brand: 'Bukwild',
+          category: 'Shirts',
+          variant: 'Black',
+          price: 18.99,
+          quantity: 1
+        }
+      ]
+    }
+  }
+}
+```
 
 
 #### [Purchases](https://developers.google.com/tag-manager/enhanced-ecommerce#purchases)
@@ -470,8 +495,38 @@ Like Checkout, this isn't intended to replace Shopify's Enhannced Ecommerce supp
 }
 ```
 
+If `enableCheckoutEcommerceProperty` was set to `true`, the dataLayer will also include:
+
+```js
+{
+  ecommerce: {
+    purchase: {
+      actionField: {
+        id: ''
+        revenue: 18.99,
+        tax: 0.00,
+        shipping: 0.00,
+        coupon: 'one,two'
+      },
+      products: [
+        {
+          id: 'sku-abc',
+          name: 'Great T-Shirt - Black',
+          brand: 'Bukwild',
+          category: 'Shirts',
+          variant: 'Black',
+          price: 18.99,
+          quantity: 1
+        }
+      ]
+    }
+  }
+}
+```
+
+
 ## Customer Info
-Used to send the customer info to GTM. This is not an explicit Enhanced Ecommerce event but many GTM want this data.
+Used to send the customer info to GTM. This is not an explicit Enhanced Ecommerce event but many GTM tags want this data.
 
 ```js
 gtmEcomm.identifyCustomer(customer)
@@ -480,8 +535,10 @@ gtmEcomm.identifyCustomer(customer)
 - `customer` - An object that contains customer email and id, like:
 ```js
 {
-  email: 'abcd@test.com',
   id: '1234'
+  zip: '90210',
+  email: 'abcd@test.com',
+
 }
 ```
 
@@ -490,6 +547,7 @@ Pushes an object to the dataLayer that looks like:
 ```js
 {
   event: 'Identify Customer',
-  customerEmail: 'abcd@test.com',
   customerId: '1234'
+  customerZip: '90210',
+  customerEmail: 'abcd@test.com',
 }

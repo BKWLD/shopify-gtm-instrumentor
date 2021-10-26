@@ -63,7 +63,9 @@ var _default = ShopifyGtmInstrumentor = /*#__PURE__*/function () {
         _ref$currencyCode = _ref.currencyCode,
         currencyCode = _ref$currencyCode === void 0 ? 'USD' : _ref$currencyCode,
         _ref$disableEcommerce = _ref.disableEcommerceProperty,
-        disableEcommerceProperty = _ref$disableEcommerce === void 0 ? false : _ref$disableEcommerce;
+        disableEcommerceProperty = _ref$disableEcommerce === void 0 ? false : _ref$disableEcommerce,
+        _ref$enableCheckoutEc = _ref.enableCheckoutEcommerceProperty,
+        enableCheckoutEcommerceProperty = _ref$enableCheckoutEc === void 0 ? false : _ref$enableCheckoutEc;
 
     (0, _classCallCheck2["default"])(this, ShopifyGtmInstrumentor);
     this.debug = debug;
@@ -71,6 +73,7 @@ var _default = ShopifyGtmInstrumentor = /*#__PURE__*/function () {
     this.storefrontToken = storefrontToken;
     this.currencyCode = currencyCode;
     this.disableEcommerceProperty = disableEcommerceProperty;
+    this.enableCheckoutEcommerceProperty = enableCheckoutEcommerceProperty;
     this.occurances = [];
   } // API #######################################################################
   // A view of a product element
@@ -450,9 +453,18 @@ var _default = ShopifyGtmInstrumentor = /*#__PURE__*/function () {
                   break;
                 }
 
-                return _context6.abrupt("return", this.pushEvent('Checkout', _objectSpread({
+                return _context6.abrupt("return", this.pushEvent('Checkout', _objectSpread(_objectSpread({
                   checkoutStep: checkoutStep
-                }, simplifiedCheckout)));
+                }, simplifiedCheckout), !this.enableCheckoutEcommerceProperty ? {} : {
+                  ecommerce: {
+                    checkout: {
+                      actionField: {
+                        step: checkoutStep
+                      },
+                      products: this.makeUaCheckoutProducts(simplifiedCheckout)
+                    }
+                  }
+                })));
 
               case 6:
               case "end":
@@ -495,7 +507,20 @@ var _default = ShopifyGtmInstrumentor = /*#__PURE__*/function () {
                   break;
                 }
 
-                return _context7.abrupt("return", this.pushEvent('Purchase', simplifiedCheckout));
+                return _context7.abrupt("return", this.pushEvent('Purchase', _objectSpread(_objectSpread({}, simplifiedCheckout), !this.enableCheckoutEcommerceProperty ? {} : {
+                  ecommerce: {
+                    purchase: {
+                      actionField: {
+                        id: simplifiedCheckout.checkoutId,
+                        revenue: simplifiedCheckout.totalPrice,
+                        tax: simplifiedCheckout.totalTax,
+                        shipping: simplifiedCheckout.totalShipping,
+                        coupon: simplifiedCheckout.discountCodes.join(',')
+                      },
+                      products: this.makeUaCheckoutProducts(simplifiedCheckout)
+                    }
+                  }
+                })));
 
               case 6:
               case "end":
@@ -520,8 +545,9 @@ var _default = ShopifyGtmInstrumentor = /*#__PURE__*/function () {
       }
 
       return this.pushEvent('Identify Customer', {
-        customerEmail: customer.email,
-        customerId: customer.id
+        customerId: customer.id,
+        customerZip: customer.zip,
+        customerEmail: customer.email
       });
     } // VARIANT DATA ##############################################################
     // Take a variantPayload, which may be an id or an object, and return an
@@ -649,7 +675,7 @@ var _default = ShopifyGtmInstrumentor = /*#__PURE__*/function () {
         variantUrl: "".concat(productUrl, "?variant=").concat(variantId)
       };
     } // Convert a Shopify variant object to a UA productFieldObject. I'm
-    // comibing the product and variant name because that's what Shopify does
+    // combining the product and variant name because that's what Shopify does
     // with it's own events.
     // https://developers.google.com/analytics/devguides/collection/analyticsjs/enhanced-ecommerce#product-data
 
@@ -780,7 +806,7 @@ var _default = ShopifyGtmInstrumentor = /*#__PURE__*/function () {
       }
 
       return fetchCheckout;
-    }() // Reduce
+    }() // Standardize checkout properties to something more easily used in dataLayer
 
   }, {
     key: "makeSimplifiedCheckout",
@@ -806,8 +832,24 @@ var _default = ShopifyGtmInstrumentor = /*#__PURE__*/function () {
             lineItemId: getShopifyId(lineItem.id),
             quantity: lineItem.quantity
           }, _this2.makeFlatVariant(lineItem.variant));
-        })
+        }),
+        // Properties that aren't present until purchase
+        orderNumber: checkout.orderNumber,
+        totalTax: checkout.totalTax,
+        totalShipping: checkout.totalShipping,
+        discountCodes: checkout.discountCodes || []
       };
+    } // Get a simplifiedCheckout object and make the `products` array from the
+    // lineItems.  Which is
+
+  }, {
+    key: "makeUaCheckoutProducts",
+    value: function makeUaCheckoutProducts(simplifiedCheckout) {
+      return simplifiedCheckout.lineItems.map(function (lineItem) {
+        return _objectSpread({
+          quantity: lineItem.lineItem
+        }, this.makeUaProductFieldObject(lineItem));
+      });
     } // STOREFRONT API ############################################################
     // Query Storefront API
 

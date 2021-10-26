@@ -12,6 +12,7 @@ export default class ShopifyGtmInstrumentor
 		@storefrontToken = process.env.SHOPIFY_STOREFRONT_TOKEN
 		@currencyCode = 'USD'
 		@disableEcommerceProperty = false
+		@enableCheckoutEcommerceProperty = false
 	} = {})->
 		@occurances = []
 
@@ -139,6 +140,11 @@ export default class ShopifyGtmInstrumentor
 		then @pushEvent 'Checkout', {
 			checkoutStep
 			...simplifiedCheckout
+			...(unless @enableCheckoutEcommerceProperty then {} else {
+				ecommerce: checkout:
+					actionField: step: checkoutStep
+					products: @makeUaCheckoutProducts simplifiedCheckout
+			})
 		}
 
 	# Notify of final checkout, using array of variant data from liquid
@@ -146,15 +152,27 @@ export default class ShopifyGtmInstrumentor
 		return unless window?
 		if simplifiedCheckout = await @getSimplifiedCheckout(
 			checkoutOrCartPayload)
-		then @pushEvent 'Purchase', simplifiedCheckout
+		then @pushEvent 'Purchase', {
+			...simplifiedCheckout
+			...(unless @enableCheckoutEcommerceProperty then {} else {
+				ecommerce: purchase:
+					actionField:
+						id: simplifiedCheckout.checkoutId
+						revenue: simplifiedCheckout.totalPrice
+						tax: simplifiedCheckout.totalTax
+						shipping: simplifiedCheckout.totalShipping
+						coupon: simplifiedCheckout.discountCodes.join ','
+					products: @makeUaCheckoutProducts simplifiedCheckout
+			})
+		}
 
 	# Customer information
 	identifyCustomer: (customer) ->
 		return unless window?
 		@pushEvent 'Identify Customer',
-			customerEmail: customer.email
 			customerId: customer.id
-
+			customerZip: customer.zip
+			customerEmail: customer.email
 
 	# VARIANT DATA ##############################################################
 
@@ -203,7 +221,7 @@ export default class ShopifyGtmInstrumentor
 		variantUrl: "#{productUrl}?variant=#{variantId}"
 
 	# Convert a Shopify variant object to a UA productFieldObject. I'm
-	# comibing the product and variant name because that's what Shopify does
+	# combining the product and variant name because that's what Shopify does
 	# with it's own events.
 	# https://developers.google.com/analytics/devguides/collection/analyticsjs/enhanced-ecommerce#product-data
 	makeUaProductFieldObject: (flatVariant) ->
@@ -253,7 +271,7 @@ export default class ShopifyGtmInstrumentor
 		# Return "checkout" (which could be a Cart object)
 		return node
 
-	# Reduce
+	# Standardize checkout properties to something more easily used in dataLayer
 	makeSimplifiedCheckout: (checkout) ->
 
 		# Flatten nodes that contain line items
@@ -269,6 +287,20 @@ export default class ShopifyGtmInstrumentor
 			lineItemId: getShopifyId lineItem.id
 			quantity: lineItem.quantity
 			...@makeFlatVariant lineItem.variant
+		}
+
+		# Properties that aren't present until purchase
+		orderNumber: checkout.orderNumber
+		totalTax: checkout.totalTax
+		totalShipping: checkout.totalShipping
+		discountCodes: checkout.discountCodes || []
+
+	# Get a simplifiedCheckout object and make the `products` array from the
+	# lineItems.  Which is
+	makeUaCheckoutProducts: (simplifiedCheckout) ->
+		simplifiedCheckout.lineItems.map (lineItem) -> {
+			quantity: lineItem.lineItem
+			...@makeUaProductFieldObject lineItem
 		}
 
 	# STOREFRONT API ############################################################

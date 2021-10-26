@@ -7,28 +7,42 @@
 		id: {{ checkout.id }},
 		subtotalPrice: '{{ checkout.line_items_subtotal_price | money_without_currency }}',
 		totalPrice: '{{ checkout.total_price | money_without_currency }}',
-		orderNumber: '{{ checkout.order_number }}',
 		lineItems: [],
+
+		{% comment %} Properties that aren't present until purchase {% endcomment %}
+		orderNumber: '{{ checkout.order_number }}',
+		totalTax: '{{ checkout.tax_price | money_without_currency }}',
+		totalShipping: '{{ checkout.shipping_price | money_without_currency }}',
+		discountCodes: [],
 	};
+
+	{% comment %} Add line items {% endcomment %}
 	{% for line_item in checkout.line_items %}
 		CHECKOUT_FOR_GTM_INSTRUMENTOR.lineItems.push({
-			id: '{{ line_item.id }}',
+			id: {{ line_item.id | json }},
 			quantity: {{ line_item.quantity }},
 			variant: {
-				id: '{{ line_item.variant.id }}',
-				sku: '{{ line_item.variant.sku }}',
-				title: '{{ line_item.variant.title }}',
+				id: {{ line_item.variant.id | json }},
+				sku: {{ line_item.variant.sku  | json }},
+				title: {{ line_item.variant.title  | json }},
 				price: '{{ line_item.variant.price | money_without_currency }}',
 				compareAtPrice: '{{ line_item.variant.compare_at_price | money_without_currency }}',
-				image: '{{ line_item.image.src }}',
+				image: {{ line_item.image.src | json }},
 				product: {
-					id: '{{ line_item.product.id }}',
-					title: '{{ line_item.product.title }}',
-					handle: '{{ line_item.product.handle }}',
-					productType: '{{ line_item.product.type }}',
-					vendor: '{{ line_item.product.vendor }}',
+					id: {{ line_item.product.id | json }},
+					title: {{ line_item.product.title | json}},
+					handle: {{ line_item.product.handle | json }},
+					productType: {{ line_item.product.type | json }},
+					vendor: {{ line_item.product.vendor | json }},
 				},
 			},
+		});
+	{% endfor %}
+
+	{% comment %} Add discount codes {% endcomment %}
+	{% for discount in checkout.discounts_amount %}
+		CHECKOUT_FOR_GTM_INSTRUMENTOR.discountCodes.push({
+			code: {{ discount.title | json }},
 		});
 	{% endfor %}
 </script>
