@@ -979,7 +979,7 @@
 					{
 						"type": "TEMPLATE",
 						"key": "name",
-						"value": "customer.customerEmail"
+						"value": "customerEmail"
 					}
 				],
 				"fingerprint": "1630468922737",
