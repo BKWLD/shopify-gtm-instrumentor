@@ -67,7 +67,7 @@ The constructor takes these options:
 - `storefrontToken` - A Storefront API token with permission to read products.  Defaults to `process.env.SHOPIFY_STOREFONT_TOKEN`.
 - `currencyCode` - Defaults to `USD`.
 - `disableEcommerceProperty` - If `true`, removes the `ecommerce` property from the object which is used by [UA Enhanced Commerce](https://developers.google.com/tag-manager/enhanced-ecommerce). You would enable this if you were using GA4 and want to use explicit tags, like those in [ga4-tags.json](./gtm-workspace-scaffold/ga4-tags.json)
-- `enableCheckoutEcommerceProperties` - If `true`, adds `ecommerce` properties to `Checkout` and `Purchase` events.  This is diabled by default because it's expected that you'd use Shopify's Google Analytics integration for this.  However, if you are _only_ using GA4 you may want to use this to support 3rd party GTM Tags that are expecting this property to exist.
+- `enableCheckoutEcommerceProperty` - If `true`, adds `ecommerce` properties to `Checkout` and `Purchase` events.  This is diabled by default because it's expected that you'd use Shopify's Google Analytics integration for this.  However, if you are _only_ using GA4 you may want to use this to support 3rd party GTM Tags that are expecting this property to exist.
 
 Implemented methods described below:
 
@@ -425,7 +425,7 @@ This isn't designed to trigger the Enhanced Ecommerce `purchase` action; we're e
 }
 ```
 
-If `enableCheckoutEcommerceProperties` was set to `true`, the dataLayer will also include:
+If `enableCheckoutEcommerceProperty` was set to `true`, the dataLayer will also include:
 
 ```js
 {
@@ -495,7 +495,7 @@ Like Checkout, this isn't intended to replace Shopify's Enhannced Ecommerce supp
 }
 ```
 
-If `enableCheckoutEcommerceProperties` was set to `true`, the dataLayer will also include:
+If `enableCheckoutEcommerceProperty` was set to `true`, the dataLayer will also include:
 
 ```js
 {

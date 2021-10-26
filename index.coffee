@@ -12,7 +12,7 @@ export default class ShopifyGtmInstrumentor
 		@storefrontToken = process.env.SHOPIFY_STOREFRONT_TOKEN
 		@currencyCode = 'USD'
 		@disableEcommerceProperty = false
-		@enableCheckoutEcommerceProperties = false
+		@enableCheckoutEcommerceProperty = false
 	} = {})->
 		@occurances = []
 
@@ -140,7 +140,7 @@ export default class ShopifyGtmInstrumentor
 		then @pushEvent 'Checkout', {
 			checkoutStep
 			...simplifiedCheckout
-			...(unless @enableCheckoutEcommerceProperties then {} else {
+			...(unless @enableCheckoutEcommerceProperty then {} else {
 				ecommerce: checkout:
 					actionField: step: checkoutStep
 					products: @makeUaCheckoutProducts simplifiedCheckout
@@ -154,7 +154,7 @@ export default class ShopifyGtmInstrumentor
 			checkoutOrCartPayload)
 		then @pushEvent 'Purchase', {
 			...simplifiedCheckout
-			...(unless @enableCheckoutEcommerceProperties then {} else {
+			...(unless @enableCheckoutEcommerceProperty then {} else {
 				ecommerce: purchase:
 					actionField:
 						id: simplifiedCheckout.checkoutId
@@ -271,7 +271,7 @@ export default class ShopifyGtmInstrumentor
 		# Return "checkout" (which could be a Cart object)
 		return node
 
-	# Reduce
+	# Standardize checkout properties to something more easily used in dataLayer
 	makeSimplifiedCheckout: (checkout) ->
 
 		# Flatten nodes that contain line items
