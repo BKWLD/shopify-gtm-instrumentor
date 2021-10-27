@@ -141,9 +141,11 @@ export default class ShopifyGtmInstrumentor
 			checkoutStep
 			...simplifiedCheckout
 			...(unless @enableCheckoutEcommerceProperty then {} else {
-				ecommerce: checkout:
-					actionField: step: checkoutStep
-					products: @makeUaCheckoutProducts simplifiedCheckout
+				ecommerce:
+					currencyCode: @currencyCode
+					checkout:
+						actionField: step: checkoutStep
+						products: @makeUaCheckoutProducts simplifiedCheckout
 			})
 		}
 
@@ -155,14 +157,16 @@ export default class ShopifyGtmInstrumentor
 		then @pushEvent 'Purchase', {
 			...simplifiedCheckout
 			...(unless @enableCheckoutEcommerceProperty then {} else {
-				ecommerce: purchase:
-					actionField:
-						id: simplifiedCheckout.checkoutId
-						revenue: simplifiedCheckout.totalPrice
-						tax: simplifiedCheckout.totalTax
-						shipping: simplifiedCheckout.totalShipping
-						coupon: simplifiedCheckout.discountCodes.join ','
-					products: @makeUaCheckoutProducts simplifiedCheckout
+				ecommerce:
+					currencyCode: @currencyCode
+					purchase:
+						actionField:
+							id: simplifiedCheckout.checkoutId
+							revenue: simplifiedCheckout.totalPrice
+							tax: simplifiedCheckout.totalTax
+							shipping: simplifiedCheckout.totalShipping
+							coupon: simplifiedCheckout.discountCodes.join ','
+						products: @makeUaCheckoutProducts simplifiedCheckout
 			})
 		}
 
