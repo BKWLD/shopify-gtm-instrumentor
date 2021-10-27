@@ -298,7 +298,7 @@ export default class ShopifyGtmInstrumentor
 	# Get a simplifiedCheckout object and make the `products` array from the
 	# lineItems.  Which is
 	makeUaCheckoutProducts: (simplifiedCheckout) ->
-		simplifiedCheckout.lineItems.map (lineItem) -> {
+		simplifiedCheckout.lineItems.map (lineItem) => {
 			quantity: lineItem.lineItem
 			...@makeUaProductFieldObject lineItem
 		}
