@@ -457,6 +457,7 @@ var _default = ShopifyGtmInstrumentor = /*#__PURE__*/function () {
                   checkoutStep: checkoutStep
                 }, simplifiedCheckout), !this.enableCheckoutEcommerceProperty ? {} : {
                   ecommerce: {
+                    currencyCode: this.currencyCode,
                     checkout: {
                       actionField: {
                         step: checkoutStep
@@ -509,6 +510,7 @@ var _default = ShopifyGtmInstrumentor = /*#__PURE__*/function () {
 
                 return _context7.abrupt("return", this.pushEvent('Purchase', _objectSpread(_objectSpread({}, simplifiedCheckout), !this.enableCheckoutEcommerceProperty ? {} : {
                   ecommerce: {
+                    currencyCode: this.currencyCode,
                     purchase: {
                       actionField: {
                         id: simplifiedCheckout.checkoutId,
