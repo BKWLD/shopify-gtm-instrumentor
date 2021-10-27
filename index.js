@@ -845,10 +845,12 @@ var _default = ShopifyGtmInstrumentor = /*#__PURE__*/function () {
   }, {
     key: "makeUaCheckoutProducts",
     value: function makeUaCheckoutProducts(simplifiedCheckout) {
+      var _this3 = this;
+
       return simplifiedCheckout.lineItems.map(function (lineItem) {
         return _objectSpread({
           quantity: lineItem.lineItem
-        }, this.makeUaProductFieldObject(lineItem));
+        }, _this3.makeUaProductFieldObject(lineItem));
       });
     } // STOREFRONT API ############################################################
     // Query Storefront API
@@ -973,17 +975,17 @@ StorefrontError = function () {
     var _super = _createSuper(StorefrontError);
 
     function StorefrontError(errors, payload) {
-      var _this3;
+      var _this4;
 
       (0, _classCallCheck2["default"])(this, StorefrontError);
-      _this3 = _super.call(this, errors.map(function (e) {
+      _this4 = _super.call(this, errors.map(function (e) {
         return e.debugMessage || e.message;
       }).join(', '));
-      _this3.errors = errors.map(function (e) {
+      _this4.errors = errors.map(function (e) {
         return JSON.stringify(e);
       });
-      _this3.payload = payload;
-      return _this3;
+      _this4.payload = payload;
+      return _this4;
     }
 
     return StorefrontError;

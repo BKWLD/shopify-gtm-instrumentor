@@ -1,6 +1,6 @@
 {
 	"name": "shopify-gtm-instrumentor",
-	"version": "1.2.0",
+	"version": "1.2.1",
 	"description": "Helpers for sending standardized dataLayer events from a Shopify site",
 	"main": "index.js",
 	"scripts": {
