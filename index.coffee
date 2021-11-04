@@ -303,7 +303,7 @@ export default class ShopifyGtmInstrumentor
 	# lineItems.  Which is
 	makeUaCheckoutProducts: (simplifiedCheckout) ->
 		simplifiedCheckout.lineItems.map (lineItem) => {
-			quantity: lineItem.lineItem
+			quantity: lineItem.quantity
 			...@makeUaProductFieldObject lineItem
 		}
 
