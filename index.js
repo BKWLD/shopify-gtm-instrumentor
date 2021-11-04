@@ -513,7 +513,8 @@ var _default = ShopifyGtmInstrumentor = /*#__PURE__*/function () {
                     currencyCode: this.currencyCode,
                     purchase: {
                       actionField: {
-                        id: simplifiedCheckout.checkoutId,
+                        id: '#' + simplifiedCheckout.orderNumber,
+                        // Matches Shopify
                         revenue: simplifiedCheckout.totalPrice,
                         tax: simplifiedCheckout.totalTax,
                         shipping: simplifiedCheckout.totalShipping,
