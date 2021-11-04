@@ -851,7 +851,7 @@ var _default = ShopifyGtmInstrumentor = /*#__PURE__*/function () {
 
       return simplifiedCheckout.lineItems.map(function (lineItem) {
         return _objectSpread({
-          quantity: lineItem.lineItem
+          quantity: lineItem.quantity
         }, _this3.makeUaProductFieldObject(lineItem));
       });
     } // STOREFRONT API ############################################################
