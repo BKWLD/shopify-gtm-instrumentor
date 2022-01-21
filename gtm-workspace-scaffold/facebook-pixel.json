@@ -1,0 +1,284 @@
+{
+	"exportFormatVersion": 2,
+	"exportTime": "2022-01-21 00:59:18",
+	"containerVersion": {
+		"tag": [
+			{
+				"accountId": "1369968198",
+				"containerId": "57777734",
+				"tagId": "22",
+				"name": "Facebook - Pixel",
+				"type": "html",
+				"parameter": [
+					{
+						"type": "TEMPLATE",
+						"key": "html",
+						"value": "<script>\n  !function(f,b,e,v,n,t,s)\n  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?\n  n.callMethod.apply(n,arguments):n.queue.push(arguments)};\n  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';\n  n.queue=[];t=b.createElement(e);t.async=!0;\n  t.src=v;s=b.getElementsByTagName(e)[0];\n  s.parentNode.insertBefore(t,s)}(window, document,'script',\n  'https://connect.facebook.net/en_US/fbevents.js');\n  fbq('init', '{{Facebook - Pixel ID}}');\n</script>\n<noscript>\n  <img height=\"1\" width=\"1\" style=\"display:none\" \n       src=\"https://www.facebook.com/tr?id={{Facebook - Pixel ID}}&ev=PageView&noscript=1\"/>\n</noscript>"
+					},
+					{
+						"type": "BOOLEAN",
+						"key": "supportDocumentWrite",
+						"value": "false"
+					}
+				],
+				"fingerprint": "1642726639730",
+				"parentFolderId": "88",
+				"tagFiringOption": "ONCE_PER_LOAD",
+				"monitoringMetadata": {
+					"type": "MAP"
+				},
+				"consentSettings": {
+					"consentStatus": "NOT_SET"
+				}
+			},
+			{
+				"accountId": "1369968198",
+				"containerId": "57777734",
+				"tagId": "40",
+				"name": "Facebook - ViewContent",
+				"type": "html",
+				"notes": "https://developers.facebook.com/docs/facebook-pixel/reference",
+				"parameter": [
+					{
+						"type": "TEMPLATE",
+						"key": "html",
+						"value": "<script>\n  if (typeof fbq != 'undefined') {\n    fbq('track', 'ViewContent', {{Facebook - Product}}, {{Facebook - Track Options}});\n  }\n</script>"
+					},
+					{
+						"type": "BOOLEAN",
+						"key": "supportDocumentWrite",
+						"value": "false"
+					}
+				],
+				"fingerprint": "1642726639728",
+				"setupTag": [
+					{
+						"tagName": "Facebook - Pixel"
+					}
+				],
+				"parentFolderId": "88",
+				"tagFiringOption": "ONCE_PER_EVENT",
+				"monitoringMetadata": {
+					"type": "MAP"
+				},
+				"consentSettings": {
+					"consentStatus": "NOT_SET"
+				}
+			},
+			{
+				"accountId": "1369968198",
+				"containerId": "57777734",
+				"tagId": "42",
+				"name": "Facebook - InitiateCheckout",
+				"type": "html",
+				"notes": "https://developers.facebook.com/docs/facebook-pixel/reference",
+				"parameter": [
+					{
+						"type": "TEMPLATE",
+						"key": "html",
+						"value": "<script>\n  if (typeof fbq != 'undefined') {\n    fbq('track', 'InitiateCheckout', {{Facebook - Cart}}, {{Facebook - Track Options}});\n  }\n</script>"
+					},
+					{
+						"type": "BOOLEAN",
+						"key": "supportDocumentWrite",
+						"value": "false"
+					}
+				],
+				"fingerprint": "1642726639731",
+				"setupTag": [
+					{
+						"tagName": "Facebook - Pixel"
+					}
+				],
+				"parentFolderId": "88",
+				"tagFiringOption": "ONCE_PER_EVENT",
+				"monitoringMetadata": {
+					"type": "MAP"
+				},
+				"consentSettings": {
+					"consentStatus": "NOT_SET"
+				}
+			},
+			{
+				"accountId": "1369968198",
+				"containerId": "57777734",
+				"tagId": "45",
+				"name": "Facebook - AddToCart",
+				"type": "html",
+				"notes": "https://developers.facebook.com/docs/facebook-pixel/reference",
+				"parameter": [
+					{
+						"type": "TEMPLATE",
+						"key": "html",
+						"value": "<script>\n  if (typeof fbq != 'undefined') {\n    fbq('track', 'AddToCart', {{Facebook - Product}}, {{Facebook - Track Options}});\n  }\n</script>"
+					},
+					{
+						"type": "BOOLEAN",
+						"key": "supportDocumentWrite",
+						"value": "false"
+					}
+				],
+				"fingerprint": "1642726639733",
+				"setupTag": [
+					{
+						"tagName": "Facebook - Pixel"
+					}
+				],
+				"parentFolderId": "88",
+				"tagFiringOption": "ONCE_PER_EVENT",
+				"monitoringMetadata": {
+					"type": "MAP"
+				},
+				"consentSettings": {
+					"consentStatus": "NOT_SET"
+				}
+			},
+			{
+				"accountId": "1369968198",
+				"containerId": "57777734",
+				"tagId": "47",
+				"name": "Facebook - PageView",
+				"type": "html",
+				"notes": "https://developers.facebook.com/docs/facebook-pixel/reference",
+				"parameter": [
+					{
+						"type": "TEMPLATE",
+						"key": "html",
+						"value": "<script>\n  if (typeof fbq != 'undefined') {\n    fbq('track', 'PageView', {}, {{Facebook - Track Options}});\n  }\n</script>"
+					},
+					{
+						"type": "BOOLEAN",
+						"key": "supportDocumentWrite",
+						"value": "false"
+					}
+				],
+				"fingerprint": "1642726639732",
+				"setupTag": [
+					{
+						"tagName": "Facebook - Pixel"
+					}
+				],
+				"parentFolderId": "88",
+				"tagFiringOption": "ONCE_PER_EVENT",
+				"monitoringMetadata": {
+					"type": "MAP"
+				},
+				"consentSettings": {
+					"consentStatus": "NOT_SET"
+				}
+			}
+		],
+		"variable": [
+			{
+				"accountId": "1369968198",
+				"containerId": "57777734",
+				"variableId": "21",
+				"name": "Facebook - Pixel ID",
+				"type": "c",
+				"parameter": [
+					{
+						"type": "TEMPLATE",
+						"key": "value",
+						"value": "623172964485041"
+					}
+				],
+				"fingerprint": "1642726639735",
+				"parentFolderId": "88",
+				"formatValue": {}
+			},
+			{
+				"accountId": "1369968198",
+				"containerId": "57777734",
+				"variableId": "24",
+				"name": "Facebook - Event ID",
+				"type": "cvt_57777734_23",
+				"notes": "This makes the Event ID as described in https://developers.facebook.com/docs/marketing-api/conversions-api/guides/gtm-server-side#deduplication.  I grabbed this from https://stape.io/blog/how-to-set-up-facebook-event-deduplication-in-google-tag-manager.",
+				"fingerprint": "1642726639771",
+				"parentFolderId": "88",
+				"formatValue": {}
+			},
+			{
+				"accountId": "1369968198",
+				"containerId": "57777734",
+				"variableId": "25",
+				"name": "Facebook - Track Options",
+				"type": "jsm",
+				"notes": "The shared, 4th argument of Facebook tags",
+				"parameter": [
+					{
+						"type": "TEMPLATE",
+						"key": "javascript",
+						"value": "function () {\n return {\n  eventID: {{Facebook - Event ID}}, \n }\n}"
+					}
+				],
+				"fingerprint": "1642726639773",
+				"parentFolderId": "88",
+				"formatValue": {}
+			},
+			{
+				"accountId": "1369968198",
+				"containerId": "57777734",
+				"variableId": "30",
+				"name": "Facebook - Cart",
+				"type": "jsm",
+				"notes": "This returns an object that represents the cart state.  See https://developers.facebook.com/docs/facebook-pixel/reference.",
+				"parameter": [
+					{
+						"type": "TEMPLATE",
+						"key": "javascript",
+						"value": "function() {\n  return {\n     content_ids: ({{DL - lineItems}}).map(function(lineItem) { \n       return lineItem.variantId  \n     }),\n     value: {{DL - subtotalPrice}},\n     currency: 'USD',\n  }\n}"
+					}
+				],
+				"fingerprint": "1642726639774",
+				"parentFolderId": "88",
+				"formatValue": {}
+			},
+			{
+				"accountId": "1369968198",
+				"containerId": "57777734",
+				"variableId": "38",
+				"name": "Facebook - Product",
+				"type": "jsm",
+				"notes": "This returns an object in the generic \"content\" style of the Facebook Pixel.  See https://developers.facebook.com/docs/facebook-pixel/reference.",
+				"parameter": [
+					{
+						"type": "TEMPLATE",
+						"key": "javascript",
+						"value": "function() {\n  return {\n    content_name: '{{DL - productVariantTitle}}', \n    content_category: '{{DL - productType}}',\n    content_ids: [{{DL - variantId}}],\n    content_type: 'product',\n    value: {{DL - price}},\n    currency: 'USD' \n  }\n}"
+					}
+				],
+				"fingerprint": "1642726639776",
+				"parentFolderId": "88",
+				"formatValue": {}
+			}
+		],
+		"folder": [
+			{
+				"accountId": "1369968198",
+				"containerId": "57777734",
+				"folderId": "88",
+				"name": "Facebook Pixel",
+				"fingerprint": "1642726585489"
+			}
+		],
+		"fingerprint": "1642726758079",
+		"tagManagerUrl": "https://tagmanager.google.com/#/versions/accounts/1369968198/containers/57777734/versions/0?apiLink=version",
+		"customTemplate": [
+			{
+				"accountId": "1369968198",
+				"containerId": "57777734",
+				"templateId": "23",
+				"name": "Unique Event ID",
+				"fingerprint": "1642717235517",
+				"templateData": "___TERMS_OF_SERVICE___\n\nBy creating or modifying this file you agree to Google Tag Manager's Community\nTemplate Gallery Developer Terms of Service available at\nhttps://developers.google.com/tag-manager/gallery-tos (or such other URL as\nGoogle may provide), as modified from time to time.\n\n\n___INFO___\n\n{\n  \"type\": \"MACRO\",\n  \"id\": \"cvt_temp_public_id\",\n  \"version\": 1,\n  \"securityGroups\": [],\n  \"displayName\": \"Unique Event ID\",\n  \"description\": \"Generates unique event id\",\n  \"categories\": [\n    \"UTILITY\"\n  ],\n  \"containerContexts\": [\n    \"WEB\"\n  ],\n  \"brand\": {\n    \"displayName\": \"stape-io\",\n    \"id\": \"github.com_stape-io\"\n  }\n}\n\n\n___TEMPLATE_PARAMETERS___\n\n[]\n\n\n___SANDBOXED_JS_FOR_WEB_TEMPLATE___\n\nconst queryPermission = require('queryPermission');\nconst copyFromDataLayer = require('copyFromDataLayer');\n\n\nconst startKey = 'gtm.start';\nlet startContents = '';\n\nif (queryPermission('read_data_layer', startKey)) {\n  startContents = copyFromDataLayer(startKey);\n}\n\n\nconst uniqueEventIdKey = 'gtm.uniqueEventId';\nlet uniqueEventIdContents = '';\n\nif (queryPermission('read_data_layer', uniqueEventIdKey)) {\n  uniqueEventIdContents = copyFromDataLayer(uniqueEventIdKey);\n}\n\n\nconst eventKey = 'event';\nlet eventContents = '';\n\nif (queryPermission('read_data_layer', eventKey)) {\n  eventContents = copyFromDataLayer(eventKey);\n}\n\n\nreturn startContents+'_'+uniqueEventIdContents+'_'+eventContents;\n\n\n___WEB_PERMISSIONS___\n\n[\n  {\n    \"instance\": {\n      \"key\": {\n        \"publicId\": \"read_data_layer\",\n        \"versionId\": \"1\"\n      },\n      \"param\": [\n        {\n          \"key\": \"keyPatterns\",\n          \"value\": {\n            \"type\": 2,\n            \"listItem\": [\n              {\n                \"type\": 1,\n                \"string\": \"gtm.start\"\n              },\n              {\n                \"type\": 1,\n                \"string\": \"gtm.uniqueEventId\"\n              },\n              {\n                \"type\": 1,\n                \"string\": \"event\"\n              }\n            ]\n          }\n        }\n      ]\n    },\n    \"clientAnnotations\": {\n      \"isEditedByUser\": true\n    },\n    \"isRequired\": true\n  }\n]\n\n\n___TESTS___\n\nscenarios: []\n\n\n___NOTES___\n\nCreated on 11/03/2021, 11:05:32\n\n\n",
+				"galleryReference": {
+					"host": "github.com",
+					"owner": "stape-io",
+					"repository": "unique-event-id-variable",
+					"version": "d3787d3dc9f97e6c2fc7f76421dffe85ad967d45",
+					"signature": "69a3bd02dd3d01d850c742862dbf6bb1fc5af8fa5f39f7b6334941712b902435"
+				}
+			}
+		]
+	}
+}
