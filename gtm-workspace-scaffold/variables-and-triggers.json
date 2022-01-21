@@ -1106,24 +1106,6 @@
 			{
 				"accountId": "4702951130",
 				"containerId": "50307358",
-				"variableId": "31",
-				"name": "GA4 - Current Item",
-				"type": "jsm",
-				"notes": "Creates an array for the most recent item pushed to the dataLayer in the style of GA4 ecommerce Items",
-				"parameter": [
-					{
-						"type": "TEMPLATE",
-						"key": "javascript",
-						"value": "function() {\n  return [\n    {\n      item_id: {{DL - variantId}},\n      item_name: {{DL - productVariantTitle}},\n      item_brand: {{DL - productVendor}},\n      item_category: {{DL - productType}},\n      item_variant: {{DL - variantTitle}},\n      price: Number({{DL - price}}),\n    }\n  ]\n}"
-					}
-				],
-				"fingerprint": "1632510686842",
-				"parentFolderId": "45",
-				"formatValue": {}
-			},
-			{
-				"accountId": "4702951130",
-				"containerId": "50307358",
 				"variableId": "32",
 				"name": "DL - List Position",
 				"type": "v",
@@ -1176,58 +1158,6 @@
 				"fingerprint": "1632502797936",
 				"parentFolderId": "3",
 				"formatValue": {}
-			},
-			{
-				"accountId": "4702951130",
-				"containerId": "50307358",
-				"variableId": "40",
-				"name": "GA4 - Currency",
-				"type": "c",
-				"parameter": [
-					{
-						"type": "TEMPLATE",
-						"key": "value",
-						"value": "USD"
-					}
-				],
-				"fingerprint": "1632508010906",
-				"parentFolderId": "45",
-				"formatValue": {}
-			},
-			{
-				"accountId": "4702951130",
-				"containerId": "50307358",
-				"variableId": "49",
-				"name": "GA4 - Cart Items",
-				"type": "jsm",
-				"notes": "Creates an array of all the items currently in the cart.",
-				"parameter": [
-					{
-						"type": "TEMPLATE",
-						"key": "javascript",
-						"value": "function() {\n  return ({{DL - lineItems}}).map(function(lineItem) {\n    return {\n      item_id: lineItem.variantId,\n      item_name: lineItem.productVariantTitle,\n      item_brand: lineItem.productVendor,\n      item_category: lineItem.productType,\n      item_variant: lineItem.variantTitle,\n      price: lineItem.price,\n      quantity: lineItem.quantity,\n    }\n  })\n}"
-					}
-				],
-				"fingerprint": "1632508791528",
-				"parentFolderId": "45",
-				"formatValue": {}
-			},
-			{
-				"accountId": "4702951130",
-				"containerId": "50307358",
-				"variableId": "50",
-				"name": "GA4 - Current Item w/ Quantity",
-				"type": "jsm",
-				"parameter": [
-					{
-						"type": "TEMPLATE",
-						"key": "javascript",
-						"value": "function() {\n  return [\n    Object.assign(\n      { quantity: {{DL - quantity}} }, \n      ({{GA4 - Current Item}})[0]       \n    )\n  ]\n}"
-					}
-				],
-				"fingerprint": "1632510150130",
-				"parentFolderId": "45",
-				"formatValue": {}
 			}
 		],
 		"folder": [
@@ -1237,13 +1167,6 @@
 				"folderId": "3",
 				"name": "shopify-gtm-instrumentor",
 				"fingerprint": "1630468922730"
-			},
-			{
-				"accountId": "4702951130",
-				"containerId": "50307358",
-				"folderId": "45",
-				"name": "shopify-gtm-instrumentor - GA4",
-				"fingerprint": "1632507996652"
 			}
 		],
 		"builtInVariable": [
