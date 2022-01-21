@@ -6,33 +6,6 @@
 			{
 				"accountId": "4702951130",
 				"containerId": "50307358",
-				"triggerId": "29",
-				"name": "Page View",
-				"type": "CUSTOM_EVENT",
-				"customEventFilter": [
-					{
-						"type": "EQUALS",
-						"parameter": [
-							{
-								"type": "TEMPLATE",
-								"key": "arg0",
-								"value": "{{_event}}"
-							},
-							{
-								"type": "TEMPLATE",
-								"key": "arg1",
-								"value": "Page View"
-							}
-						]
-					}
-				],
-				"fingerprint": "1632507953651",
-				"parentFolderId": "3",
-				"notes": "This is fired on both the initial request and on client side navigation in both the www and shop stacks and should be used in place of GTM's built in Page View trigger in many cases."
-			},
-			{
-				"accountId": "4702951130",
-				"containerId": "50307358",
 				"triggerId": "34",
 				"name": "Product Impression",
 				"type": "CUSTOM_EVENT",
@@ -1165,7 +1138,7 @@
 				"accountId": "4702951130",
 				"containerId": "50307358",
 				"folderId": "3",
-				"name": "shopify-gtm-instrumentor",
+				"name": "shopify-gtm-instrumentor - Core",
 				"fingerprint": "1630468922730"
 			}
 		],
