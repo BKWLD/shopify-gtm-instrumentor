@@ -1,0 +1,340 @@
+{
+	"exportFormatVersion": 2,
+	"exportTime": "2022-01-21 17:06:37",
+	"containerVersion": {
+		"tag": [
+			{
+				"accountId": "143564151",
+				"containerId": "57805158",
+				"tagId": "46",
+				"name": "Klaviyo - Added to Cart",
+				"type": "html",
+				"notes": "https://help.klaviyo.com/hc/en-us/articles/115001396711-How-to-Create-a-Added-to-Cart-Event-for-Shopify",
+				"parameter": [
+					{
+						"type": "TEMPLATE",
+						"key": "html",
+						"value": "<script type=\"text/javascript\">\n    var _learnq = _learnq || [];\n   _learnq.push([\"track\", \"Added to Cart\", {\n     \"$value\": {{DL - totalPrice}},\n     \"AddedItemProductName\": {{DL - productVariantTitle}},\n     \"AddedItemProductID\": {{DL - variantId}},\n     \"AddedItemSKU\": {{DL - sku}},\n     \"AddedItemCategories\": [{{DL - productType}}],\n     \"AddedItemImageURL\": {{DL - variantImage}},\n     \"AddedItemURL\": {{DL - variantUrl}},\n     \"AddedItemPrice\": {{DL - price}},\n     \"AddedItemQuantity\": {{DL - quantity}},\n     \"ItemNames\": {{Klaviyo - Cart Item Names}},\n     \"CheckoutURL\": {{DL - checkoutUrl}},\n     \"Items\": {{Klaviyo - Cart Items}}\n   }]);\n </script>"
+					},
+					{
+						"type": "BOOLEAN",
+						"key": "supportDocumentWrite",
+						"value": "false"
+					}
+				],
+				"fingerprint": "1642784694843",
+				"firingTriggerId": [
+					"17"
+				],
+				"parentFolderId": "59",
+				"tagFiringOption": "ONCE_PER_EVENT",
+				"monitoringMetadata": {
+					"type": "MAP"
+				},
+				"consentSettings": {
+					"consentStatus": "NOT_SET"
+				}
+			},
+			{
+				"accountId": "143564151",
+				"containerId": "57805158",
+				"tagId": "47",
+				"name": "Klaviyo - Viewed Product",
+				"type": "html",
+				"notes": "Docs: https://help.klaviyo.com/hc/en-us/articles/115005082927-Guide-to-Integrating-a-Standard-Ecommerce-Platform#viewed-product3\n\nKlaviyo's Shopify app does not do this automatically.",
+				"parameter": [
+					{
+						"type": "TEMPLATE",
+						"key": "html",
+						"value": "<script type=\"text/javascript\">\n   var _learnq = _learnq || [];\n   var item = {\n     \"ProductName\": \"{{DL - productVariantTitle}}\",\n     \"ProductID\": \"{{DL - variantId}}\",\n     \"SKU\": \"{{DL - sku}}\",\n     \"Categories\": [\"{{DL - productType}}\"],\n     \"ImageURL\": \"{{DL - variantImage}}\",\n     \"URL\": \"{{DL - variantUrl}}\",\n     \"Brand\": \"{{DL - productVendor}}\",\n     \"Price\": {{DL - price}},\n     \"CompareAtPrice\": {{DL - compareAtPrice}}\n   };\n \n   _learnq.push([\"track\", \"Viewed Product\", item]);\n </script>"
+					},
+					{
+						"type": "BOOLEAN",
+						"key": "supportDocumentWrite",
+						"value": "false"
+					}
+				],
+				"fingerprint": "1642784694845",
+				"firingTriggerId": [
+					"38"
+				],
+				"parentFolderId": "59",
+				"tagFiringOption": "ONCE_PER_EVENT",
+				"monitoringMetadata": {
+					"type": "MAP"
+				},
+				"consentSettings": {
+					"consentStatus": "NOT_SET"
+				}
+			},
+			{
+				"accountId": "143564151",
+				"containerId": "57805158",
+				"tagId": "48",
+				"name": "Klaviyo - Pixel",
+				"type": "html",
+				"notes": "See https://help.klaviyo.com/hc/en-us/articles/115005076767-Guide-to-Klaviyo-Web-Tracking#active-on-site-tracking2\n\nPer a support thread, I was told:\n\n\"This event, generally speaking, only triggers once per visit but should be available on every page (unless you've explicitly removed this from appearing on a certain section of your site).\"\n\nThus, the \"one per page\" setting.\n\nThis tag is expected to be added by the Klaviyo Shopify app on Shopify rendered pages.",
+				"parameter": [
+					{
+						"type": "TEMPLATE",
+						"key": "html",
+						"value": "<script type=\"application/javascript\" async src=\"https://static.klaviyo.com/onsite/js/klaviyo.js?company_id={{Klaviyo - Company ID}}\"></script>"
+					},
+					{
+						"type": "BOOLEAN",
+						"key": "supportDocumentWrite",
+						"value": "false"
+					}
+				],
+				"fingerprint": "1642784694846",
+				"firingTriggerId": [
+					"58"
+				],
+				"parentFolderId": "59",
+				"tagFiringOption": "ONCE_PER_LOAD",
+				"monitoringMetadata": {
+					"type": "MAP"
+				},
+				"consentSettings": {
+					"consentStatus": "NOT_SET"
+				}
+			},
+			{
+				"accountId": "143564151",
+				"containerId": "57805158",
+				"tagId": "53",
+				"name": "Klaviyo - Identify",
+				"type": "html",
+				"notes": "https://help.klaviyo.com/hc/en-us/articles/360020342232#install-klaviyo-js-on-your-shopify-store2",
+				"parameter": [
+					{
+						"type": "TEMPLATE",
+						"key": "html",
+						"value": "<script>\n  var _learnq = _learnq || [];\n  _learnq.push(['identify', {\n    '$email' : {{DL - customerEmail}}\n  }]);\n</script>"
+					},
+					{
+						"type": "BOOLEAN",
+						"key": "supportDocumentWrite",
+						"value": "false"
+					}
+				],
+				"fingerprint": "1642784694847",
+				"firingTriggerId": [
+					"51"
+				],
+				"parentFolderId": "59",
+				"tagFiringOption": "ONCE_PER_EVENT",
+				"monitoringMetadata": {
+					"type": "MAP"
+				},
+				"consentSettings": {
+					"consentStatus": "NOT_SET"
+				}
+			}
+		],
+		"trigger": [
+			{
+				"accountId": "143564151",
+				"containerId": "57805158",
+				"triggerId": "17",
+				"name": "Add to Cart",
+				"type": "CUSTOM_EVENT",
+				"customEventFilter": [
+					{
+						"type": "EQUALS",
+						"parameter": [
+							{
+								"type": "TEMPLATE",
+								"key": "arg0",
+								"value": "{{_event}}"
+							},
+							{
+								"type": "TEMPLATE",
+								"key": "arg1",
+								"value": "Add to Cart"
+							}
+						]
+					}
+				],
+				"fingerprint": "1642782695664",
+				"parentFolderId": "3",
+				"notes": "Used when products are added to the cart."
+			},
+			{
+				"accountId": "143564151",
+				"containerId": "57805158",
+				"triggerId": "38",
+				"name": "View Product Details",
+				"type": "CUSTOM_EVENT",
+				"customEventFilter": [
+					{
+						"type": "EQUALS",
+						"parameter": [
+							{
+								"type": "TEMPLATE",
+								"key": "arg0",
+								"value": "{{_event}}"
+							},
+							{
+								"type": "TEMPLATE",
+								"key": "arg1",
+								"value": "View Product Details"
+							}
+						]
+					}
+				],
+				"fingerprint": "1642782695673",
+				"parentFolderId": "3",
+				"notes": "Used on product detail pages whenever the variant changes."
+			},
+			{
+				"accountId": "143564151",
+				"containerId": "57805158",
+				"triggerId": "51",
+				"name": "Identify Customer",
+				"type": "CUSTOM_EVENT",
+				"customEventFilter": [
+					{
+						"type": "EQUALS",
+						"parameter": [
+							{
+								"type": "TEMPLATE",
+								"key": "arg0",
+								"value": "{{_event}}"
+							},
+							{
+								"type": "TEMPLATE",
+								"key": "arg1",
+								"value": "Identify Customer"
+							}
+						]
+					}
+				],
+				"fingerprint": "1642783707671",
+				"parentFolderId": "3"
+			},
+			{
+				"accountId": "143564151",
+				"containerId": "57805158",
+				"triggerId": "58",
+				"name": "Initial Load - WWW Only",
+				"type": "PAGEVIEW",
+				"filter": [
+					{
+						"type": "EQUALS",
+						"parameter": [
+							{
+								"type": "TEMPLATE",
+								"key": "arg0",
+								"value": "{{Is WWW Site}}"
+							},
+							{
+								"type": "TEMPLATE",
+								"key": "arg1",
+								"value": "true"
+							}
+						]
+					}
+				],
+				"fingerprint": "1642784529953",
+				"parentFolderId": "54",
+				"notes": "This is only fired on the initial load of a page on www (not on Shopify) and not on client side navigation."
+			}
+		],
+		"variable": [
+			{
+				"accountId": "143564151",
+				"containerId": "57805158",
+				"variableId": "43",
+				"name": "Klaviyo - Categories",
+				"type": "jsm",
+				"parameter": [
+					{
+						"type": "TEMPLATE",
+						"key": "javascript",
+						"value": "function() {\n  return ({{DL - lineItems}}).reduce(function(categories, lineItem) {\n    if (categories.indexOf(lineItem.productType) == -1) {\n      categories.push(lineItem.productType);\n    }\n    return categories\n  }, [])\n}"
+					}
+				],
+				"fingerprint": "1642784694887",
+				"parentFolderId": "59",
+				"formatValue": {}
+			},
+			{
+				"accountId": "143564151",
+				"containerId": "57805158",
+				"variableId": "44",
+				"name": "Klaviyo - Cart Item Names",
+				"type": "jsm",
+				"parameter": [
+					{
+						"type": "TEMPLATE",
+						"key": "javascript",
+						"value": "function() {\n  return ({{DL - lineItems}}).map(function(lineItem) {\n    return lineItem.productVariantTitle \n  })\n}"
+					}
+				],
+				"fingerprint": "1642784694889",
+				"parentFolderId": "59",
+				"formatValue": {}
+			},
+			{
+				"accountId": "143564151",
+				"containerId": "57805158",
+				"variableId": "45",
+				"name": "Klaviyo - Cart Items",
+				"type": "jsm",
+				"parameter": [
+					{
+						"type": "TEMPLATE",
+						"key": "javascript",
+						"value": "function() {\n  return ({{DL - lineItems}}).map(function(lineItem) {\n    return {\n      ProductID: lineItem.variantId,\n      SKU: lineItem.sku,\n      ProductName: lineItem.productVariantTitle,\n      Quantity: lineItem.quantity,\n      ItemPrice: lineItem.price,\n      RowTotal: lineItem.price * lineItem.quantity,\n      ProductURL: lineItem.productUrl,\n      ImageURL: lineItem.variantImage,\n      ProductCategories: [lineItem.productType],\n    }\n  })\n}"
+					}
+				],
+				"fingerprint": "1642784694889",
+				"parentFolderId": "59",
+				"formatValue": {}
+			},
+			{
+				"accountId": "143564151",
+				"containerId": "57805158",
+				"variableId": "50",
+				"name": "Klaviyo - Company ID",
+				"type": "c",
+				"parameter": [
+					{
+						"type": "TEMPLATE",
+						"key": "value",
+						"value": "xxxxx"
+					}
+				],
+				"fingerprint": "1642784694888",
+				"parentFolderId": "59",
+				"formatValue": {}
+			}
+		],
+		"folder": [
+			{
+				"accountId": "143564151",
+				"containerId": "57805158",
+				"folderId": "3",
+				"name": "shopify-gtm-instrumentor",
+				"fingerprint": "1642782695657"
+			},
+			{
+				"accountId": "143564151",
+				"containerId": "57805158",
+				"folderId": "54",
+				"name": "shopify-gtm-instrumentor - Lifecycle",
+				"fingerprint": "1642784529951"
+			},
+			{
+				"accountId": "143564151",
+				"containerId": "57805158",
+				"folderId": "59",
+				"name": "shopify-gtm-instrumentor - Klaviyo",
+				"fingerprint": "1642784684554"
+			}
+		],
+		"fingerprint": "1642784797225",
+		"tagManagerUrl": "https://tagmanager.google.com/#/versions/accounts/143564151/containers/57805158/versions/0?apiLink=version"
+	}
+}
