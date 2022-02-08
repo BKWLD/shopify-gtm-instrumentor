@@ -46,7 +46,7 @@
 					{
 						"type": "TEMPLATE",
 						"key": "html",
-						"value": "<script type=\"text/javascript\">\n   var _learnq = _learnq || [];\n   var item = {\n     \"ProductName\": \"{{DL - productVariantTitle}}\",\n     \"ProductID\": \"{{DL - variantId}}\",\n     \"SKU\": \"{{DL - sku}}\",\n     \"Categories\": [\"{{DL - productType}}\"],\n     \"ImageURL\": \"{{DL - variantImage}}\",\n     \"URL\": \"{{DL - variantUrl}}\",\n     \"Brand\": \"{{DL - productVendor}}\",\n     \"Price\": {{DL - price}},\n     \"CompareAtPrice\": {{DL - compareAtPrice}}\n   };\n \n   _learnq.push([\"track\", \"Viewed Product\", item]);\n </script>"
+						"value": "<script type=\"text/javascript\">\n\tvar _learnq = _learnq || [];\n\tvar item = {\n\t\tName: {{DL - productTitle}},\n\t\tProductID: {{DL - productId}},\n\t\tCategories: [{{DL - productType}}],\n\t\tImageURL: {{DL - variantImage}},\n\t\tURL: {{DL - productUrl}},\n\t\tBrand: {{DL - productVendor}},\n\t\tPrice: {{DL - price}},\n\t\tCompareAtPrice: {{DL - compareAtPrice}},\n\t};\n\n\t_learnq.push(['track', 'Viewed Product', item]);\n\t_learnq.push(['trackViewedItem', {\n\t\tTitle: item.Name,\n\t\tItemId: item.ProductID,\n\t\tCategories: item.Categories,\n\t\tImageUrl: item.ImageURL,\n\t\tUrl: item.URL,\n\t\tMetadata: {\n\t\t\tBrand: item.Brand,\n\t\t\tPrice: item.Price,\n\t\t\tCompareAtPrice: item.CompareAtPrice\n\t\t},\n\t}]);\n</script>\n"
 					},
 					{
 						"type": "BOOLEAN",
