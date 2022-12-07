@@ -217,8 +217,8 @@ export default class ShopifyGtmInstrumentor
 
 		# Variant level data
 		sku: variant.sku
-		price: variant.price
-		compareAtPrice: variant.compareAtPrice
+		price: variant.price.amount
+		compareAtPrice: variant.compareAtPrice.amount
 		variantId: (variantId = getShopifyId variant.id)
 		variantTitle: variant.title
 		variantImage: variant.image?.url || variant.image
@@ -269,8 +269,8 @@ export default class ShopifyGtmInstrumentor
 
 		# Final massage of Carts into Checkout
 		if node.cost
-			node.subtotalPrice = node.cost.subtotalAmount.amount
-			node.totalPrice = node.cost.totalAmount.amount
+			node.subtotalPrice = node.cost.subtotalAmount
+			node.totalPrice = node.cost.totalAmount
 
 		# Return "checkout" (which could be a Cart object)
 		return node
@@ -285,8 +285,8 @@ export default class ShopifyGtmInstrumentor
 		# Return the simplified object
 		checkoutId: getShopifyId checkout.id
 		checkoutUrl: checkout.webUrl
-		subtotalPrice: checkout.subtotalPrice
-		totalPrice: checkout.totalPrice
+		subtotalPrice: checkout.subtotalPrice.amount
+		totalPrice: checkout.totalPrice.amount
 		lineItems: checkout.lineItems.map (lineItem) => {
 			lineItemId: getShopifyId lineItem.id
 			quantity: lineItem.quantity
@@ -364,8 +364,8 @@ export productVariantFragment = '''
 		id
 		sku
 		title
-		price
-		compareAtPrice
+		price { amount }
+		compareAtPrice { amount }
 		image { url }
 		product {
 			id
@@ -422,8 +422,8 @@ export fetchCheckoutQuery = """
 			... on Checkout {
 				id
 				webUrl
-				subtotalPrice
-				totalPrice
+				subtotalPrice { amount }
+				totalPrice { amount }
 				lineItems (first: 250) {
 					edges {
 						node {
