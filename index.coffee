@@ -199,7 +199,7 @@ export default class ShopifyGtmInstrumentor
 		return unless variantId
 		variantId = getShopifyId variantId
 		result = await @queryStorefrontApi
-			variables: id: btoa 'gid://shopify/ProductVariant/' + variantId
+			variables: id: 'gid://shopify/ProductVariant/' + variantId
 			query: fetchVariantQuery
 		return result.node
 
@@ -217,11 +217,11 @@ export default class ShopifyGtmInstrumentor
 
 		# Variant level data
 		sku: variant.sku
-		price: variant.price
-		compareAtPrice: variant.compareAtPrice
+		price: variant.price?.amount || variant.price
+		compareAtPrice: variant.compareAtPrice?.amount || variant.compareAtPrice
 		variantId: (variantId = getShopifyId variant.id)
 		variantTitle: variant.title
-		variantImage: variant.image?.originalSrc || variant.image
+		variantImage: variant.image?.url || variant.image
 		variantUrl: "#{productUrl}?variant=#{variantId}"
 
 	# Convert a Shopify variant object to a UA productFieldObject. I'm
@@ -257,7 +257,9 @@ export default class ShopifyGtmInstrumentor
 	fetchCheckout: (checkoutOrCartId) ->
 
 		# Determine if cart of checkout request
-		[all, type] = atob(checkoutOrCartId).match /gid:\/\/shopify\/(\w+)/
+		unless checkoutOrCartId.match /^gid:\/\//
+		then checkoutOrCartId = atob checkoutOrCartId
+		[all, type] = checkoutOrCartId.match /gid:\/\/shopify\/(\w+)/
 
 		# Get the data
 		{ node } = await @queryStorefrontApi
@@ -268,9 +270,9 @@ export default class ShopifyGtmInstrumentor
 			variables: id: checkoutOrCartId
 
 		# Final massage of Carts into Checkout
-		if node.estimatedCost
-			node.subtotalPrice = node.estimatedCost.subtotalAmount.amount
-			node.totalPrice = node.estimatedCost.totalAmount.amount
+		if node.cost
+			node.subtotalPrice = node.cost.subtotalAmount
+			node.totalPrice = node.cost.totalAmount
 
 		# Return "checkout" (which could be a Cart object)
 		return node
@@ -285,8 +287,8 @@ export default class ShopifyGtmInstrumentor
 		# Return the simplified object
 		checkoutId: getShopifyId checkout.id
 		checkoutUrl: checkout.webUrl
-		subtotalPrice: checkout.subtotalPrice
-		totalPrice: checkout.totalPrice
+		subtotalPrice: checkout.subtotalPrice?.amount || checkout.subtotalPrice
+		totalPrice: checkout.totalPrice?.amount || checkout.totalPrice
 		lineItems: checkout.lineItems.map (lineItem) => {
 			lineItemId: getShopifyId lineItem.id
 			quantity: lineItem.quantity
@@ -312,7 +314,7 @@ export default class ShopifyGtmInstrumentor
 	# Query Storefront API
 	queryStorefrontApi: (payload) ->
 		response = await axios
-			url: "#{@storeUrl}/api/2021-10/graphql"
+			url: "#{@storeUrl}/api/2022-10/graphql"
 			method: 'post'
 			headers:
 				'Accept': 'application/json'
@@ -364,9 +366,9 @@ export productVariantFragment = '''
 		id
 		sku
 		title
-		price
-		compareAtPrice
-		image { originalSrc }
+		price { amount }
+		compareAtPrice { amount }
+		image { url }
 		product {
 			id
 			title
@@ -394,7 +396,7 @@ export fetchCartQuery = """
 			... on Cart {
 				id
 				webUrl: checkoutUrl
-				estimatedCost {
+				cost {
 					subtotalAmount { amount }
 					totalAmount { amount }
 				}
@@ -422,8 +424,8 @@ export fetchCheckoutQuery = """
 			... on Checkout {
 				id
 				webUrl
-				subtotalPrice
-				totalPrice
+				subtotalPrice { amount }
+				totalPrice { amount }
 				lineItems (first: 250) {
 					edges {
 						node {
@@ -457,7 +459,7 @@ class StorefrontError extends Error
 # becomes 34641879105581
 # https://regex101.com/r/3FIplL/1
 getShopifyId = (id) ->
-	return id if String(id).match /^\d+$/ # Already simple id
+	return id if String(id).match /^\w+$/ # Already simple id
 	id = atob id unless id.match /^gid:\/\// # De-base64
 	return id.match(/\/([^\/]+)$/)?[1] # Get the id from the gid
 
