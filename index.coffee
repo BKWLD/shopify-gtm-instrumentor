@@ -257,7 +257,8 @@ export default class ShopifyGtmInstrumentor
 	fetchCheckout: (checkoutOrCartId) ->
 
 		# Determine if cart of checkout request
-		checkoutOrCartId = atob(id) unless checkoutOrCartId.match /^gid:\/\//
+		unless checkoutOrCartId.match /^gid:\/\//
+		then checkoutOrCartId = atob checkoutOrCartId
 		[all, type] = checkoutOrCartId.match /gid:\/\/shopify\/(\w+)/
 
 		# Get the data
