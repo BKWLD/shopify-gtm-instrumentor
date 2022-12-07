@@ -217,8 +217,8 @@ export default class ShopifyGtmInstrumentor
 
 		# Variant level data
 		sku: variant.sku
-		price: variant.price.amount
-		compareAtPrice: variant.compareAtPrice.amount
+		price: variant.price?.amount
+		compareAtPrice: variant.compareAtPrice?.amount
 		variantId: (variantId = getShopifyId variant.id)
 		variantTitle: variant.title
 		variantImage: variant.image?.url || variant.image
@@ -286,8 +286,8 @@ export default class ShopifyGtmInstrumentor
 		# Return the simplified object
 		checkoutId: getShopifyId checkout.id
 		checkoutUrl: checkout.webUrl
-		subtotalPrice: checkout.subtotalPrice.amount
-		totalPrice: checkout.totalPrice.amount
+		subtotalPrice: checkout.subtotalPrice?.amount
+		totalPrice: checkout.totalPrice?.amount
 		lineItems: checkout.lineItems.map (lineItem) => {
 			lineItemId: getShopifyId lineItem.id
 			quantity: lineItem.quantity
