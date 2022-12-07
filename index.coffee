@@ -221,7 +221,7 @@ export default class ShopifyGtmInstrumentor
 		compareAtPrice: variant.compareAtPrice
 		variantId: (variantId = getShopifyId variant.id)
 		variantTitle: variant.title
-		variantImage: variant.image?.originalSrc || variant.image
+		variantImage: variant.image?.url || variant.image
 		variantUrl: "#{productUrl}?variant=#{variantId}"
 
 	# Convert a Shopify variant object to a UA productFieldObject. I'm
@@ -366,7 +366,7 @@ export productVariantFragment = '''
 		title
 		price
 		compareAtPrice
-		image { originalSrc }
+		image { url }
 		product {
 			id
 			title
