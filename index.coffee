@@ -199,7 +199,7 @@ export default class ShopifyGtmInstrumentor
 		return unless variantId
 		variantId = getShopifyId variantId
 		result = await @queryStorefrontApi
-			variables: id: btoa 'gid://shopify/ProductVariant/' + variantId
+			variables: id: 'gid://shopify/ProductVariant/' + variantId
 			query: fetchVariantQuery
 		return result.node
 
@@ -257,7 +257,8 @@ export default class ShopifyGtmInstrumentor
 	fetchCheckout: (checkoutOrCartId) ->
 
 		# Determine if cart of checkout request
-		[all, type] = atob(checkoutOrCartId).match /gid:\/\/shopify\/(\w+)/
+		checkoutOrCartId = atob(id) unless checkoutOrCartId.match /^gid:\/\//
+		[all, type] = checkoutOrCartId.match /gid:\/\/shopify\/(\w+)/
 
 		# Get the data
 		{ node } = await @queryStorefrontApi
