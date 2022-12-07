@@ -268,9 +268,9 @@ export default class ShopifyGtmInstrumentor
 			variables: id: checkoutOrCartId
 
 		# Final massage of Carts into Checkout
-		if node.estimatedCost
-			node.subtotalPrice = node.estimatedCost.subtotalAmount.amount
-			node.totalPrice = node.estimatedCost.totalAmount.amount
+		if node.cost
+			node.subtotalPrice = node.cost.subtotalAmount.amount
+			node.totalPrice = node.cost.totalAmount.amount
 
 		# Return "checkout" (which could be a Cart object)
 		return node
@@ -394,7 +394,7 @@ export fetchCartQuery = """
 			... on Cart {
 				id
 				webUrl: checkoutUrl
-				estimatedCost {
+				cost {
 					subtotalAmount { amount }
 					totalAmount { amount }
 				}
