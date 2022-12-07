@@ -631,7 +631,7 @@ var _default = ShopifyGtmInstrumentor = /*#__PURE__*/function () {
                 _context9.next = 5;
                 return this.queryStorefrontApi({
                   variables: {
-                    id: btoa('gid://shopify/ProductVariant/' + variantId)
+                    id: 'gid://shopify/ProductVariant/' + variantId
                   },
                   query: fetchVariantQuery
                 });
@@ -658,7 +658,7 @@ var _default = ShopifyGtmInstrumentor = /*#__PURE__*/function () {
   }, {
     key: "makeFlatVariant",
     value: function makeFlatVariant(variant) {
-      var product, productUrl, ref, variantId;
+      var product, productUrl, ref, ref1, ref2, variantId;
       product = variant.product;
       return {
         // Product level info
@@ -670,11 +670,11 @@ var _default = ShopifyGtmInstrumentor = /*#__PURE__*/function () {
         productUrl: productUrl = "".concat(this.storeUrl, "/products/").concat(product.handle),
         // Variant level data
         sku: variant.sku,
-        price: variant.price,
-        compareAtPrice: variant.compareAtPrice,
+        price: ((ref = variant.price) != null ? ref.amount : void 0) || variant.price,
+        compareAtPrice: ((ref1 = variant.compareAtPrice) != null ? ref1.amount : void 0) || variant.compareAtPrice,
         variantId: variantId = getShopifyId(variant.id),
         variantTitle: variant.title,
-        variantImage: ((ref = variant.image) != null ? ref.originalSrc : void 0) || variant.image,
+        variantImage: ((ref2 = variant.image) != null ? ref2.url : void 0) || variant.image,
         variantUrl: "".concat(productUrl, "?variant=").concat(variantId)
       };
     } // Convert a Shopify variant object to a UA productFieldObject. I'm
@@ -754,17 +754,22 @@ var _default = ShopifyGtmInstrumentor = /*#__PURE__*/function () {
     key: "fetchCheckout",
     value: function () {
       var _fetchCheckout = (0, _asyncToGenerator2["default"])( /*#__PURE__*/_regenerator["default"].mark(function _callee11(checkoutOrCartId) {
-        var all, node, type, _atob$match, _atob$match2, _yield$this$queryStor;
+        var all, node, type, _checkoutOrCartId$mat, _checkoutOrCartId$mat2, _yield$this$queryStor;
 
         return _regenerator["default"].wrap(function _callee11$(_context11) {
           while (1) {
             switch (_context11.prev = _context11.next) {
               case 0:
-                _atob$match = atob(checkoutOrCartId).match(/gid:\/\/shopify\/(\w+)/);
-                _atob$match2 = (0, _slicedToArray2["default"])(_atob$match, 2);
-                all = _atob$match2[0];
-                type = _atob$match2[1];
-                _context11.next = 6;
+                // Determine if cart of checkout request
+                if (!checkoutOrCartId.match(/^gid:\/\//)) {
+                  checkoutOrCartId = atob(checkoutOrCartId);
+                }
+
+                _checkoutOrCartId$mat = checkoutOrCartId.match(/gid:\/\/shopify\/(\w+)/);
+                _checkoutOrCartId$mat2 = (0, _slicedToArray2["default"])(_checkoutOrCartId$mat, 2);
+                all = _checkoutOrCartId$mat2[0];
+                type = _checkoutOrCartId$mat2[1];
+                _context11.next = 7;
                 return this.queryStorefrontApi({
                   query: function () {
                     switch (type) {
@@ -783,20 +788,20 @@ var _default = ShopifyGtmInstrumentor = /*#__PURE__*/function () {
                   }
                 });
 
-              case 6:
+              case 7:
                 _yield$this$queryStor = _context11.sent;
                 node = _yield$this$queryStor.node;
 
                 // Final massage of Carts into Checkout
-                if (node.estimatedCost) {
-                  node.subtotalPrice = node.estimatedCost.subtotalAmount.amount;
-                  node.totalPrice = node.estimatedCost.totalAmount.amount;
+                if (node.cost) {
+                  node.subtotalPrice = node.cost.subtotalAmount;
+                  node.totalPrice = node.cost.totalAmount;
                 } // Return "checkout" (which could be a Cart object)
 
 
                 return _context11.abrupt("return", node);
 
-              case 10:
+              case 11:
               case "end":
                 return _context11.stop();
             }
@@ -816,7 +821,8 @@ var _default = ShopifyGtmInstrumentor = /*#__PURE__*/function () {
     value: function makeSimplifiedCheckout(checkout) {
       var _this2 = this;
 
-      // Flatten nodes that contain line items
+      var ref, ref1; // Flatten nodes that contain line items
+
       if (checkout.lineItems.edges) {
         checkout.lineItems = checkout.lineItems.edges.map(function (_ref4) {
           var node = _ref4.node;
@@ -828,8 +834,8 @@ var _default = ShopifyGtmInstrumentor = /*#__PURE__*/function () {
         // Return the simplified object
         checkoutId: getShopifyId(checkout.id),
         checkoutUrl: checkout.webUrl,
-        subtotalPrice: checkout.subtotalPrice,
-        totalPrice: checkout.totalPrice,
+        subtotalPrice: ((ref = checkout.subtotalPrice) != null ? ref.amount : void 0) || checkout.subtotalPrice,
+        totalPrice: ((ref1 = checkout.totalPrice) != null ? ref1.amount : void 0) || checkout.totalPrice,
         lineItems: checkout.lineItems.map(function (lineItem) {
           return _objectSpread({
             lineItemId: getShopifyId(lineItem.id),
@@ -869,7 +875,7 @@ var _default = ShopifyGtmInstrumentor = /*#__PURE__*/function () {
               case 0:
                 _context12.next = 2;
                 return (0, _axios["default"])({
-                  url: "".concat(this.storeUrl, "/api/2021-10/graphql"),
+                  url: "".concat(this.storeUrl, "/api/2022-10/graphql"),
                   method: 'post',
                   headers: {
                     'Accept': 'application/json',
@@ -957,16 +963,16 @@ var _default = ShopifyGtmInstrumentor = /*#__PURE__*/function () {
 
 
 exports["default"] = _default;
-var productVariantFragment = "fragment variant on ProductVariant {\n\tid\n\tsku\n\ttitle\n\tprice\n\tcompareAtPrice\n\timage { originalSrc }\n\tproduct {\n\t\tid\n\t\ttitle\n\t\thandle\n\t\tproductType\n\t\tvendor\n\t}\n}"; // Graphql query to fetch a variant by id
+var productVariantFragment = "fragment variant on ProductVariant {\n\tid\n\tsku\n\ttitle\n\tprice { amount }\n\tcompareAtPrice { amount }\n\timage { url }\n\tproduct {\n\t\tid\n\t\ttitle\n\t\thandle\n\t\tproductType\n\t\tvendor\n\t}\n}"; // Graphql query to fetch a variant by id
 
 exports.productVariantFragment = productVariantFragment;
 var fetchVariantQuery = "query($id: ID!) {\n\tnode(id: $id) {\n\t\t...variant\n\t}\n}\n".concat(productVariantFragment); // Graphql query to fetch a cart by id
 
 exports.fetchVariantQuery = fetchVariantQuery;
-var fetchCartQuery = "query($id: ID!) {\n\tnode: cart(id: $id) {\n\t\t... on Cart {\n\t\t\tid\n\t\t\twebUrl: checkoutUrl\n\t\t\testimatedCost {\n\t\t\t\tsubtotalAmount { amount }\n\t\t\t\ttotalAmount { amount }\n\t\t\t}\n\t\t\tlineItems: lines (first: 250) {\n\t\t\t\tedges {\n\t\t\t\t\tnode {\n\t\t\t\t\t\t... on CartLine {\n\t\t\t\t\t\t\tid\n\t\t\t\t\t\t\tquantity\n\t\t\t\t\t\t\tvariant: merchandise { ...variant }\n\t\t\t\t\t\t}\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t}\n}\n".concat(productVariantFragment); // Graphql query to fetch a checkout by id
+var fetchCartQuery = "query($id: ID!) {\n\tnode: cart(id: $id) {\n\t\t... on Cart {\n\t\t\tid\n\t\t\twebUrl: checkoutUrl\n\t\t\tcost {\n\t\t\t\tsubtotalAmount { amount }\n\t\t\t\ttotalAmount { amount }\n\t\t\t}\n\t\t\tlineItems: lines (first: 250) {\n\t\t\t\tedges {\n\t\t\t\t\tnode {\n\t\t\t\t\t\t... on CartLine {\n\t\t\t\t\t\t\tid\n\t\t\t\t\t\t\tquantity\n\t\t\t\t\t\t\tvariant: merchandise { ...variant }\n\t\t\t\t\t\t}\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t}\n}\n".concat(productVariantFragment); // Graphql query to fetch a checkout by id
 
 exports.fetchCartQuery = fetchCartQuery;
-var fetchCheckoutQuery = "query($id: ID!) {\n\tnode(id: $id) {\n\t\t... on Checkout {\n\t\t\tid\n\t\t\twebUrl\n\t\t\tsubtotalPrice\n\t\t\ttotalPrice\n\t\t\tlineItems (first: 250) {\n\t\t\t\tedges {\n\t\t\t\t\tnode {\n\t\t\t\t\t\t... on CheckoutLineItem {\n\t\t\t\t\t\t\tid\n\t\t\t\t\t\t\tquantity\n\t\t\t\t\t\t\tvariant { ...variant }\n\t\t\t\t\t\t}\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t}\n}\n".concat(productVariantFragment);
+var fetchCheckoutQuery = "query($id: ID!) {\n\tnode(id: $id) {\n\t\t... on Checkout {\n\t\t\tid\n\t\t\twebUrl\n\t\t\tsubtotalPrice { amount }\n\t\t\ttotalPrice { amount }\n\t\t\tlineItems (first: 250) {\n\t\t\t\tedges {\n\t\t\t\t\tnode {\n\t\t\t\t\t\t... on CheckoutLineItem {\n\t\t\t\t\t\t\tid\n\t\t\t\t\t\t\tquantity\n\t\t\t\t\t\t\tvariant { ...variant }\n\t\t\t\t\t\t}\n\t\t\t\t\t}\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t}\n}\n".concat(productVariantFragment);
 exports.fetchCheckoutQuery = fetchCheckoutQuery;
 
 StorefrontError = function () {
@@ -1006,7 +1012,7 @@ StorefrontError = function () {
 getShopifyId = function getShopifyId(id) {
   var ref;
 
-  if (String(id).match(/^\d+$/)) {
+  if (String(id).match(/^\w+$/)) {
     // Already simple id
     return id;
   }
