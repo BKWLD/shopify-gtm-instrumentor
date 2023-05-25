@@ -390,7 +390,7 @@ _Currently_, `window.Shopify.Checkout.step` resolves to:
 5. `"thank_you"`
 6. `undefined` (becomes undefined on reload / order page)
 
-The `CHECKOUT_FOR_GTM_INSTRUMENTOR` array is created by [checkout-snippet.liquid](./checkout-snippet.liquid) (I couldn't find a way to query this besides outputting from liquid, would love to _not_ couple it with a liquid snippet...)
+The `CHECKOUT_FOR_GTM_INSTRUMENTOR` array is created by [checkout-snippet.liquid](./checkout-snippet.liquid).  We can't use the Storefront API for this because Shopify destroys the cart object on checkout so we can't use the cart data for purchase events.
 
 This isn't designed to trigger the Enhanced Ecommerce `purchase` action; we're expecting Shopify's Enhanced Ecommerce integration to fire this.  Instead, this event is designed to be useful for firing other conversion type tags from GTM.
 
