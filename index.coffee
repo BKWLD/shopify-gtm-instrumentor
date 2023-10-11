@@ -314,7 +314,7 @@ export default class ShopifyGtmInstrumentor
 	# Query Storefront API
 	queryStorefrontApi: (payload) ->
 		response = await axios
-			url: "#{@storeUrl}/api/2023-04/graphql"
+			url: "#{@storeUrl}/api/2023-10/graphql"
 			method: 'post'
 			headers:
 				'Accept': 'application/json'
