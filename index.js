@@ -875,7 +875,7 @@ var _default = ShopifyGtmInstrumentor = /*#__PURE__*/function () {
               case 0:
                 _context12.next = 2;
                 return (0, _axios["default"])({
-                  url: "".concat(this.storeUrl, "/api/2023-04/graphql"),
+                  url: "".concat(this.storeUrl, "/api/2023-10/graphql"),
                   method: 'post',
                   headers: {
                     'Accept': 'application/json',
